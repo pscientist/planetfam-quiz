@@ -1,88 +1,56 @@
 const questions = [
-    {
-        id: 1,
-        image: "../assets/images/countries/afghanistan.webp",
-        options: ["Germany", "Afghanistan", "USA", "Sweden"],
-        answer: "Afghanistan",
-        slug: "afghanistan",
-    },
-    {
-        id: 2,
-        image: "../assets/images/countries/china.webp",
-        options: ["India", "Spain", "China", "Russia"],
-        answer: "China",
-        slug: "china",
-    },
+
     {
         id: 3,
-        image: "../assets/images/countries/china2.webp",
-        options: ["UK", "China", "Afghanistan", "PNG"],
-        answer: "China",
-        slug: "china2",
-    },
-    {
-        id: 4,
         image: "../assets/images/countries/germany.webp",
-        options: ["Sweden", "Germany", "USA", "India"],
+        options: ["Germany", "Sweden", "USA", "India"],
         answer: "Germany",
         slug: "germany",
     },
+
     {
         id: 5,
-        image: "../assets/images/countries/india.webp",
-        options: ["UK", "India", "China", "Spain"],
-        answer: "India",
-        slug: "india",
-    },
-    {
-        id: 6,
         image: "../assets/images/countries/usa.webp",
-        options: ["China", "USA", "New Zealand", "Afghanistan"],
+        options: ["Italy", "USA", "New Zealand", "UK"],
         answer: "USA",
         slug: "usa",
     },
     {
-        id: 7,
+        id: 6,
         image: "../assets/images/countries/nz.webp",
         options: ["Sweden", "New Zealand", "UK", "USA"],
         answer: "New Zealand",
         slug: "nz",
     },
     {
-        id: 8,
+        id: 7,
         image: "../assets/images/countries/png.webp",
-        options: ["Spain", "PNG", "China", "Afghanistan"],
-        answer: "PNG",
+        options: ["Spain", "Papua New Guinea", "China", "Indonesia"],
+        answer: "Papua New Guinea",
         slug: "png",
     },
     {
-        id: 9,
+        id: 8,
         image: "../assets/images/countries/russia.webp",
-        options: ["Germany", "India", "Russia", "Sweden"],
+        options: ["Germany", "Mongolia", "Russia", "Sweden"],
         answer: "Russia",
         slug: "russia",
     },
     {
-        id: 10,
+        id: 9,
         image: "../assets/images/countries/spain.webp",
-        options: ["Spain", "UK", "China", "USA"],
+        options: ["Spain", "UK", "Brazil", "USA"],
         answer: "Spain",
         slug: "spain",
     },
     {
-        id: 11,
+        id: 10,
         image: "../assets/images/countries/sweden.webp",
-        options: ["Afghanistan", "Sweden", "Russia", "India"],
+        options: ["Netherlands", "Sweden", "Russia", "UK"],
         answer: "Sweden",
         slug: "sweden",
     },
-    {
-        id: 12,
-        image: "../assets/images/countries/uk.webp",
-        options: ["Germany", "PNG", "Spain", "UK"],
-        answer: "UK",
-        slug: "uk",
-    },
+
 ];
 
 export default questions;   

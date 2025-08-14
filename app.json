@@ -4,10 +4,11 @@
     "slug": "my-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/planetfam-icon.png",
+    "icon": "./assets/images/planetfam-icon.jpg",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "runtimeVersion": "1.0.0",
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.cathyapp1234.my-app"
@@ -22,7 +23,7 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/planetfam-icon.png"
+      "favicon": "./assets/images/planetfam-icon.jpg"
     },
     "plugins": [
       "expo-router",
@@ -44,6 +45,10 @@
       "eas": {
         "projectId": "3467d2f9-6a13-442e-b023-effabe78ccee"
       }
+    },
+    "owner": "cathyapp1234",
+    "updates": {
+      "url": "https://u.expo.dev/3467d2f9-6a13-442e-b023-effabe78ccee"
     }
   }
 }
