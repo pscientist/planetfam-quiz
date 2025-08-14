@@ -1,7 +1,9 @@
+import { BlurView } from "expo-blur";
+import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { FlatList, Image, Pressable, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import countriesManifest from '../assets/images/countries/countriesManifest';
+import countriesManifest from "../assets/images/countries/countriesManifest";
 import questions from "../data/questions";
 
 export default function QuizScreen() {
@@ -14,17 +16,16 @@ export default function QuizScreen() {
         if (currentQuestion < questions.length - 1) {
             setCurrentQuestion(currentQuestion + 1);
             setIsCorrect(null);
-
         } else {
             router.push({
-                pathname: '/results',
+                pathname: "/results",
                 params: {
                     score: score.toString(),
-                    total: questions.length.toString()
-                }
+                    total: questions.length.toString(),
+                },
             });
         }
-    }
+    };
 
     const handleOptionPress = (option: string) => {
         if (option == questions[currentQuestion].answer) {
@@ -42,128 +43,123 @@ export default function QuizScreen() {
     }
 
     return (
-        <View style={styles.container}>
-            <SafeAreaView style={styles.container}>
+        <LinearGradient
+            colors={["#FFD700", "#E0AA3E", "#E6D5B8"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.background}
+        >
+            <SafeAreaView style={styles.overlay}>
                 <Image
                     source={getImageSource(questions[currentQuestion].slug)}
                     resizeMode="contain"
-                    style={{ marginBottom: 50 }}
-                />
-                <FlatList
-                    data={questions[currentQuestion].options}
-                    keyExtractor={(item, i) => `${i}-${item}`}
-                    renderItem={({ item, index }) => {
-                        return (
-                            <TouchableOpacity
-                                onPress={() => handleOptionPress(item)}
-                                style={[
-                                    styles.option,
-                                    isCorrect && item == questions[currentQuestion].answer && styles.optionCorrect,
-                                    isCorrect === false && styles.optionWrong,
-                                ]}
-                            >
-                                <Text
-                                    style={[
-                                        styles.optionText,
-                                        isCorrect && item == questions[currentQuestion].answer && styles.optionTextCorrect,
-                                        isCorrect === false && styles.optionTextWrong,
-                                    ]}
-                                >
-                                    {item}
-                                </Text>
-                            </TouchableOpacity>
-                        );
-                    }}
-                    contentContainerStyle={{ gap: 12 }}
+                    style={{ marginBottom: 20 }}
                 />
 
-                {/* wrong answer feedback */}
+                <BlurView intensity={40} tint="dark" style={styles.optionsCard}>
+                    <FlatList
+                        data={questions[currentQuestion].options}
+                        keyExtractor={(item, i) => `${i}-${item}`}
+                        renderItem={({ item }) => {
+                            const isCorrectChoice = item == questions[currentQuestion].answer;
+                            return (
+                                <TouchableOpacity
+                                    onPress={() => handleOptionPress(item)}
+                                    activeOpacity={0.9}
+                                    style={[
+                                        styles.option,
+                                        isCorrect && isCorrectChoice && styles.optionCorrect,
+                                        isCorrect === false && styles.optionWrong,
+                                    ]}
+                                >
+                                    <Text
+                                        style={[
+                                            styles.optionText,
+                                            isCorrect && isCorrectChoice && styles.optionTextCorrect,
+                                            isCorrect === false && styles.optionTextWrong,
+                                        ]}
+                                    >
+                                        {item}
+                                    </Text>
+                                </TouchableOpacity>
+                            );
+                        }}
+                        contentContainerStyle={{ gap: 12, padding: 12 }}
+                    />
+                </BlurView>
+
                 {isCorrect === false && (
                     <View style={styles.feedbackBox}>
                         <Text style={styles.niceTry}>Nice try!</Text>
                         <Text style={styles.correctLine}>
-                            The correct answer is{" "}
-                            <Text style={styles.correctInline}>
-                                {questions[currentQuestion].answer}
-                            </Text>
-                            .
+                            The correct answer is <Text style={styles.correctInline}>{questions[currentQuestion].answer}</Text>.
                         </Text>
                     </View>
                 )}
 
-                {/* Got the answer, prompt for next question */}
                 {isCorrect !== null && (
                     <Pressable onPress={handleNextQuestion} style={({ pressed }) => [styles.nextBtn, pressed && { opacity: 0.8 }]}>
                         <Text style={styles.nextText}>Next</Text>
                     </Pressable>
                 )}
-            </SafeAreaView >
-        </View >
+            </SafeAreaView>
+        </LinearGradient>
     );
 }
 
 const colors = {
-    bg: "#FFF8F0",  // Light beige background
-    card: "#FFF8F0", // Light beige
-    correctGreen: "#E67E22", // Orange instead of green
-    correctGreenText: "#8B4000", // Dark brown
+    bg: "#FFF8F0",
+    card: "#FFF8F0",
+    correctGreen: "#E67E22",
+    correctGreenText: "#8B4000",
     wrongGrey: "#9ca3af",
-    textDark: "#5D4037", // Warm brown
-    friendlyPurple: "#D35400", // Darker orange instead of purple
+    textDark: "#5D4037",
+    friendlyPurple: "#D35400",
 };
 
 const styles = StyleSheet.create({
-    modalButton: {
-        backgroundColor: "#E67E22", // Orange
-        padding: 10,
-        borderRadius: 5,
-    },
-    modalButtonText: {
-        color: "white",
-        fontSize: 16,
-        fontWeight: "bold",
-    },
-    modalContainer: {
+    background: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "white",
-        borderRadius: 10,
-        borderWidth: 1,
-        borderColor: "black",
-        padding: 20,
-        height: "50%",
     },
-    modalText: {
-        fontSize: 50,
-        fontWeight: "bold",
-        color: "#E67E22", // Orange
+    overlay: {
+        flex: 1,
+        backgroundColor: "rgba(0,0,0,0.2)",
+        alignItems: "center",
+        justifyContent: "center",
+        paddingHorizontal: 16,
+    },
+    optionsCard: {
+        width: "92%",
+        borderRadius: 18,
+        paddingVertical: 8,
+        overflow: "hidden",
+        marginBottom: 12,
     },
     container: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#FFF8F0", // Light beige
+        backgroundColor: "#FFF8F0",
     },
     title: {
         fontSize: 32,
         fontWeight: "bold",
         marginBottom: 20,
         marginTop: 80,
-        color: "#8B4000", // Dark brown
+        color: "#8B4000",
     },
     image: {
-        width: "95%",      // or "80%" for responsive width
-        height: 200,     // adjust as needed for aspect ratio
-        marginBottom: 20, // optional: space below image
-        alignSelf: "center", // center the image
+        width: "95%",
+        height: 200,
+        marginBottom: 20,
+        alignSelf: "center",
     },
     optionsContainer: {
         width: "100%",
         alignItems: "center",
     },
     optionButton: {
-        backgroundColor: "#FFE0B2", // Light orange
+        backgroundColor: "#FFE0B2",
         paddingVertical: 12,
         paddingHorizontal: 40,
         borderRadius: 8,
@@ -173,32 +169,37 @@ const styles = StyleSheet.create({
     },
     option: {
         borderRadius: 14,
-        paddingVertical: 14,
-        paddingHorizontal: 100,
-        backgroundColor: "#FFE0B2", // Light orange
-        justifyContent: 'center',
-        alignItems: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 18,
+        backgroundColor: "#FFE0B2",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
     },
     optionCorrect: {
-        backgroundColor: "#E67E22", // Orange
+        backgroundColor: "#E67E22",
     },
     optionWrong: {
         backgroundColor: "#e5e7eb",
-        opacity: 0.4, // faded grey look
+        opacity: 0.4,
     },
     optionText: {
-        fontSize: 23,
-        fontWeight: "700",
-        color: '#8B4000', // even darker orange
-        textAlign: 'center',
+        fontSize: 22,
+        fontWeight: "900",
+        fontFamily: "SpaceMono",
+        letterSpacing: 1,
+        color: "#8B4000",
+        textAlign: "center",
     },
     optionTextCorrect: {
         color: "#ffffff",
-        fontWeight: "900", // bold for correct
+        fontWeight: "900",
+        fontFamily: "SpaceMono",
     },
     optionTextWrong: {
         color: colors.wrongGrey,
         fontWeight: "600",
+        fontFamily: "SpaceMono",
     },
     feedbackBox: {
         backgroundColor: "#ffffff",
@@ -209,18 +210,22 @@ const styles = StyleSheet.create({
     niceTry: {
         fontSize: 18,
         fontWeight: "800",
+        fontFamily: "SpaceMono",
         color: colors.friendlyPurple,
     },
     correctLine: {
         fontSize: 16,
+        fontFamily: "SpaceMono",
         color: colors.textDark,
     },
     correctInline: {
         color: colors.correctGreen,
         fontWeight: "900",
+        fontFamily: "SpaceMono",
     },
     fact: {
         fontSize: 15,
+        fontFamily: "SpaceMono",
         color: "#334155",
     },
     nextBtn: {
@@ -233,6 +238,7 @@ const styles = StyleSheet.create({
     nextText: {
         fontSize: 18,
         fontWeight: "800",
+        fontFamily: "SpaceMono",
         color: "#fff",
     },
 });
