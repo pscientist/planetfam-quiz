@@ -2,7 +2,7 @@ import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
-import { FlatList, Image, Pressable, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import countriesManifest from "../assets/images/countries/countriesManifest";
 import questions from "../data/questions";
 
@@ -63,13 +63,13 @@ export default function QuizScreen() {
                         renderItem={({ item }) => {
                             const isCorrectChoice = item == questions[currentQuestion].answer;
                             return (
-                                <TouchableOpacity
+                                <Pressable
                                     onPress={() => handleOptionPress(item)}
-                                    activeOpacity={0.9}
-                                    style={[
+                                    style={({ pressed }) => [
                                         styles.option,
                                         isCorrect && isCorrectChoice && styles.optionCorrect,
                                         isCorrect === false && styles.optionWrong,
+                                        pressed && { transform: [{ scale: 0.98 }] },
                                     ]}
                                 >
                                     <Text
@@ -81,7 +81,7 @@ export default function QuizScreen() {
                                     >
                                         {item}
                                     </Text>
-                                </TouchableOpacity>
+                                </Pressable>
                             );
                         }}
                         contentContainerStyle={{ gap: 12, padding: 12 }}
@@ -158,38 +158,41 @@ const styles = StyleSheet.create({
         width: "100%",
         alignItems: "center",
     },
-    optionButton: {
-        backgroundColor: "#FFE0B2",
-        paddingVertical: 12,
-        paddingHorizontal: 40,
-        borderRadius: 8,
-        marginVertical: 20,
-        width: "80%",
-        alignItems: "center",
-    },
+
     option: {
         borderRadius: 14,
-        paddingVertical: 12,
-        paddingHorizontal: 18,
-        backgroundColor: "#FFE0B2",
+        paddingVertical: 14,
+        paddingHorizontal: 20,
+        backgroundColor: "rgba(255,255,255,0.18)",
         justifyContent: "center",
         alignItems: "center",
         width: "100%",
+        borderWidth: 2,
+        borderColor: "rgba(255,255,255,0.85)",
+        shadowColor: "#000",
+        shadowOpacity: 0.25,
+        shadowRadius: 10,
+        shadowOffset: { width: 0, height: 6 },
+        elevation: 3,
     },
     optionCorrect: {
         backgroundColor: "#E67E22",
+        borderColor: "#ffffff",
     },
     optionWrong: {
         backgroundColor: "#e5e7eb",
         opacity: 0.4,
     },
     optionText: {
-        fontSize: 22,
+        fontSize: 24,
         fontWeight: "900",
         fontFamily: "SpaceMono",
         letterSpacing: 1,
-        color: "#8B4000",
+        color: "#ffffff",
         textAlign: "center",
+        textShadowColor: "rgba(0,0,0,0.35)",
+        textShadowOffset: { width: 0, height: 2 },
+        textShadowRadius: 4,
     },
     optionTextCorrect: {
         color: "#ffffff",

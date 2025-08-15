@@ -1,16 +1,18 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function ResultsScreen() {
     const { score = "0", total = "0" } = useLocalSearchParams();
+    const router = useRouter();
+
     return (
         <View style={styles.container}>
             {/* Game Over Header */}
             <View style={styles.header}>
                 <Ionicons name="earth" size={32} color="#4CAF50" />
-                <Text style={styles.gameOverText}>Final Score</Text>
+                <Text style={styles.gameOverText}>Your Score</Text>
             </View>
 
             {/* Score Section */}
@@ -38,15 +40,6 @@ export default function ResultsScreen() {
                 </View>
             </View>
 
-            {/* Buttons */}
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity style={[styles.button, styles.playAgainButton]}>
-                    <Text style={styles.playAgainText}>Play Again</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.button, styles.mainMenuButton]}>
-                    <Text style={styles.mainMenuText}>Main Menu</Text>
-                </TouchableOpacity>
-            </View>
         </View>
     );
 }

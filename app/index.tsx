@@ -1,11 +1,18 @@
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter } from "expo-router";
+import { Redirect, useRouter } from "expo-router";
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
+const debug = false;
+
 export default function Index() {
+
+  if (debug) {
+    return <Redirect href="/menu" />;
+  }
+
   const router = useRouter();
   return (
     <LinearGradient
