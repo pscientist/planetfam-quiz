@@ -1,83 +1,180 @@
 import { Ionicons } from '@expo/vector-icons';
+import { BlurView } from 'expo-blur';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function ResultsScreen() {
     const { score = "0", total = "0" } = useLocalSearchParams();
     const router = useRouter();
 
     return (
-        <View style={styles.container}>
-            {/* Game Over Header */}
-            <View style={styles.header}>
-                <Ionicons name="earth" size={32} color="#4CAF50" />
-                <Text style={styles.gameOverText}>Your Score</Text>
-            </View>
+        <LinearGradient
+            colors={["#FFD700", "#E0AA3E", "#E6D5B8"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.background}
+        >
+            <View style={styles.overlay}>
+                <BlurView intensity={40} tint="dark" style={styles.card}>
+                    <View style={styles.headerRow}>
+                        <Ionicons name="earth" size={24} color="#fff" />
+                        <Text style={styles.title}>Your Score</Text>
+                    </View>
 
-            {/* Score Section */}
-            <Text style={styles.scoreText}>{score} / {total} points!</Text>
-            <View style={styles.praiseContainer}>
-                <Ionicons name="earth" size={24} color="#4CAF50" />
-                <Text style={styles.praiseText}>Great job, explorer.</Text>
-            </View>
+                    <Text style={styles.scoreText}>{score} / {total}</Text>
+                    <Text style={styles.praiseText}>Great job, explorer.</Text>
 
-            {/* Globe Image */}
-            <View style={styles.globeContainer}>
-                <Ionicons name="earth" size={200} color="#4CAF50" />
-                <View style={styles.planeRoute}>
-                    <Ionicons name="airplane" size={24} color="white" />
-                </View>
-            </View>
+                    {/* Globe Image */}
+                    <View style={styles.globeContainer}>
+                        <Ionicons name="earth" size={200} color="lightblue" />
+                        <View style={styles.planeRoute}>
+                            <Ionicons name="airplane" size={24} color="white" />
+                        </View>
+                    </View>
 
-            {/* Fun Facts Section */}
-            <View style={styles.factsContainer}>
-                <Text style={styles.factsTitle}>Fun Facts:</Text>
-                <View style={styles.factsList}>
-                    <Text style={styles.factText}>• In Mongolia, people often drink salted milk tea called Suutei tsai.</Text>
-                    <Text style={styles.factText}>• The Eiffel Tower grows taller in summer by about 15 cm due to heat expansion.</Text>
-                    <Text style={styles.factText}>• Ghana is famous for its rich cocoa used in chocolate worldwide.</Text>
-                </View>
-            </View>
+                    <Text style={styles.factsTitle}>Fun Facts</Text>
+                    <View style={styles.factsList}>
+                        <Text style={styles.factText}>• Sweden has a hotel made entirely of ice, rebuilt every winter in Jukkasjärvi.</Text>
+                        <Text style={styles.factText}>• Thailand is home to the world’s smallest mammal, the bumblebee bat, which weighs less than a penny and is small enough to fit on your fingertip!</Text>
+                    </View>
 
-        </View>
+                    <View style={styles.buttonRow}>
+                        <TouchableOpacity
+                            style={[styles.button, styles.buttonSecondary]}
+                            onPress={() => router.replace("/menu")}
+                            activeOpacity={0.9}
+                        >
+                            <Text style={styles.buttonTextSecondary}>Main Menu</Text>
+                        </TouchableOpacity>
+                    </View>
+                </BlurView>
+            </View>
+        </LinearGradient>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
+    background: {
         flex: 1,
-        padding: 20,
-        backgroundColor: "#FFF8F0", // Light beige
+    },
+    overlay: {
+        flex: 1,
+        backgroundColor: "rgba(0,0,0,0.2)",
         alignItems: "center",
+        justifyContent: "center",
+        paddingHorizontal: 16,
     },
-    header: {
-        flexDirection: "row",
+    card: {
+        width: "92%",
+        borderRadius: 18,
+        paddingVertical: 20,
+        paddingHorizontal: 18,
         alignItems: "center",
-        gap: 10,
-        marginTop: 40,
+        overflow: "hidden",
+        gap: 8,
     },
-    gameOverText: {
-        fontSize: 36,
-        fontWeight: "bold",
-        color: "#E67E22", // Orange
-    },
-    scoreText: {
-        fontSize: 32,
-        fontWeight: "bold",
-        color: "#8B4000", // Dark brown
-        marginTop: 20,
-    },
-    praiseContainer: {
+    headerRow: {
         flexDirection: "row",
         alignItems: "center",
         gap: 8,
-        marginTop: 10,
+    },
+    title: {
+        fontFamily: "SpaceMono",
+        fontSize: 24,
+        fontWeight: "800",
+        color: "#fff",
+        textShadowColor: "rgba(0,0,0,0.45)",
+        textShadowOffset: { width: 0, height: 2 },
+        textShadowRadius: 6,
+        letterSpacing: 1,
+    },
+    scoreText: {
+        fontFamily: "SpaceMono",
+        fontSize: 40,
+        fontWeight: "900",
+        color: "#fff",
+        textShadowColor: "rgba(0,0,0,0.45)",
+        textShadowOffset: { width: 0, height: 2 },
+        textShadowRadius: 6,
+        letterSpacing: 1,
+        marginTop: 4,
     },
     praiseText: {
-        fontSize: 24,
-        color: "#8B4000", // Dark brown
-        fontWeight: "500",
+        fontFamily: "SpaceMono",
+        fontSize: 18,
+        fontWeight: "700",
+        color: "#fff",
+        opacity: 0.95,
+    },
+    divider: {
+        height: 1,
+        width: "100%",
+        backgroundColor: "rgba(255,255,255,0.25)",
+        marginVertical: 8,
+    },
+    factsTitle: {
+        fontFamily: "SpaceMono",
+        fontSize: 18,
+        fontWeight: "800",
+        color: "#fff",
+        alignSelf: "flex-start",
+        marginBottom: 4,
+    },
+    factsList: {
+        width: "100%",
+        gap: 6,
+    },
+    factText: {
+        fontFamily: "SpaceMono",
+        fontSize: 15,
+        color: "#ffffff",
+        opacity: 0.95,
+        lineHeight: 22,
+    },
+    buttonRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        width: "100%",
+        gap: 12,
+        marginTop: 8,
+    },
+    button: {
+        flex: 1,
+        backgroundColor: "#E67E22",
+        paddingVertical: 14,
+        paddingHorizontal: 16,
+        borderRadius: 12,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        shadowColor: "#000",
+        shadowOpacity: 0.25,
+        shadowRadius: 8,
+        shadowOffset: { width: 0, height: 4 },
+        elevation: 2,
+    },
+    buttonSecondary: {
+        backgroundColor: "transparent",
+        borderWidth: 2,
+        borderColor: "rgba(255,255,255,0.85)",
+    },
+    buttonText: {
+        color: "#fff",
+        fontSize: 18,
+        fontWeight: "800",
+        fontFamily: "SpaceMono",
+    },
+    buttonTextSecondary: {
+        color: "#fff",
+        fontSize: 18,
+        fontWeight: "800",
+        fontFamily: "SpaceMono",
+    },
+    buttonIcon: {
+        marginRight: 8,
     },
     globeContainer: {
         position: "relative",
@@ -88,53 +185,5 @@ const styles = StyleSheet.create({
         top: "40%",
         left: "20%",
     },
-    factsContainer: {
-        backgroundColor: "#FFE0B2", // Light orange
-        padding: 20,
-        borderRadius: 15,
-        width: "100%",
-        marginBottom: 20,
-    },
-    factsTitle: {
-        fontSize: 24,
-        fontWeight: "bold",
-        color: "#8B4000", // Dark brown
-        marginBottom: 15,
-    },
-    factsList: {
-        gap: 10,
-    },
-    factText: {
-        fontSize: 16,
-        color: "#5D4037", // Warm brown
-        lineHeight: 22,
-    },
-    buttonContainer: {
-        flexDirection: "row",
-        gap: 15,
-        marginTop: 10,
-    },
-    button: {
-        paddingVertical: 12,
-        paddingHorizontal: 24,
-        borderRadius: 25,
-        minWidth: 140,
-        alignItems: "center",
-    },
-    playAgainButton: {
-        backgroundColor: "#E67E22", // Orange
-    },
-    mainMenuButton: {
-        backgroundColor: "#FFE0B2", // Light orange
-    },
-    playAgainText: {
-        color: "white",
-        fontSize: 18,
-        fontWeight: "bold",
-    },
-    mainMenuText: {
-        color: "#333",
-        fontSize: 18,
-        fontWeight: "500",
-    },
+
 });

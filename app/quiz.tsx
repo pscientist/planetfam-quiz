@@ -50,10 +50,9 @@ export default function QuizScreen() {
             style={styles.background}
         >
             <SafeAreaView style={styles.overlay}>
-                <Image
+                <Image style={styles.image}
                     source={getImageSource(questions[currentQuestion].slug)}
                     resizeMode="contain"
-                    style={{ marginBottom: 20 }}
                 />
 
                 <BlurView intensity={40} tint="dark" style={styles.optionsCard}>
@@ -84,7 +83,7 @@ export default function QuizScreen() {
                                 </Pressable>
                             );
                         }}
-                        contentContainerStyle={{ gap: 12, padding: 12 }}
+                        contentContainerStyle={{ gap: 10, padding: 6 }}
                     />
                 </BlurView>
 
@@ -150,7 +149,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: "95%",
-        height: 200,
+        height: 300,
         marginBottom: 20,
         alignSelf: "center",
     },
@@ -161,8 +160,8 @@ const styles = StyleSheet.create({
 
     option: {
         borderRadius: 14,
-        paddingVertical: 14,
-        paddingHorizontal: 20,
+        paddingVertical: 5,
+        paddingHorizontal: 16,
         backgroundColor: "rgba(255,255,255,0.18)",
         justifyContent: "center",
         alignItems: "center",
