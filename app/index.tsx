@@ -35,7 +35,7 @@ export default function Index() {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              router.push("/quiz"); // debug
+              router.push("/quiz");
             }}
             activeOpacity={0.9}
           >

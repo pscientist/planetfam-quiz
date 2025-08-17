@@ -5,12 +5,13 @@ import React, { useState } from "react";
 import { FlatList, Image, Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import countriesManifest from "../assets/images/countries/countriesManifest";
 import questions from "../data/questions";
+import { useScore } from "./contexts/ScoreContext";
 
 export default function QuizScreen() {
     const router = useRouter();
+    const { score, incrementScore } = useScore();
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-    const [score, setScore] = useState(0);
 
     const handleNextQuestion = () => {
         if (currentQuestion < questions.length - 1) {
@@ -30,7 +31,7 @@ export default function QuizScreen() {
     const handleOptionPress = (option: string) => {
         if (option == questions[currentQuestion].answer) {
             setIsCorrect(true);
-            setScore(score + 1);
+            incrementScore();
         } else {
             setIsCorrect(false);
         }
@@ -148,8 +149,8 @@ const styles = StyleSheet.create({
         color: "#8B4000",
     },
     image: {
-        width: "95%",
-        height: 300,
+        width: "100%",
+        height: 350,
         marginBottom: 20,
         alignSelf: "center",
     },

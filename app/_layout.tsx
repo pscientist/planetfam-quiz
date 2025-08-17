@@ -1,13 +1,31 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import { TouchableOpacity } from "react-native";
+import { ScoreProvider, useScore } from "./contexts/ScoreContext";
 
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+function HomeButton() {
+  const { resetScore } = useScore();
+  const router = useRouter();
+
+  const handleHomePress = () => {
+    resetScore();
+    router.push('/menu');
+  };
+
+  return (
+    <TouchableOpacity onPress={handleHomePress} style={{ marginRight: 12 }}>
+      <Ionicons name="home" size={20} color="#3b2f0b" />
+    </TouchableOpacity>
+  );
+}
+
+function StackContent() {
   const [fontsLoaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
@@ -30,8 +48,6 @@ export default function RootLayout() {
         headerTitleStyle: {
           fontFamily: "SpaceMono",
           fontSize: 20,
-          letterSpacing: 3,
-          textTransform: "uppercase",
           color: "#3b2f0b",
         },
         headerTintColor: "#3b2f0b",
@@ -44,10 +60,16 @@ export default function RootLayout() {
             style={{ flex: 1 }}
           />
         ),
-        headerRight: () => (
-          <Ionicons name="sparkles" size={20} color="#3b2f0b" style={{ marginRight: 12 }} />
-        ),
+        headerRight: () => <HomeButton />,
       }}
     />
+  );
+}
+
+export default function RootLayout() {
+  return (
+    <ScoreProvider>
+      <StackContent />
+    </ScoreProvider>
   );
 }
