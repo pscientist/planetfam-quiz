@@ -5,15 +5,18 @@ import React, { useState } from "react";
 import { FlatList, Image, Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import countriesManifest from "../assets/images/countries/countriesManifest";
 import { round1Questions, round2Questions } from "../data/questions";
+import FlagCollection from "./components/FlagCollection";
 import { useRound } from "./contexts/RoundContext";
 import { useScore } from "./contexts/ScoreContext";
 
 export default function QuizScreen() {
     const router = useRouter();
-    const { score, incrementScore } = useScore();
+    const { score, incrementScore, addCollectedCountry } = useScore();
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
     const { currentRound } = useRound();
+    const { collectedCountries } = useScore();
+
     const questions = currentRound === 1 ? round2Questions : round1Questions;
 
     const handleNextQuestion = () => {
@@ -35,6 +38,7 @@ export default function QuizScreen() {
         if (option == questions[currentQuestion].answer) {
             setIsCorrect(true);
             incrementScore();
+            addCollectedCountry(questions[currentQuestion].slug);
         } else {
             setIsCorrect(false);
         }
@@ -54,6 +58,16 @@ export default function QuizScreen() {
             style={styles.background}
         >
             <SafeAreaView style={styles.overlay}>
+
+                {/* Progress indicator */}
+                <View style={styles.progressContainer}>
+                    <Text style={styles.progressText}>
+                        {score}/{questions.length}
+                    </Text>
+                </View>
+
+                <FlagCollection collectedCountries={collectedCountries} />
+
                 <Image style={styles.image}
                     source={getImageSource(questions[currentQuestion].slug)}
                     resizeMode="contain"
@@ -246,5 +260,16 @@ const styles = StyleSheet.create({
         fontWeight: "800",
         fontFamily: "SpaceMono",
         color: "#fff",
+    },
+    progressContainer: {
+        position: 'absolute',
+        top: 10,
+    },
+    progressText: {
+        fontSize: 16,
+        fontWeight: '800',
+        fontFamily: 'SpaceMono',
+        color: '#ffffff',
+        letterSpacing: 1,
     },
 });

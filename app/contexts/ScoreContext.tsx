@@ -5,12 +5,18 @@ interface ScoreContextType {
     setScore: (score: number) => void;
     resetScore: () => void;
     incrementScore: () => void;
+    collectedCountries: string[];
+    addCollectedCountry: (country: string) => void;
+    resetCollectedCountries: () => void;
+    getCollectedCountries: () => string[];
+
 }
 
 const ScoreContext = createContext<ScoreContextType | undefined>(undefined);
 
 export function ScoreProvider({ children }: { children: ReactNode }) {
     const [score, setScore] = useState(0);
+    const [collectedCountries, setCollectedCountries] = useState<string[]>([]);
 
     const resetScore = () => {
         setScore(0);
@@ -22,8 +28,23 @@ export function ScoreProvider({ children }: { children: ReactNode }) {
         console.log('incrementScore', score);
     };
 
+    const addCollectedCountry = (country: string) => {
+        setCollectedCountries(prev => [...prev, country]);
+    };
+
+    const resetCollectedCountries = () => {
+        setCollectedCountries([]);
+    };
+
+    const getCollectedCountries = () => {
+        return collectedCountries;
+    };
+
     return (
-        <ScoreContext.Provider value={{ score, setScore, resetScore, incrementScore }}>
+        <ScoreContext.Provider value={{
+            score, setScore, resetScore, incrementScore,
+            collectedCountries, addCollectedCountry, resetCollectedCountries, getCollectedCountries
+        }}>
             {children}
         </ScoreContext.Provider>
     );

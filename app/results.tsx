@@ -49,11 +49,6 @@ export default function ResultsScreen() {
                         </View>
                     </View>
 
-                    <Text style={styles.factsTitle}>Fun Facts</Text>
-                    <View style={styles.factsList}>
-                        <Text style={styles.factText}>• Sweden has a hotel made entirely of ice, rebuilt every winter in Jukkasjärvi.</Text>
-                        <Text style={styles.factText}>• Thailand is home to the world’s smallest mammal, the bumblebee bat, which weighs less than a penny and is small enough to fit on your fingertip!</Text>
-                    </View>
 
                     <View style={styles.buttonRow}>
                         <TouchableOpacity

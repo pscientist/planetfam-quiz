@@ -102,14 +102,14 @@ const round2Questions = [
     {
         id: 14,
         image: "../assets/images/countries/finland.webp",
-        options: ["Finland", "China", "USA", "UK"],
+        options: ["Finland", "Italy", "USA", "UK"],
         answer: "Finland",
         slug: "finland",
     },
     {
         id: 15,
         image: "../assets/images/countries/hk.webp",
-        options: ["Singapore", "Mexico", "Norway", "Hong Kong"],
+        options: ["Singapore", "Indonesia", "Thailand", "Hong Kong"],
         answer: "Hong Kong",
         slug: "hk",
     },
