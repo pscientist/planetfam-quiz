@@ -14,7 +14,7 @@ export default function QuizScreen() {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
     const { currentRound } = useRound();
-    const questions = currentRound === 1 ? round1Questions : round2Questions;
+    const questions = currentRound === 1 ? round2Questions : round1Questions;
 
     const handleNextQuestion = () => {
         if (currentQuestion < questions.length - 1) {

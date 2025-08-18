@@ -10,7 +10,7 @@ const countriesManifest: { [key: string]: any } = {
     uk: require('./uk.webp'),
     usa: require('./usa.webp'),
     philipines: require('./philipines.webp'),
-    swizerland: require('./swizerland.webp'),
+    switzerland: require('./switzerland.webp'),
     ethiopia: require('./ethiopia.webp'),
     hk: require('./hk.webp'),
     afghanistan: require('../afghanistan.webp'),
