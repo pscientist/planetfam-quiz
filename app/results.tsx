@@ -4,10 +4,25 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useRound } from './contexts/RoundContext';
+import { useScore } from './contexts/ScoreContext';
 
 export default function ResultsScreen() {
     const { score = "0", total = "0" } = useLocalSearchParams();
     const router = useRouter();
+    const { resetScore } = useScore();
+    const { currentRound, incrementRound } = useRound();
+
+    const handlePlayAgain = () => {
+        resetScore();
+        incrementRound();
+        router.replace("/quiz");
+    };
+
+    const handleMainMenu = () => {
+        resetScore();
+        router.replace('/menu');
+    }
 
     return (
         <LinearGradient
@@ -43,10 +58,18 @@ export default function ResultsScreen() {
                     <View style={styles.buttonRow}>
                         <TouchableOpacity
                             style={[styles.button, styles.buttonSecondary]}
-                            onPress={() => router.replace("/menu")}
+                            onPress={handleMainMenu}
                             activeOpacity={0.9}
                         >
                             <Text style={styles.buttonTextSecondary}>Main Menu</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[styles.button, styles.buttonSecondary]}
+                            onPress={handlePlayAgain}
+                            activeOpacity={0.9}
+                        >
+                            <Ionicons name="refresh" size={20} color="#fff" style={styles.buttonIcon} />
+                            <Text style={styles.buttonText}>Play Again</Text>
                         </TouchableOpacity>
                     </View>
                 </BlurView>

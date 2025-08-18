@@ -4,7 +4,8 @@ import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { FlatList, Image, Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import countriesManifest from "../assets/images/countries/countriesManifest";
-import questions from "../data/questions";
+import { round1Questions, round2Questions } from "../data/questions";
+import { useRound } from "./contexts/RoundContext";
 import { useScore } from "./contexts/ScoreContext";
 
 export default function QuizScreen() {
@@ -12,6 +13,8 @@ export default function QuizScreen() {
     const { score, incrementScore } = useScore();
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+    const { currentRound } = useRound();
+    const questions = currentRound === 1 ? round1Questions : round2Questions;
 
     const handleNextQuestion = () => {
         if (currentQuestion < questions.length - 1) {

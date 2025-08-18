@@ -5,6 +5,7 @@ import { Stack, useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { TouchableOpacity } from "react-native";
+import { RoundProvider } from "./contexts/RoundContext";
 import { ScoreProvider, useScore } from "./contexts/ScoreContext";
 
 SplashScreen.preventAutoHideAsync();
@@ -68,8 +69,10 @@ function StackContent() {
 
 export default function RootLayout() {
   return (
-    <ScoreProvider>
-      <StackContent />
-    </ScoreProvider>
+    <RoundProvider>
+      <ScoreProvider>
+        <StackContent />
+      </ScoreProvider>
+    </RoundProvider>
   );
 }
