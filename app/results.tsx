@@ -4,18 +4,21 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import FlagCollection from './components/FlagCollection';
 import { useRound } from './contexts/RoundContext';
 import { useScore } from './contexts/ScoreContext';
 
 export default function ResultsScreen() {
     const { score = "0", total = "0" } = useLocalSearchParams();
     const router = useRouter();
-    const { resetScore } = useScore();
-    const { currentRound, incrementRound } = useRound();
+    const { resetScore, resetCollectedCountries, getAllCollectedCountries } = useScore();
+    const { incrementRound } = useRound();
+    const allCollectedCountries = getAllCollectedCountries();
 
     const handlePlayAgain = () => {
         resetScore();
         incrementRound();
+        resetCollectedCountries();
         router.replace("/quiz");
     };
 
@@ -41,14 +44,7 @@ export default function ResultsScreen() {
                     <Text style={styles.scoreText}>{score} / {total}</Text>
                     <Text style={styles.praiseText}>Great job, explorer.</Text>
 
-                    {/* Globe Image */}
-                    <View style={styles.globeContainer}>
-                        <Ionicons name="earth" size={200} color="lightblue" />
-                        <View style={styles.planeRoute}>
-                            <Ionicons name="airplane" size={24} color="white" />
-                        </View>
-                    </View>
-
+                    <FlagCollection collectedCountries={allCollectedCountries} title="Flags Collected" />
 
                     <View style={styles.buttonRow}>
                         <TouchableOpacity

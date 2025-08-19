@@ -6,10 +6,12 @@ interface ScoreContextType {
     resetScore: () => void;
     incrementScore: () => void;
     collectedCountries: string[];
+    allCollectedCountries: string[];
     addCollectedCountry: (country: string) => void;
-    resetCollectedCountries: () => void;
+    addAllCollectedCountry: (country: string) => void;
+    resetCollectedCountries: () => void; // reset the current round
     getCollectedCountries: () => string[];
-
+    getAllCollectedCountries: () => string[];
 }
 
 const ScoreContext = createContext<ScoreContextType | undefined>(undefined);
@@ -17,6 +19,7 @@ const ScoreContext = createContext<ScoreContextType | undefined>(undefined);
 export function ScoreProvider({ children }: { children: ReactNode }) {
     const [score, setScore] = useState(0);
     const [collectedCountries, setCollectedCountries] = useState<string[]>([]);
+    const [allCollectedCountries, setAllCollectedCountries] = useState<string[]>([]);
 
     const resetScore = () => {
         setScore(0);
@@ -34,6 +37,13 @@ export function ScoreProvider({ children }: { children: ReactNode }) {
         };
     }
 
+    const addAllCollectedCountry = (country: string) => {
+        if (!allCollectedCountries.includes(country)) {
+            setAllCollectedCountries(prev => [...prev, country]);
+            console.log(allCollectedCountries);
+        }
+    };
+
     const resetCollectedCountries = () => {
         setCollectedCountries([]);
     };
@@ -42,10 +52,15 @@ export function ScoreProvider({ children }: { children: ReactNode }) {
         return collectedCountries;
     };
 
+    const getAllCollectedCountries = () => {
+        return allCollectedCountries;
+    };
+
     return (
         <ScoreContext.Provider value={{
             score, setScore, resetScore, incrementScore,
-            collectedCountries, addCollectedCountry, resetCollectedCountries, getCollectedCountries
+            collectedCountries, addCollectedCountry, resetCollectedCountries, getCollectedCountries,
+            allCollectedCountries, addAllCollectedCountry, getAllCollectedCountries
         }}>
             {children}
         </ScoreContext.Provider>

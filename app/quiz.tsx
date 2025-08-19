@@ -11,7 +11,7 @@ import { useScore } from "./contexts/ScoreContext";
 
 export default function QuizScreen() {
     const router = useRouter();
-    const { score, incrementScore, addCollectedCountry } = useScore();
+    const { score, incrementScore, addCollectedCountry, addAllCollectedCountry } = useScore();
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
     const { currentRound } = useRound();
@@ -42,7 +42,7 @@ export default function QuizScreen() {
             setIsCorrect(true);
             incrementScore();
             addCollectedCountry(questions[currentQuestion].slug);
-
+            addAllCollectedCountry(questions[currentQuestion].slug);
         } else {
             setIsCorrect(false);
         }
