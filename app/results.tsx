@@ -44,7 +44,7 @@ export default function ResultsScreen() {
                     <Text style={styles.scoreText}>{score} / {total}</Text>
                     <Text style={styles.praiseText}>Great job, explorer.</Text>
 
-                    <FlagCollection collectedCountries={allCollectedCountries} title="Flags Collected" />
+                    <FlagCollection collectedCountries={allCollectedCountries} title="Flags Collected" scrollable={false} />
 
                     <View style={styles.buttonRow}>
                         <TouchableOpacity

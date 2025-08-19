@@ -4,9 +4,10 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 interface FlagCollectionProps {
     collectedCountries: string[];
     title?: string;
+    scrollable?: boolean;
 }
 
-export default function FlagCollection({ collectedCountries, title = "Flags Collected" }: FlagCollectionProps) {
+export default function FlagCollection({ collectedCountries, title = "Flags Collected", scrollable = true }: FlagCollectionProps) {
     const getFlagEmoji = (slug: string) => {
         const flagMap: { [key: string]: string } = {
             spain: '🇪🇸',
@@ -51,23 +52,33 @@ export default function FlagCollection({ collectedCountries, title = "Flags Coll
         return countryNames[slug] || slug;
     };
 
+    const flagItems = collectedCountries.map((slug, index) => {
+        return (
+            <View key={index} style={styles.flagItem}>
+                <Text style={styles.flagEmoji}>{getFlagEmoji(slug)}</Text>
+                <Text style={styles.countryName}>{getCountryName(slug)}</Text>
+            </View>
+        );
+    });
+
     return (
         <View style={styles.container}>
-            <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                style={styles.flagsContainer}
-                contentContainerStyle={styles.flagsContent}
-            >
-                {collectedCountries.map((slug, index) => {
-                    return (
-                        <View key={index} style={styles.flagItem}>
-                            <Text style={styles.flagEmoji}>{getFlagEmoji(slug)}</Text>
-                            <Text style={styles.countryName}>{getCountryName(slug)}</Text>
-                        </View>
-                    );
-                })}
-            </ScrollView>
+            {scrollable ? (
+                <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    style={styles.flagsContainer}
+                    contentContainerStyle={styles.flagsContent}
+                >
+                    {flagItems}
+                </ScrollView>
+            ) : (
+                <View style={[styles.flagsContainer, styles.boxContainer]}>
+                    <View style={[styles.flagsContent, styles.boxContent]}>
+                        {flagItems}
+                    </View>
+                </View>
+            )}
         </View>
     );
 }
@@ -100,6 +111,17 @@ const styles = StyleSheet.create({
         marginTop: 15,
     },
     flagsContent: {
+        paddingHorizontal: 4,
+    },
+    boxContainer: {
+        flex: 1,
+        marginTop: 15,
+    },
+    boxContent: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        alignItems: 'center',
         paddingHorizontal: 4,
     },
     flagItem: {
