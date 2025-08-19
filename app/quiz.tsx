@@ -2,7 +2,7 @@ import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
-import { FlatList, Image, Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { FlatList, Image, Modal, Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import countriesManifest from "../assets/images/countries/countriesManifest";
 import { round1Questions, round2Questions } from "../data/questions";
 import FlagCollection from "./components/FlagCollection";
@@ -35,10 +35,14 @@ export default function QuizScreen() {
     };
 
     const handleOptionPress = (option: string) => {
+
+        if (isCorrect !== null) return;
+
         if (option == questions[currentQuestion].answer) {
             setIsCorrect(true);
             incrementScore();
             addCollectedCountry(questions[currentQuestion].slug);
+
         } else {
             setIsCorrect(false);
         }
@@ -62,7 +66,7 @@ export default function QuizScreen() {
                 {/* Progress indicator */}
                 <View style={styles.progressContainer}>
                     <Text style={styles.progressText}>
-                        {score}/{questions.length}
+                        Score:{score}  Total: {questions.length}
                     </Text>
                 </View>
 
@@ -79,6 +83,7 @@ export default function QuizScreen() {
                         keyExtractor={(item, i) => `${i}-${item}`}
                         renderItem={({ item }) => {
                             const isCorrectChoice = item == questions[currentQuestion].answer;
+
                             return (
                                 <Pressable
                                     onPress={() => handleOptionPress(item)}
@@ -93,7 +98,6 @@ export default function QuizScreen() {
                                         style={[
                                             styles.optionText,
                                             isCorrect && isCorrectChoice && styles.optionTextCorrect,
-                                            isCorrect === false && styles.optionTextWrong,
                                         ]}
                                     >
                                         {item}
@@ -101,22 +105,42 @@ export default function QuizScreen() {
                                 </Pressable>
                             );
                         }}
-                        contentContainerStyle={{ gap: 10, padding: 6 }}
+                        contentContainerStyle={{ gap: 6, padding: 6 }}
                     />
                 </BlurView>
 
-                {isCorrect === false && (
-                    <View style={styles.feedbackBox}>
-                        <Text style={styles.niceTry}>Nice try!</Text>
-                        <Text style={styles.correctLine}>
-                            The correct answer is <Text style={styles.correctInline}>{questions[currentQuestion].answer}</Text>.
-                        </Text>
+                {/* Wrong Answer Modal */}
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={isCorrect === false}
+                    onRequestClose={() => setIsCorrect(null)}
+                >
+                    <View style={styles.modalOverlay}>
+                        <BlurView intensity={50} tint="dark" style={styles.modalContainer}>
+                            <View style={styles.modalContent}>
+                                <Text style={styles.niceTry}>Nice try!</Text>
+                                <Text style={styles.correctLine}>
+                                    The correct answer is <Text style={styles.correctInline}>{questions[currentQuestion].answer}</Text>.
+                                </Text>
+                                <Pressable
+                                    onPress={handleNextQuestion}
+                                    style={({ pressed }) => [styles.modalNextBtn, pressed && { opacity: 0.8 }]}
+                                >
+                                    <Text style={styles.nextText}>Continue</Text>
+                                </Pressable>
+                            </View>
+                        </BlurView>
                     </View>
-                )}
+                </Modal>
 
-                {isCorrect !== null && (
-                    <Pressable onPress={handleNextQuestion} style={({ pressed }) => [styles.nextBtn, pressed && { opacity: 0.8 }]}>
-                        <Text style={styles.nextText}>Next</Text>
+                {/* Next button for correct answers only */}
+                {isCorrect === true && (
+                    <Pressable
+                        onPress={handleNextQuestion}
+                        style={({ pressed }) => [styles.nextBtnSmall, pressed && { opacity: 0.8 }]}
+                    >
+                        <Text style={styles.nextTextSmall}>→</Text>
                     </Pressable>
                 )}
             </SafeAreaView>
@@ -178,7 +202,7 @@ const styles = StyleSheet.create({
 
     option: {
         borderRadius: 14,
-        paddingVertical: 5,
+        paddingVertical: 8,
         paddingHorizontal: 16,
         backgroundColor: "rgba(255,255,255,0.18)",
         justifyContent: "center",
@@ -201,7 +225,7 @@ const styles = StyleSheet.create({
         opacity: 0.4,
     },
     optionText: {
-        fontSize: 24,
+        fontSize: 18,
         fontWeight: "900",
         fontFamily: "SpaceMono",
         letterSpacing: 1,
@@ -226,6 +250,33 @@ const styles = StyleSheet.create({
         borderRadius: 14,
         padding: 16,
         gap: 6,
+    },
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    modalContainer: {
+        borderRadius: 20,
+        overflow: "hidden",
+        margin: 20,
+        width: "85%",
+    },
+    modalContent: {
+        backgroundColor: "rgba(255, 255, 255, 0.95)",
+        borderRadius: 20,
+        padding: 24,
+        alignItems: "center",
+        gap: 16,
+    },
+    modalNextBtn: {
+        backgroundColor: colors.friendlyPurple,
+        borderRadius: 14,
+        paddingVertical: 12,
+        paddingHorizontal: 24,
+        alignItems: "center",
+        marginTop: 8,
     },
     niceTry: {
         fontSize: 18,
@@ -271,5 +322,26 @@ const styles = StyleSheet.create({
         fontFamily: 'SpaceMono',
         color: '#ffffff',
         letterSpacing: 1,
+    },
+    nextBtnSmall: {
+        position: 'absolute',
+        bottom: 30,
+        right: 20,
+        backgroundColor: colors.friendlyPurple,
+        borderRadius: 25,
+        width: 50,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        shadowColor: "#000",
+        shadowOpacity: 0.3,
+        shadowRadius: 8,
+        shadowOffset: { width: 0, height: 4 },
+        elevation: 5,
+    },
+    nextTextSmall: {
+        fontSize: 24,
+        fontWeight: "800",
+        color: "#fff",
     },
 });

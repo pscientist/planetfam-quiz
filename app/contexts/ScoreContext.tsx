@@ -29,8 +29,10 @@ export function ScoreProvider({ children }: { children: ReactNode }) {
     };
 
     const addCollectedCountry = (country: string) => {
-        setCollectedCountries(prev => [...prev, country]);
-    };
+        if (!collectedCountries.includes(country)) {
+            setCollectedCountries(prev => [...prev, country]);
+        };
+    }
 
     const resetCollectedCountries = () => {
         setCollectedCountries([]);

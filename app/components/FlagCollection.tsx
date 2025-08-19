@@ -53,7 +53,6 @@ export default function FlagCollection({ collectedCountries, title = "Flags Coll
 
     return (
         <View style={styles.container}>
-            {/* <Text style={styles.title}>Flags Collected</Text> */}
             <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
@@ -77,7 +76,6 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
         marginVertical: 8,
-        // borderWidth: 1,
         marginTop: -20,
     },
     title: {
@@ -112,7 +110,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     countryName: {
-        // fontFamily: "SpaceMono",
         fontSize: 13,
         color: "#ffffff",
         opacity: 0.9,
