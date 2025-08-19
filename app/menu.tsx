@@ -2,7 +2,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link, Stack } from "expo-router";
-import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { FONT_FAMILY } from "./constants";
 
@@ -43,6 +42,16 @@ export default function Menu() {
                                 <View style={styles.itemLeft}>
                                     <Ionicons name="information-circle" size={20} color="#fff" style={styles.itemIcon} />
                                     <Text style={styles.itemText}>Story</Text>
+                                </View>
+                                <Ionicons name="chevron-forward" size={18} color="#fff" />
+                            </TouchableOpacity>
+                        </Link>
+
+                        <Link href="/treasures" asChild>
+                            <TouchableOpacity style={styles.item} activeOpacity={0.9}>
+                                <View style={styles.itemLeft}>
+                                    <Ionicons name="trophy" size={20} color="#fff" style={styles.itemIcon} />
+                                    <Text style={styles.itemText}>My Treasures</Text>
                                 </View>
                                 <Ionicons name="chevron-forward" size={18} color="#fff" />
                             </TouchableOpacity>

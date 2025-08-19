@@ -1,4 +1,3 @@
-import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 interface FlagCollectionProps {
@@ -88,7 +87,7 @@ const styles = StyleSheet.create({
         width: '100%',
         marginVertical: 8,
         marginTop: -20,
-        height: 120,
+        minHeight: 120,
     },
     title: {
         fontFamily: "SpaceMono",
@@ -107,21 +106,23 @@ const styles = StyleSheet.create({
         fontStyle: 'italic',
     },
     flagsContainer: {
-        flex: 1,
+        flex: 0,
         marginTop: 15,
     },
     flagsContent: {
+        flexDirection: 'row',
+        alignItems: 'flex-start',
         paddingHorizontal: 4,
     },
     boxContainer: {
-        flex: 1,
+        flex: 0,
         marginTop: 15,
     },
     boxContent: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         paddingHorizontal: 4,
     },
     flagItem: {
