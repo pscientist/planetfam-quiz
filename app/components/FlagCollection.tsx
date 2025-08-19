@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
         width: '100%',
         marginVertical: 8,
         marginTop: -20,
+        height: 120,
     },
     title: {
         fontFamily: "SpaceMono",
@@ -95,11 +96,11 @@ const styles = StyleSheet.create({
         fontStyle: 'italic',
     },
     flagsContainer: {
-        maxHeight: 120,
+        flex: 1,
+        marginTop: 15,
     },
     flagsContent: {
         paddingHorizontal: 4,
-        gap: 8
     },
     flagItem: {
         alignItems: 'center',
