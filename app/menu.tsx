@@ -37,6 +37,15 @@ export default function Menu() {
                                 <Ionicons name="chevron-forward" size={18} color="#fff" />
                             </TouchableOpacity>
                         </Link>
+                        <Link href="/cod" asChild>
+                            <TouchableOpacity style={styles.item} activeOpacity={0.9}>
+                                <View style={styles.itemLeft}>
+                                    <Ionicons name="flag" size={20} color="#fff" style={styles.itemIcon} />
+                                    <Text style={styles.itemText}>Country of the Day</Text>
+                                </View>
+                                <Ionicons name="chevron-forward" size={18} color="#fff" />
+                            </TouchableOpacity>
+                        </Link>
                         <Link href="/about" asChild>
                             <TouchableOpacity style={styles.item} activeOpacity={0.9}>
                                 <View style={styles.itemLeft}>
