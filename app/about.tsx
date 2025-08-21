@@ -3,31 +3,44 @@
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { Stack } from "expo-router";
-import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
 export default function About() {
     return (
-        <LinearGradient
-            colors={["#FFD700", "#E0AA3E", "#E6D5B8"]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.background}
-        >
-            <Stack.Screen options={{ title: "About" }} />
-            <View style={styles.overlay}>
-                <BlurView intensity={40} tint="dark" style={styles.card}>
-                    <Text style={styles.title}>About PlanetFam</Text>
-                    <Text style={styles.body}>
-                        PlanetFam Quiz was inspired by coffee afternoons with an Eritrean family in Auckland, New Zealand.
-                        In a world full of conflict and stereotypes, I wanted to create a game that reminds us we’re all just people — with families, friends, and food we love to share.
-                        Guess the country, explore its architecture, and discover the beauty of dining traditions around the world.
-                    </Text>
-                    <Image source={require("../assets/images/tw_eri.webp")} style={styles.image} />
+        <ScrollView>
+            <LinearGradient
+                colors={["#FFD700", "#E0AA3E", "#E6D5B8"]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.background}
+            >
+                <Stack.Screen options={{ title: "About" }} />
+                <View style={styles.overlay}>
+                    <BlurView intensity={40} tint="dark" style={styles.card}>
+                        <Text style={styles.title}>Why PlanetFam?</Text>
+                        <Text style={styles.tagline}> Learn about the World through people, not headlines</Text>
+                        <Text style={styles.body}>
+                            In a world full of conflict and stereotypes,
+                            we seem to forget that’re all just people — with families, friends, and food we love to share.
+                        </Text>
+                        <Image style={styles.image}
+                            resizeMode="contain"
+                            source={require("../assets/images/conflicts_30percent.webp")}
+                        />
+                        <Text style={styles.body}>
+                            PlanetFam Quiz was inspired by coffee afternoons with an Eritrean family in Auckland, New Zealand. There are a lot more in common
+                            between us than differences.
+                        </Text>
+                        <Image resizeMode="contain" source={require("../assets/images/coffee_30percent.webp")}
+                            style={{ ...styles.image, width: "100%" }} />
+                        <Text style={styles.body}>
+                            Guess the country, explore its architecture, and discover the beauty of dining traditions around the world.
+                        </Text>
 
-                </BlurView>
-            </View>
-        </LinearGradient>
+                    </BlurView>
+                </View>
+            </LinearGradient>
+        </ScrollView>
     );
 }
 
@@ -58,20 +71,35 @@ const styles = StyleSheet.create({
         textShadowColor: "rgba(0,0,0,0.45)",
         textShadowOffset: { width: 0, height: 2 },
         textShadowRadius: 6,
-        letterSpacing: 1,
+
+    },
+    tagline: {
+        fontFamily: "SpaceMono",
+        fontSize: 18,
+        fontWeight: "800",
+        color: "#fff",
+        textAlign: "center",
+        marginBottom: 25,
+        marginTop: 10,
     },
     body: {
         fontFamily: "Arial",
-        fontSize: 20,
-        lineHeight: 30,
+        fontSize: 17,
+        lineHeight: 28,
         color: "#fff",
         width: "92%",
         marginBottom: 20,
     },
-    image: {
+    imageContainer: {
         width: "100%",
         height: 200,
         marginBottom: 10,
+        alignSelf: "center",
+    },
+    image: {
+        // width: "100%",
+        // height: 400,
+        // marginBottom: 10,
         alignSelf: "center",
     },
 });

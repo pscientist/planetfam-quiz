@@ -86,8 +86,7 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
         marginVertical: 8,
-        marginTop: -20,
-        minHeight: 120,
+        marginTop: 12,
     },
     title: {
         fontFamily: "SpaceMono",
@@ -107,7 +106,6 @@ const styles = StyleSheet.create({
     },
     flagsContainer: {
         flex: 0,
-        marginTop: 15,
     },
     flagsContent: {
         flexDirection: 'row',

@@ -3,12 +3,15 @@ import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
 import { Stack, useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
+import * as Updates from 'expo-updates';
 import { useEffect } from "react";
 import { TouchableOpacity } from "react-native";
 import { RoundProvider } from "./contexts/RoundContext";
 import { ScoreProvider, useScore } from "./contexts/ScoreContext";
 
 SplashScreen.preventAutoHideAsync();
+
+
 
 function HomeButton() {
   const { resetScore } = useScore();
@@ -68,6 +71,21 @@ function StackContent() {
 }
 
 export default function RootLayout() {
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await Updates.checkForUpdateAsync();
+        if (res.isAvailable) {
+          await Updates.fetchUpdateAsync();
+          await Updates.reloadAsync();
+        }
+      } catch {
+        console.log("Error checking for updates");
+      }
+    })();
+  }, []);
+
   return (
     <RoundProvider>
       <ScoreProvider>

@@ -108,10 +108,10 @@ const round2Questions = [
     },
     {
         id: 15,
-        image: "../assets/images/countries/hk.webp",
-        options: ["Singapore", "Indonesia", "Thailand", "Hong Kong"],
-        answer: "Hong Kong",
-        slug: "hk",
+        image: "../assets/images/countries/india2_optimized.webp",
+        options: ["Pakistan", "Indonesia", "Thailand", "India"],
+        answer: "India",
+        slug: "india",
     },
     {
         id: 16,

@@ -1,7 +1,7 @@
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
-import React, { useState } from "react";
+import { useState } from "react";
 import { FlatList, Image, Modal, Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import countriesManifest from "../assets/images/countries/countriesManifest";
 import { round1Questions, round2Questions } from "../data/questions";
@@ -17,7 +17,7 @@ export default function QuizScreen() {
     const { currentRound } = useRound();
     const { collectedCountries } = useScore();
 
-    const questions = currentRound === 1 ? round2Questions : round1Questions;
+    const questions = currentRound === 1 ? round1Questions : round2Questions;
 
     const handleNextQuestion = () => {
         if (currentQuestion < questions.length - 1) {
@@ -191,8 +191,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: "100%",
-        height: 350,
-        marginBottom: 20,
+        minHeight: 310,
         alignSelf: "center",
     },
     optionsContainer: {

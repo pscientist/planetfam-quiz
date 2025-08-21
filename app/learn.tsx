@@ -2,39 +2,44 @@
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { Stack } from "expo-router";
-import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
 export default function Learn() {
     return (
-        <LinearGradient
-            colors={["#FFD700", "#E0AA3E", "#E6D5B8"]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.background}
-        >
-            <Stack.Screen options={{ title: "Learn" }} />
-            <View style={styles.overlay}>
-                <BlurView intensity={40} tint="dark" style={styles.card}>
-                    <Text style={styles.title}>Food Facts!</Text>
-                    <Text style={{ fontFamily: "Arial", fontSize: 20, lineHeight: 30, color: "#fff", width: "100%", marginBottom: 20 }}>
-                        Food can be a great way to learn about a country's culture and history!
-                    </Text>
-
-                    <View style={styles.list}>
-                        <Text style={{ fontFamily: "Arial", fontSize: 20, lineHeight: 30, color: "#fff", width: "100%" }}>
-                            Sweden
+        <ScrollView>
+            <LinearGradient
+                colors={["#FFD700", "#E0AA3E", "#E6D5B8"]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.background}
+            >
+                <Stack.Screen options={{ title: "Learn" }} />
+                <View style={styles.overlay}>
+                    <BlurView intensity={40} tint="dark" style={styles.card}>
+                        <Text style={styles.title}>Food Facts!</Text>
+                        <Text style={{ fontFamily: "Arial", fontSize: 20, lineHeight: 30, color: "#fff", width: "100%", marginBottom: 20 }}>
+                            Food can be a great way to learn about a country's culture and history!
                         </Text>
-                        <Image source={require("../assets/images/sweden_food.webp")} style={styles.image} />
-                        <Text style={{ fontFamily: "Arial", fontSize: 20, lineHeight: 30, color: "#fff", width: "100%" }}>
-                            Thailand
-                        </Text>
-                        <Image source={require("../assets/images/thai_food.webp")} style={styles.image} />
 
-                    </View>
-                </BlurView>
-            </View>
-        </LinearGradient>
+                        <View style={styles.list}>
+                            <Text style={{ fontFamily: "Arial", fontSize: 20, lineHeight: 30, color: "#fff", width: "100%" }}>
+                                Sweden
+                            </Text>
+                            <Image source={require("../assets/images/sweden_food.webp")} style={styles.image} />
+                            <Text style={{ fontFamily: "Arial", fontSize: 20, lineHeight: 30, color: "#fff", width: "100%" }}>
+                                Thailand
+                            </Text>
+                            <Image source={require("../assets/images/thai_food.webp")} style={styles.image} />
+
+                            <Text style={{ fontFamily: "Arial", fontSize: 20, lineHeight: 30, color: "#fff", width: "100%" }}>
+                                Japan
+                            </Text>
+                            <Image source={require("../assets/images/countries/japan_lunch_optimized.webp")} style={styles.image} />
+                        </View>
+                    </BlurView>
+                </View>
+            </LinearGradient>
+        </ScrollView>
     );
 }
 
@@ -78,7 +83,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: "100%",
-        height: 250,
+        // height: 250,
         marginBottom: 10,
         alignSelf: "center",
     },
