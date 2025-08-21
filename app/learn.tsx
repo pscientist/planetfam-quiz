@@ -23,18 +23,18 @@ export default function Learn() {
 
                         <View style={styles.list}>
                             <Text style={{ fontFamily: "Arial", fontSize: 20, lineHeight: 30, color: "#fff", width: "100%" }}>
-                                Sweden
+                                Papa New Guinea
                             </Text>
-                            <Image source={require("../assets/images/sweden_food.webp")} style={styles.image} />
+                            <Image resizeMode="contain" source={require("../assets/images/learn_items/png_food_60kb.webp")} style={styles.image} />
                             <Text style={{ fontFamily: "Arial", fontSize: 20, lineHeight: 30, color: "#fff", width: "100%" }}>
-                                Thailand
+                                Saudi Arabia
                             </Text>
-                            <Image source={require("../assets/images/thai_food.webp")} style={styles.image} />
+                            <Image source={require("../assets/images/learn_items/saudi_food.webp")} style={styles.image} />
 
                             <Text style={{ fontFamily: "Arial", fontSize: 20, lineHeight: 30, color: "#fff", width: "100%" }}>
-                                Japan
+                                Russian
                             </Text>
-                            <Image source={require("../assets/images/countries/japan_lunch_optimized.webp")} style={styles.image} />
+                            <Image resizeMode="contain" source={require("../assets/images/learn_items/russian_food.webp")} style={styles.image} />
                         </View>
                     </BlurView>
                 </View>
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: "100%",
-        // height: 250,
+        height: 500,
         marginBottom: 10,
         alignSelf: "center",
     },
