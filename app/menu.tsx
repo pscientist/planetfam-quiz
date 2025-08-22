@@ -4,8 +4,11 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Link, Stack } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { FONT_FAMILY } from "./constants";
+import { useRound } from "./contexts/RoundContext";
 
 export default function Menu() {
+    const { areBothRoundsCompleted } = useRound();
+
     return (
         <LinearGradient
             colors={["#FFD700", "#E0AA3E", "#E6D5B8"]}
@@ -19,15 +22,24 @@ export default function Menu() {
                     <Text style={styles.title}>Main Menu</Text>
 
                     <View style={styles.list}>
-                        <Link href="/" asChild>
-                            <TouchableOpacity style={styles.item} activeOpacity={0.9}>
+                        {areBothRoundsCompleted() ? (
+                            <View style={[styles.item, styles.item]}>
                                 <View style={styles.itemLeft}>
-                                    <Ionicons name="home" size={20} color="#fff" style={styles.itemIcon} />
-                                    <Text style={styles.itemText}>Play</Text>
+                                    <Ionicons name="checkmark-circle" size={20} color="#fff" style={styles.itemIcon} />
+                                    <Text style={styles.itemText}>New Rounds Coming Soon!</Text>
                                 </View>
-                                <Ionicons name="chevron-forward" size={18} color="#fff" />
-                            </TouchableOpacity>
-                        </Link>
+                            </View>
+                        ) : (
+                            <Link href="/" asChild>
+                                <TouchableOpacity style={styles.item} activeOpacity={0.9}>
+                                    <View style={styles.itemLeft}>
+                                        <Ionicons name="home" size={20} color="#fff" style={styles.itemIcon} />
+                                        <Text style={styles.itemText}>Play</Text>
+                                    </View>
+                                    <Ionicons name="chevron-forward" size={18} color="#fff" />
+                                </TouchableOpacity>
+                            </Link>
+                        )}
                         <Link href="/learn" asChild>
                             <TouchableOpacity style={styles.item} activeOpacity={0.9}>
                                 <View style={styles.itemLeft}>
@@ -126,6 +138,16 @@ const styles = StyleSheet.create({
     },
     itemText: {
         color: "#fff",
+        fontSize: 18,
+        fontWeight: "800",
+        fontFamily: FONT_FAMILY,
+    },
+    itemDisabled: {
+        backgroundColor: "rgba(136, 136, 136, 0.15)",
+        opacity: 0.6,
+    },
+    itemTextDisabled: {
+        color: "#888",
         fontSize: 18,
         fontWeight: "800",
         fontFamily: FONT_FAMILY,

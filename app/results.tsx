@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React from "react";
+import { useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import FlagCollection from './components/FlagCollection';
 import { useRound } from './contexts/RoundContext';
@@ -12,13 +12,25 @@ export default function ResultsScreen() {
     const { score = "0", total = "0" } = useLocalSearchParams();
     const router = useRouter();
     const { resetScore, resetCollectedCountries, getAllCollectedCountries } = useScore();
-    const { incrementRound } = useRound();
+    const { currentRound, incrementRound, markRoundAsCompleted, areBothRoundsCompleted } = useRound();
     const allCollectedCountries = getAllCollectedCountries();
+
+    // Mark the current round as completed when results screen loads
+    useEffect(() => {
+        markRoundAsCompleted(currentRound);
+    }, [currentRound, markRoundAsCompleted]);
 
     const handlePlayAgain = () => {
         resetScore();
-        incrementRound();
         resetCollectedCountries();
+
+        // If both rounds are completed, don't allow play again
+        if (areBothRoundsCompleted()) {
+            router.replace('/menu');
+            return;
+        }
+
+        incrementRound();
         router.replace("/quiz");
     };
 
@@ -54,14 +66,21 @@ export default function ResultsScreen() {
                         >
                             <Text style={styles.buttonTextSecondary}>Main Menu</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[styles.button, styles.buttonSecondary]}
-                            onPress={handlePlayAgain}
-                            activeOpacity={0.9}
-                        >
-                            <Ionicons name="refresh" size={20} color="#fff" style={styles.buttonIcon} />
-                            <Text style={styles.buttonText}>Play Again</Text>
-                        </TouchableOpacity>
+                        {!areBothRoundsCompleted() ? (
+                            <TouchableOpacity
+                                style={[styles.button, styles.buttonSecondary]}
+                                onPress={handlePlayAgain}
+                                activeOpacity={0.9}
+                            >
+                                <Ionicons name="refresh" size={20} color="#fff" style={styles.buttonIcon} />
+                                <Text style={styles.buttonText}>Play Again</Text>
+                            </TouchableOpacity>
+                        ) : (
+                            <View style={[styles.button, styles.buttonDisabled]}>
+                                <Ionicons name="checkmark-circle" size={20} color="#888" style={styles.buttonIcon} />
+                                <Text style={styles.buttonTextDisabled}>Both Rounds Complete!</Text>
+                            </View>
+                        )}
                     </View>
                 </BlurView>
             </View>
@@ -199,5 +218,14 @@ const styles = StyleSheet.create({
         top: "40%",
         left: "20%",
     },
-
+    buttonDisabled: {
+        backgroundColor: "rgba(136, 136, 136, 0.3)",
+        borderColor: "rgba(136, 136, 136, 0.5)",
+    },
+    buttonTextDisabled: {
+        color: "#888",
+        fontSize: 18,
+        fontWeight: "800",
+        fontFamily: "SpaceMono",
+    },
 });
