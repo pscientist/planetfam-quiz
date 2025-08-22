@@ -4,12 +4,12 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Redirect, useRouter } from "expo-router";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const debug = false;
+const debug = true;
 
 export default function Index() {
 
   if (debug) {
-    return <Redirect href="/menu" />;
+    return <Redirect href="/cod" />;
   }
 
   const router = useRouter();
@@ -34,7 +34,6 @@ export default function Index() {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              // router.push("/results?score=0&total=0");
               router.push("/quiz");
             }}
             activeOpacity={0.9}
