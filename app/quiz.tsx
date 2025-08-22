@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
@@ -94,14 +95,21 @@ export default function QuizScreen() {
                                         pressed && { transform: [{ scale: 0.98 }] },
                                     ]}
                                 >
-                                    <Text
-                                        style={[
-                                            styles.optionText,
-                                            isCorrect && isCorrectChoice && styles.optionTextCorrect,
-                                        ]}
-                                    >
-                                        {item}
-                                    </Text>
+                                    <View style={{ flexDirection: "row", alignItems: "stretch", gap: 10 }}>
+                                        {isCorrect !== null && isCorrectChoice && (
+                                            <View style={styles.checkBadge}>
+                                                <Ionicons name="checkmark" size={16} color="#fff" />
+                                            </View>
+                                        )}
+                                        <Text
+                                            style={[
+                                                styles.optionText,
+                                                isCorrect && isCorrectChoice && styles.optionTextCorrect,
+                                            ]}
+                                        >
+                                            {item}
+                                        </Text>
+                                    </View>
                                 </Pressable>
                             );
                         }}
@@ -140,6 +148,7 @@ export default function QuizScreen() {
                         onPress={handleNextQuestion}
                         style={({ pressed }) => [styles.nextBtnSmall, pressed && { opacity: 0.8 }]}
                     >
+
                         <Text style={styles.nextTextSmall}>→</Text>
                     </Pressable>
                 )}
@@ -342,5 +351,13 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: "800",
         color: "#fff",
+    },
+    checkBadge: {
+        width: 24,
+        height: 24,
+        borderRadius: 12,
+        backgroundColor: "#22c55e",
+        alignItems: "center",
+        justifyContent: "center",
     },
 });

@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Redirect, useRouter } from "expo-router";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const debug = true;
+const debug = false;
 
 export default function Index() {
 

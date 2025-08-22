@@ -25,16 +25,17 @@ export default function Learn() {
                             <Text style={{ fontFamily: "Arial", fontSize: 20, lineHeight: 30, color: "#fff", width: "100%" }}>
                                 Papa New Guinea
                             </Text>
-                            <Image resizeMode="contain" source={require("../assets/images/learn_items/png_food_60kb.webp")} style={styles.image} />
+                            <Image resizeMode="stretch" source={require("../assets/images/learn_items/png_food_60kb.webp")} style={styles.image} />
                             <Text style={{ fontFamily: "Arial", fontSize: 20, lineHeight: 30, color: "#fff", width: "100%" }}>
                                 Saudi Arabia
                             </Text>
-                            <Image source={require("../assets/images/learn_items/saudi_food.webp")} style={styles.image} />
+                            <Image resizeMode="stretch" source={require("../assets/images/learn_items/saudi_food.webp")} style={styles.image} />
 
                             <Text style={{ fontFamily: "Arial", fontSize: 20, lineHeight: 30, color: "#fff", width: "100%" }}>
-                                Russian
+                                Russia
                             </Text>
-                            <Image resizeMode="contain" source={require("../assets/images/learn_items/russian_food.webp")} style={styles.image} />
+                            <Image resizeMode="stretch" source={require("../assets/images/learn_items/russian_food.webp")}
+                                style={{ ...styles.image, height: 320 }} />
                         </View>
                     </BlurView>
                 </View>

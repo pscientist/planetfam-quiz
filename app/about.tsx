@@ -21,9 +21,10 @@ export default function About() {
                         <Text style={styles.tagline}> Learn about the World through people, not headlines</Text>
                         <Text style={styles.body}>
                             In a world full of conflict and stereotypes,
-                            we seem to forget that’re all just people — with families, friends, and food we love to share.
+                            we seem to forget that’re all just people — with families,
+                            friends, and food we love to share.
                         </Text>
-                        <Image style={styles.image}
+                        <Image style={{ ...styles.image, marginBottom: 20 }}
                             resizeMode="contain"
                             source={require("../assets/images/conflicts_30percent.webp")}
                         />
@@ -31,9 +32,9 @@ export default function About() {
                             PlanetFam Quiz was inspired by coffee afternoons with an Eritrean family in Auckland, New Zealand. There are a lot more in common
                             between us than differences.
                         </Text>
-                        <Image resizeMode="contain" source={require("../assets/images/coffee_30percent.webp")}
-                            style={{ ...styles.image, width: "100%" }} />
-                        <Text style={styles.body}>
+                        <Image resizeMode="stretch" source={require("../assets/images/coffee_30percent.webp")}
+                            style={{ ...styles.image, width: "100%", height: 230, marginBottom: 20 }} />
+                        <Text style={{ ...styles.body, marginBottom: 50 }}>
                             Guess the country, explore its architecture, and discover the beauty of dining traditions around the world.
                         </Text>
 
@@ -87,8 +88,9 @@ const styles = StyleSheet.create({
         fontSize: 17,
         lineHeight: 28,
         color: "#fff",
-        width: "92%",
+        width: "100%",
         marginBottom: 20,
+        textAlign: "justify",
     },
     imageContainer: {
         width: "100%",
