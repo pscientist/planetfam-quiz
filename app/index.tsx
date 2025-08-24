@@ -2,19 +2,24 @@ import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from 'expo-linear-gradient';
 import { Redirect, useRouter } from "expo-router";
+import { useEffect } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useRound } from "./contexts/RoundContext";
 
-const debug = false;
+const debug = true;
 
 export default function Index() {
 
   const router = useRouter();
-  const { areBothRoundsCompleted } = useRound();
+  const { areBothRoundsCompleted, resetCompletedRounds } = useRound();
 
-  if (debug) {
-    return <Redirect href="/cod" />;
-  }
+  useEffect(() => { if (debug) { resetCompletedRounds(); } },
+    [debug]
+  );
+
+  // if (debug) {
+  // return <Redirect href="/" />;
+  // }
 
   // if both rounds are completed, redirect to menu
   if (areBothRoundsCompleted()) {

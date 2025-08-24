@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
-import { Stack, useRouter } from "expo-router";
+import { Stack, usePathname, useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import * as Updates from 'expo-updates';
 import { useEffect } from "react";
@@ -11,11 +11,11 @@ import { ScoreProvider, useScore } from "./contexts/ScoreContext";
 
 SplashScreen.preventAutoHideAsync();
 
-
-
 function HomeButton() {
   const { resetScore } = useScore();
   const router = useRouter();
+  const pathName = usePathname();
+  const isInQuiz = pathName === "/quiz";
 
   const handleHomePress = () => {
     resetScore();
@@ -23,7 +23,8 @@ function HomeButton() {
   };
 
   return (
-    <TouchableOpacity onPress={handleHomePress} style={{ marginRight: 12 }}>
+    <TouchableOpacity disabled={isInQuiz} onPress={handleHomePress}
+      style={{ marginRight: 12, opacity: isInQuiz ? 0.5 : 1 }}>
       <Ionicons name="home" size={20} color="#3b2f0b" />
     </TouchableOpacity>
   );

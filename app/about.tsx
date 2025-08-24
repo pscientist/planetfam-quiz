@@ -32,7 +32,7 @@ export default function About() {
                             PlanetFam Quiz was inspired by coffee afternoons with an Eritrean family in Auckland, New Zealand. There are a lot more in common
                             between us than differences.
                         </Text>
-                        <Image resizeMode="stretch" source={require("../assets/images/coffee_30percent.webp")}
+                        <Image resizeMode="stretch" source={require("../assets/images/coffee_20percent.webp")}
                             style={{ ...styles.image, width: "100%", height: 230, marginBottom: 20 }} />
                         <Text style={{ ...styles.body, marginBottom: 50 }}>
                             Guess the country, explore its architecture, and discover the beauty of dining traditions around the world.

@@ -1,7 +1,6 @@
 const countriesManifest: { [key: string]: any } = {
     germany: require('./germany.webp'),
     netherlands: require('./netherlands.webp'),
-    thai: require('./thai.webp'),
     nz: require('./nz.webp'),
     png: require('./png.webp'),
     russia: require('./russia.webp'),
@@ -17,7 +16,7 @@ const countriesManifest: { [key: string]: any } = {
     colombia2: require('./colombia_optimized_reduced2.webp'),
     finland: require('./finland.webp'),
     france: require('./france_optimized.webp'),
-    india2: require('./india2_optimized.webp'),
+    india: require('./india2_optimized.webp'),
     japan_lunch: require('./japan_lunch_optimized.webp'),
     saudi: require('./saudi_optimized.webp'),
     south_sudan: require('./south_sudan_optimized.webp'),

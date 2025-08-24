@@ -16,10 +16,10 @@ export default function Menu() {
             end={{ x: 1, y: 1 }}
             style={styles.background}
         >
-            <Stack.Screen options={{ title: "Main Menu" }} />
+            <Stack.Screen options={{ title: "Main Menu~" }} />
             <View style={styles.overlay}>
                 <BlurView intensity={40} tint="dark" style={styles.card}>
-                    <Text style={styles.title}>Main Menu</Text>
+                    <Text style={styles.title}>Main Menu~</Text>
 
                     <View style={styles.list}>
                         {areBothRoundsCompleted() ? (

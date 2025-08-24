@@ -1,6 +1,7 @@
 // Round 1 - Original questions
 // Order: Spain, Thailand, Russia, Ethiopia, New Zealand, Philippines, Papua New Guinea, Sweden
 const round1Questions = [
+
     {
         id: 1,
         image: "../assets/images/countries/spain.webp",
@@ -10,10 +11,10 @@ const round1Questions = [
     },
     {
         id: 2,
-        image: "../assets/images/countries/thai.webp",
-        options: ["Thailand", "Mongolia", "China", "Japan"],
-        answer: "Thailand",
-        slug: "thai",
+        image: "../assets/images/countries/france_optimized.webp",
+        options: ["France", "UK", "USA", "Germany"],
+        answer: "France",
+        slug: "france",
     },
     {
         id: 3,

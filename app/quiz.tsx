@@ -5,7 +5,7 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import { FlatList, Image, Modal, Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import countriesManifest from "../assets/images/countries/countriesManifest";
-import { round1Questions, round2Questions } from "../data/questions";
+import { round1Questions, round2Questions } from "../data/questions_test";
 import FlagCollection from "./components/FlagCollection";
 import { useRound } from "./contexts/RoundContext";
 import { useScore } from "./contexts/ScoreContext";
@@ -24,7 +24,9 @@ export default function QuizScreen() {
         if (currentQuestion < questions.length - 1) {
             setCurrentQuestion(currentQuestion + 1);
             setIsCorrect(null);
+            // the last question    
         } else {
+            setIsCorrect(null);
             router.push({
                 pathname: "/results",
                 params: {
@@ -64,7 +66,7 @@ export default function QuizScreen() {
         >
             <SafeAreaView style={styles.overlay}>
 
-                {/* Progress indicator */}
+                {/* Score indicator */}
                 <View style={styles.progressContainer}>
                     <Text style={styles.progressText}>
                         Score:{score}  Total: {questions.length}
@@ -77,6 +79,8 @@ export default function QuizScreen() {
                     source={getImageSource(questions[currentQuestion].slug)}
                     resizeMode="contain"
                 />
+
+                <View style={{ marginTop: 20 }}></View>
 
                 <BlurView intensity={40} tint="dark" style={styles.optionsCard}>
                     <FlatList
@@ -175,7 +179,8 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "rgba(0,0,0,0.2)",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-start",
+        paddingTop: 50,
         paddingHorizontal: 16,
     },
     optionsCard: {
@@ -199,8 +204,8 @@ const styles = StyleSheet.create({
         color: "#8B4000",
     },
     image: {
-        width: "100%",
-        minHeight: 310,
+        width: 450,
+        height: 300,
         alignSelf: "center",
     },
     optionsContainer: {
@@ -321,7 +326,6 @@ const styles = StyleSheet.create({
         color: "#fff",
     },
     progressContainer: {
-        position: 'absolute',
         top: 10,
     },
     progressText: {

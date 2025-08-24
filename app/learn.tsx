@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
         color: "#fff",
     },
     image: {
-        width: "100%",
+        width: 350,
         height: 500,
         marginBottom: 10,
         alignSelf: "center",

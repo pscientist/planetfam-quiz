@@ -24,7 +24,9 @@ export default function FlagCollection({ collectedCountries, title = "Flags Coll
             switzerland: '🇨🇭',
             finland: '🇫🇮',
             hk: '🇭🇰',
-            saudi: '🇸🇦'
+            saudi: '🇸🇦',
+            france: '🇫🇷',
+            india: '🇮🇳',
         };
         return flagMap[slug] || '🏳️';
     };
@@ -65,7 +67,7 @@ export default function FlagCollection({ collectedCountries, title = "Flags Coll
             {scrollable ? (
                 <ScrollView
                     horizontal
-                    showsHorizontalScrollIndicator={false}
+                    showsHorizontalScrollIndicator={true}
                     style={styles.flagsContainer}
                     contentContainerStyle={styles.flagsContent}
                 >
@@ -85,6 +87,7 @@ export default function FlagCollection({ collectedCountries, title = "Flags Coll
 const styles = StyleSheet.create({
     container: {
         width: '100%',
+        height: 80,
         marginVertical: 8,
         marginTop: 12,
     },

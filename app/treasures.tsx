@@ -47,7 +47,7 @@ export default function Treasures() {
                             <Text style={styles.loadingText}>Loading your flags...</Text>
                         </View>
                     ) : flags.length > 0 ? (
-                        <FlagCollection collectedCountries={flags} scrollable={false} />
+                        <FlagCollection collectedCountries={flags} scrollable={true} />
                     ) : (
                         <View style={styles.emptyContainer}>
                             <Ionicons name="flag-outline" size={48} color="#fff" style={{ opacity: 0.7 }} />
