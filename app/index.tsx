@@ -11,7 +11,12 @@ const debug = true;
 export default function Index() {
 
   const router = useRouter();
-  const { areBothRoundsCompleted, resetCompletedRounds } = useRound();
+  const { areAllRoundsCompleted, resetCompletedRounds,
+    resetToRound, getNextRoundToPlay, resetToRound1, incrementRound } = useRound();
+
+  const handleStartQuiz = () => {
+    router.push(`/quiz`);
+  };
 
   useEffect(() => { if (debug) { resetCompletedRounds(); } },
     [debug]
@@ -22,7 +27,7 @@ export default function Index() {
   // }
 
   // if both rounds are completed, redirect to menu
-  if (areBothRoundsCompleted()) {
+  if (areAllRoundsCompleted()) {
     return <Redirect href="/menu" />;
   }
 
@@ -44,7 +49,7 @@ export default function Index() {
           <Text style={styles.description}>
             Test your world smarts! Each round, you'll get an image to guess the country. Ready?
           </Text>
-          {areBothRoundsCompleted() ? (
+          {areAllRoundsCompleted() ? (
             <View style={[styles.button, styles.buttonDisabled]}>
               <Ionicons name="checkmark-circle" size={20} color="#888" style={styles.buttonIcon} />
               <Text style={styles.buttonTextDisabled}>Both Rounds Complete!</Text>
@@ -52,9 +57,7 @@ export default function Index() {
           ) : (
             <TouchableOpacity
               style={styles.button}
-              onPress={() => {
-                router.push("/quiz");
-              }}
+              onPress={handleStartQuiz}
               activeOpacity={0.9}
             >
               <Ionicons name="sparkles" size={20} color="#fff" style={styles.buttonIcon} />

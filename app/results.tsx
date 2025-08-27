@@ -12,25 +12,27 @@ export default function ResultsScreen() {
     const { score = "0", total = "0" } = useLocalSearchParams();
     const router = useRouter();
     const { resetScore, resetCollectedCountries, getAllCollectedCountries } = useScore();
-    const { currentRound, incrementRound, markRoundAsCompleted, areBothRoundsCompleted } = useRound();
+    const { currentRound, incrementRound, markRoundAsCompleted, areAllRoundsCompleted } = useRound();
     const allCollectedCountries = getAllCollectedCountries();
 
     // Mark the current round as completed when results screen loads
     useEffect(() => {
         markRoundAsCompleted(currentRound);
-    }, [currentRound, markRoundAsCompleted]);
+        if (!areAllRoundsCompleted()) {
+            incrementRound();
+        }
+    }, []);
 
     const handlePlayAgain = () => {
         resetScore();
         resetCollectedCountries();
 
         // If both rounds are completed, don't allow play again
-        if (areBothRoundsCompleted()) {
+        if (areAllRoundsCompleted()) {
             router.replace('/menu');
             return;
         }
 
-        incrementRound();
         router.replace("/quiz");
     };
 
@@ -66,7 +68,7 @@ export default function ResultsScreen() {
                         >
                             <Text style={styles.buttonTextSecondary}>Main Menu</Text>
                         </TouchableOpacity>
-                        {!areBothRoundsCompleted() ? (
+                        {!areAllRoundsCompleted() ? (
                             <TouchableOpacity
                                 style={[styles.button, styles.buttonSecondary]}
                                 onPress={handlePlayAgain}

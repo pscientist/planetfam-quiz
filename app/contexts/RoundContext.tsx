@@ -7,8 +7,11 @@ interface RoundContextType {
     incrementRound: () => void;
     resetToRound1: () => void;
     markRoundAsCompleted: (round: number) => void;
-    areBothRoundsCompleted: () => boolean;
+    areAllRoundsCompleted: () => boolean;
     resetCompletedRounds: () => void;
+    getNextRoundToPlay: () => number;
+    getTotalRounds: () => number;
+    resetToRound: (round: number) => void;
 }
 
 const RoundContext = createContext<RoundContextType | undefined>(undefined);
@@ -51,6 +54,11 @@ export function RoundProvider({ children }: { children: ReactNode }) {
         console.log('resetToRound1', currentRound);
     };
 
+    const resetToRound = (round: number) => {
+        setCurrentRound(round);
+        console.log('resetToRound', currentRound);
+    };
+
     const incrementRound = () => {
         setCurrentRound(prev => prev + 1);
         console.log('incrementRound', currentRound);
@@ -67,8 +75,25 @@ export function RoundProvider({ children }: { children: ReactNode }) {
         });
     };
 
-    const areBothRoundsCompleted = () => {
-        return completedRounds.includes(1) && completedRounds.includes(2);
+    const areAllRoundsCompleted = () => {
+        return completedRounds.includes(1) && completedRounds.includes(2) && completedRounds.includes(3);
+    };
+
+    const getNextRoundToPlay = () => {
+        return 3; // debug
+
+        // // Return the first round that's not completed, or 1 if all are completed
+        // for (let round = 1; round <= 3; round++) {
+        //     if (!completedRounds.includes(round)) {
+        //         return round;
+        //     }
+        // }
+        // // If all rounds are completed, return 1 to allow replay
+        // return 1;
+    };
+
+    const getTotalRounds = () => {
+        return 3;
     };
 
     const resetCompletedRounds = () => {
@@ -83,9 +108,12 @@ export function RoundProvider({ children }: { children: ReactNode }) {
             completedRounds,
             incrementRound,
             resetToRound1,
+            resetToRound,
             markRoundAsCompleted,
-            areBothRoundsCompleted,
-            resetCompletedRounds
+            areAllRoundsCompleted,
+            resetCompletedRounds,
+            getNextRoundToPlay,
+            getTotalRounds
         }}>
             {children}
         </RoundContext.Provider>

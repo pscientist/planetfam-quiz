@@ -1,4 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { COUNTRY_NAMES, FLAG_EMOJIS } from '../constants';
 
 interface FlagCollectionProps {
     collectedCountries: string[];
@@ -8,49 +9,11 @@ interface FlagCollectionProps {
 
 export default function FlagCollection({ collectedCountries, title = "Flags Collected", scrollable = true }: FlagCollectionProps) {
     const getFlagEmoji = (slug: string) => {
-        const flagMap: { [key: string]: string } = {
-            spain: '🇪🇸',
-            thai: '🇹🇭',
-            russia: '🇷🇺',
-            ethiopia: '🇪🇹',
-            nz: '🇳🇿',
-            philipines: '🇵🇭',
-            png: '🇵🇬',
-            sweden: '🇸🇪',
-            germany: '🇩🇪',
-            netherlands: '🇳🇱',
-            uk: '🇬🇧',
-            srilanka: '🇱🇰',
-            switzerland: '🇨🇭',
-            finland: '🇫🇮',
-            hk: '🇭🇰',
-            saudi: '🇸🇦',
-            france: '🇫🇷',
-            india: '🇮🇳',
-        };
-        return flagMap[slug] || '🏳️';
+        return FLAG_EMOJIS[slug] || '🏳️';
     };
 
     const getCountryName = (slug: string) => {
-        const countryNames: { [key: string]: string } = {
-            spain: "Spain",
-            thai: "Thailand",
-            russia: "Russia",
-            ethiopia: "Ethiopia",
-            nz: "New Zealand",
-            philipines: "Philippines",
-            png: "Papua New Guinea",
-            sweden: "Sweden",
-            germany: "Germany",
-            netherlands: "Netherlands",
-            uk: "United Kingdom",
-            srilanka: "Sri Lanka",
-            switzerland: "Switzerland",
-            finland: "Finland",
-            hk: "Hong Kong",
-            saudi: "Saudi Arabia"
-        };
-        return countryNames[slug] || slug;
+        return COUNTRY_NAMES[slug] || slug;
     };
 
     const flagItems = collectedCountries.map((slug, index) => {

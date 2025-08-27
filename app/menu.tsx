@@ -1,13 +1,26 @@
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
-import { Link, Stack } from "expo-router";
+import { Link, Stack, useRouter } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { FONT_FAMILY } from "./constants";
 import { useRound } from "./contexts/RoundContext";
 
 export default function Menu() {
-    const { areBothRoundsCompleted } = useRound();
+    const router = useRouter();
+    const { areAllRoundsCompleted, getNextRoundToPlay, resetToRound1, incrementRound } = useRound();
+
+    const handlePlayPress = () => {
+        const nextRound = getNextRoundToPlay();
+        if (nextRound === 1) {
+            resetToRound1();
+        } else {
+            // Set to round 2
+            resetToRound1();
+            incrementRound();
+        }
+        router.push("/quiz");
+    };
 
     return (
         <LinearGradient
@@ -19,10 +32,10 @@ export default function Menu() {
             <Stack.Screen options={{ title: "Main Menu~" }} />
             <View style={styles.overlay}>
                 <BlurView intensity={40} tint="dark" style={styles.card}>
-                    <Text style={styles.title}>Main Menu~</Text>
+                    <Text style={styles.title}>Main Menu</Text>
 
                     <View style={styles.list}>
-                        {areBothRoundsCompleted() ? (
+                        {areAllRoundsCompleted() ? (
                             <View style={[styles.item, styles.item]}>
                                 <View style={styles.itemLeft}>
                                     <Ionicons name="checkmark-circle" size={20} color="#fff" style={styles.itemIcon} />
@@ -30,15 +43,13 @@ export default function Menu() {
                                 </View>
                             </View>
                         ) : (
-                            <Link href="/" asChild>
-                                <TouchableOpacity style={styles.item} activeOpacity={0.9}>
-                                    <View style={styles.itemLeft}>
-                                        <Ionicons name="home" size={20} color="#fff" style={styles.itemIcon} />
-                                        <Text style={styles.itemText}>Play</Text>
-                                    </View>
-                                    <Ionicons name="chevron-forward" size={18} color="#fff" />
-                                </TouchableOpacity>
-                            </Link>
+                            <TouchableOpacity style={styles.item} activeOpacity={0.9} onPress={handlePlayPress}>
+                                <View style={styles.itemLeft}>
+                                    <Ionicons name="home" size={20} color="#fff" style={styles.itemIcon} />
+                                    <Text style={styles.itemText}>Play</Text>
+                                </View>
+                                <Ionicons name="chevron-forward" size={18} color="#fff" />
+                            </TouchableOpacity>
                         )}
                         <Link href="/learn" asChild>
                             <TouchableOpacity style={styles.item} activeOpacity={0.9}>
