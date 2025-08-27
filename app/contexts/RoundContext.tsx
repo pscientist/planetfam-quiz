@@ -5,7 +5,6 @@ interface RoundContextType {
     currentRound: number;
     completedRounds: number[];
     incrementRound: () => void;
-    resetToRound1: () => void;
     markRoundAsCompleted: (round: number) => void;
     areAllRoundsCompleted: () => boolean;
     resetCompletedRounds: () => void;
@@ -19,7 +18,7 @@ const RoundContext = createContext<RoundContextType | undefined>(undefined);
 const COMPLETED_ROUNDS_KEY = 'completedRounds';
 
 export function RoundProvider({ children }: { children: ReactNode }) {
-    const [currentRound, setCurrentRound] = useState(1);
+    const [currentRound, setCurrentRound] = useState(0);
     const [completedRounds, setCompletedRounds] = useState<number[]>([]);
 
     // Load completed rounds from storage on initialization
@@ -49,19 +48,9 @@ export function RoundProvider({ children }: { children: ReactNode }) {
         }
     };
 
-    const resetToRound1 = () => {
-        setCurrentRound(1);
-        console.log('resetToRound1', currentRound);
-    };
-
-    const resetToRound = (round: number) => {
-        setCurrentRound(round);
-        console.log('resetToRound', currentRound);
-    };
-
     const incrementRound = () => {
         setCurrentRound(prev => prev + 1);
-        console.log('incrementRound', currentRound);
+        console.log('incrementRound to ', currentRound + 1);
     };
 
     const markRoundAsCompleted = (round: number) => {
@@ -79,18 +68,16 @@ export function RoundProvider({ children }: { children: ReactNode }) {
         return completedRounds.includes(1) && completedRounds.includes(2) && completedRounds.includes(3);
     };
 
-    const getNextRoundToPlay = () => {
-        return 3; // debug
-
-        // // Return the first round that's not completed, or 1 if all are completed
-        // for (let round = 1; round <= 3; round++) {
-        //     if (!completedRounds.includes(round)) {
-        //         return round;
-        //     }
-        // }
-        // // If all rounds are completed, return 1 to allow replay
-        // return 1;
-    };
+    // const getNextRoundToPlay = () => {
+    //     // Return the first round that's not completed, or 1 if all are completed
+    //     for (let round = 1; round <= 3; round++) {
+    //         if (!completedRounds.includes(round)) {
+    //             return round;
+    //         }
+    //     }
+    //     // If all rounds are completed, return 0 to indicate no more rounds to play
+    //     return 0;
+    // };
 
     const getTotalRounds = () => {
         return 3;
@@ -107,12 +94,9 @@ export function RoundProvider({ children }: { children: ReactNode }) {
             currentRound,
             completedRounds,
             incrementRound,
-            resetToRound1,
-            resetToRound,
             markRoundAsCompleted,
             areAllRoundsCompleted,
             resetCompletedRounds,
-            getNextRoundToPlay,
             getTotalRounds
         }}>
             {children}

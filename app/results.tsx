@@ -12,25 +12,24 @@ export default function ResultsScreen() {
     const { score = "0", total = "0" } = useLocalSearchParams();
     const router = useRouter();
     const { resetScore, resetCollectedCountries, getAllCollectedCountries } = useScore();
-    const { currentRound, incrementRound, markRoundAsCompleted, areAllRoundsCompleted } = useRound();
+    const { currentRound, markRoundAsCompleted, areAllRoundsCompleted, incrementRound } = useRound();
     const allCollectedCountries = getAllCollectedCountries();
 
     // Mark the current round as completed when results screen loads
     useEffect(() => {
         markRoundAsCompleted(currentRound);
-        if (!areAllRoundsCompleted()) {
-            incrementRound();
-        }
     }, []);
 
     const handlePlayAgain = () => {
         resetScore();
         resetCollectedCountries();
 
-        // If both rounds are completed, don't allow play again
-        if (areAllRoundsCompleted()) {
+        // If all rounds are completed, don't allow play again
+        if (currentRound === 3) {
             router.replace('/menu');
             return;
+        } else {
+            incrementRound();
         }
 
         router.replace("/quiz");
@@ -80,7 +79,7 @@ export default function ResultsScreen() {
                         ) : (
                             <View style={[styles.button, styles.buttonDisabled]}>
                                 <Ionicons name="checkmark-circle" size={20} color="#888" style={styles.buttonIcon} />
-                                <Text style={styles.buttonTextDisabled}>Both Rounds Complete!</Text>
+                                <Text style={styles.buttonText}>New Rounds Coming Soon!</Text>
                             </View>
                         )}
                     </View>

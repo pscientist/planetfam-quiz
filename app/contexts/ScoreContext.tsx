@@ -58,12 +58,12 @@ export function ScoreProvider({ children }: { children: ReactNode }) {
 
     const resetScore = () => {
         setScore(0);
-        console.log('resetScore', score);
+        console.log('set score: = 0');
     };
 
     const incrementScore = () => {
         setScore(prev => prev + 1);
-        console.log('incrementScore', score);
+        console.log('incrementScore to ', score + 1);
     };
 
     const addCollectedCountry = (country: string) => {

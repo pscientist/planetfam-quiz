@@ -2,7 +2,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from 'expo-linear-gradient';
 import { Redirect, useRouter } from "expo-router";
-import { useEffect } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useRound } from "./contexts/RoundContext";
 
@@ -12,15 +11,18 @@ export default function Index() {
 
   const router = useRouter();
   const { areAllRoundsCompleted, resetCompletedRounds,
-    resetToRound, getNextRoundToPlay, resetToRound1, incrementRound } = useRound();
+    currentRound, incrementRound } = useRound();
 
   const handleStartQuiz = () => {
+    if (currentRound < 3) {
+      incrementRound();
+    }
     router.push(`/quiz`);
   };
 
-  useEffect(() => { if (debug) { resetCompletedRounds(); } },
-    [debug]
-  );
+  // useEffect(() => { if (debug) { resetCompletedRounds(); } },
+  //   [debug]
+  // );
 
   // if (debug) {
   // return <Redirect href="/" />;

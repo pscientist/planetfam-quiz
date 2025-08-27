@@ -1,12 +1,21 @@
 // Question interface
+
+interface Question {
+    id: number,
+    image: string,
+    options: string[],
+    answer: string,
+    slug: string
+
+}
 // Round 1 - Original questions
-const round1Questions = [
+const round1Questions: Question[] = [
     {
         id: 1,
-        image: "../assets/images/countries/nz.webp",
-        options: ["Sweden", "New Zealand", "UK", "USA"],
-        answer: "New Zealand",
-        slug: "nz",
+        image: "../assets/images/countries/norway.webp",
+        options: ["Norway", "New Zealand", "UK", "USA"],
+        answer: "Norway",
+        slug: "norway",
     },
     {
         id: 2,
@@ -19,7 +28,7 @@ const round1Questions = [
 ];
 
 // Round 2 - New questions using remaining countries
-const round2Questions = [
+const round2Questions: Question[] = [
     {
         id: 9,
         image: "../assets/images/countries/germany.webp",
@@ -34,24 +43,16 @@ const round2Questions = [
         answer: "Netherlands",
         slug: "netherlands",
     },
-
-];
-
-// Export both rounds and legacy questions for backward compatibility
-const questions = round1Questions; // Keep original export for backward compatibility
-
-export { round1Questions, round2Questions };
-export default questions;   
 ];
 
 // Round 3 - Test questions
 const round3Questions: Question[] = [
     {
         id: 17,
-        image: "../assets/images/countries/japan_lunch_optimized.webp",
-        options: ["Korea", "Japan", "China", "Thailand"],
-        answer: "Japan",
-        slug: "japan",
+        image: "../assets/images/countries/taiwan.webp",
+        options: ["Korea", "Japan", "China", "Taiwan"],
+        answer: "Taiwan",
+        slug: "taiwan",
     },
     {
         id: 18,
@@ -80,6 +81,3 @@ export { round1Questions, round2Questions, round3Questions };
 // Export the indexed questions object
 export { questionsByRound };
 
-// Legacy export for backward compatibility
-const questions = round1Questions;
-export default questions;   

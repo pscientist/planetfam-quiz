@@ -8,17 +8,13 @@ import { useRound } from "./contexts/RoundContext";
 
 export default function Menu() {
     const router = useRouter();
-    const { areAllRoundsCompleted, getNextRoundToPlay, resetToRound1, incrementRound } = useRound();
+    const { areAllRoundsCompleted, currentRound, getTotalRounds, incrementRound } = useRound();
 
     const handlePlayPress = () => {
-        const nextRound = getNextRoundToPlay();
-        if (nextRound === 1) {
-            resetToRound1();
-        } else {
-            // Set to round 2
-            resetToRound1();
+        if (currentRound > 0 && currentRound < getTotalRounds()) {
             incrementRound();
         }
+
         router.push("/quiz");
     };
 
@@ -29,7 +25,7 @@ export default function Menu() {
             end={{ x: 1, y: 1 }}
             style={styles.background}
         >
-            <Stack.Screen options={{ title: "Main Menu~" }} />
+            <Stack.Screen options={{ title: "Main Menu" }} />
             <View style={styles.overlay}>
                 <BlurView intensity={40} tint="dark" style={styles.card}>
                     <Text style={styles.title}>Main Menu</Text>
