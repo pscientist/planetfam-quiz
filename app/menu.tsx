@@ -47,11 +47,11 @@ export default function Menu() {
                                 <Ionicons name="chevron-forward" size={18} color="#fff" />
                             </TouchableOpacity>
                         )}
-                        <Link href="/learn" asChild>
+                        <Link href="/supermarket" asChild>
                             <TouchableOpacity style={styles.item} activeOpacity={0.9}>
                                 <View style={styles.itemLeft}>
                                     <Ionicons name="book" size={20} color="#fff" style={styles.itemIcon} />
-                                    <Text style={styles.itemText}>Learn</Text>
+                                    <Text style={styles.itemText}>What's in the Cupboard?</Text>
                                 </View>
                                 <Ionicons name="chevron-forward" size={18} color="#fff" />
                             </TouchableOpacity>
