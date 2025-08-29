@@ -1,10 +1,10 @@
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { Stack } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import countriesManifest from "../assets/images/countries/countriesManifest";
 import { FONT_FAMILY } from "./constants";
-// import { useGoogleImageSearch } from "./hooks/useGoogleImageSearch";
+import { useGoogleImageSearch } from "./hooks/useGoogleImageSearch";
 
 function getDisplayName(slug: string): string {
     const countryNames: { [key: string]: string } = {
@@ -55,7 +55,7 @@ export default function CountryOfTheDay() {
     const displayName = slug ? getDisplayName(slug) : "";
 
     // Use the Google image search hook
-    // const { images, isLoading, error } = useGoogleImageSearch(displayName);
+    const { images, isLoading, error } = useGoogleImageSearch(displayName);
 
     return (
         <LinearGradient
@@ -64,15 +64,57 @@ export default function CountryOfTheDay() {
             end={{ x: 1, y: 1 }}
             style={styles.background}
         >
-            <Stack.Screen options={{ title: "Country of the Day" }} />
             <View style={styles.overlay}>
+                <Stack.Screen options={{ title: "Country of the Day" }} />
                 <BlurView intensity={40} tint="dark" style={styles.card}>
                     <Text style={styles.title}>Country of the Day</Text>
-                    <Text>please turn on googleImageSearch</Text>
+                    {slug ? (
+                        <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
+                            <View style={styles.content}>
+                                <Image source={imageSource} style={styles.flagImage} resizeMode="contain" />
+
+                                {/* Images Section */}
+                                <View style={styles.googleImagesSection}>
+                                    <Text style={styles.sectionTitle}>Discover {displayName}</Text>
+
+                                    {isLoading && (
+                                        <View style={styles.loadingContainer}>
+                                            <ActivityIndicator size="small" color="#fff" />
+                                            <Text style={styles.loadingText}>Loading images...</Text>
+                                        </View>
+                                    )}
+
+                                    {error && (
+                                        <Text style={styles.errorText}>{error}</Text>
+                                    )}
+
+                                    {images.length > 0 && (
+                                        <View style={styles.imageScrollView}>
+                                            {images.map((image, index) => (
+                                                <View key={index} style={styles.googleImageContainer}>
+                                                    <Image
+                                                        source={{ uri: image.link }}
+                                                        style={styles.googleImage}
+                                                        resizeMode="cover"
+                                                    />
+                                                    <Text style={styles.imageCaption} numberOfLines={2}>
+                                                        {image.title}
+                                                    </Text>
+                                                </View>
+                                            ))}
+                                        </View>
+                                    )}
+                                </View>
+                            </View>
+                        </ScrollView>
+                    ) : (
+                        <Text style={styles.subtitle}>No countries available.</Text>
+                    )}
                 </BlurView>
             </View>
         </LinearGradient>
     );
+
 }
 
 const styles = StyleSheet.create({

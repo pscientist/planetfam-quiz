@@ -10,23 +10,13 @@ const debug = true;
 export default function Index() {
 
   const router = useRouter();
-  const { areAllRoundsCompleted, resetCompletedRounds,
-    currentRound, incrementRound } = useRound();
+  const { areAllRoundsCompleted, currentRound } = useRound();
 
   const handleStartQuiz = () => {
-    if (currentRound < 3) {
-      incrementRound();
-    }
+    // Don't increment if we're already at the correct round
+    // The currentRound should already be set to the next round to play
     router.push(`/quiz`);
   };
-
-  // useEffect(() => { if (debug) { resetCompletedRounds(); } },
-  //   [debug]
-  // );
-
-  // if (debug) {
-  // return <Redirect href="/" />;
-  // }
 
   // if both rounds are completed, redirect to menu
   if (areAllRoundsCompleted()) {

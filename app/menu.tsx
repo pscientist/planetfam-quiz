@@ -8,13 +8,9 @@ import { useRound } from "./contexts/RoundContext";
 
 export default function Menu() {
     const router = useRouter();
-    const { areAllRoundsCompleted, currentRound, getTotalRounds, incrementRound } = useRound();
+    const { areAllRoundsCompleted, currentRound, getTotalRounds, incrementRound, resetCompletedRounds } = useRound();
 
     const handlePlayPress = () => {
-        if (currentRound > 0 && currentRound < getTotalRounds()) {
-            incrementRound();
-        }
-
         router.push("/quiz");
     };
 
@@ -51,7 +47,7 @@ export default function Menu() {
                             <TouchableOpacity style={styles.item} activeOpacity={0.9}>
                                 <View style={styles.itemLeft}>
                                     <Ionicons name="book" size={20} color="#fff" style={styles.itemIcon} />
-                                    <Text style={styles.itemText}>What's in the Cupboard?</Text>
+                                    <Text style={styles.itemText}>World Supermarket!!</Text>
                                 </View>
                                 <Ionicons name="chevron-forward" size={18} color="#fff" />
                             </TouchableOpacity>

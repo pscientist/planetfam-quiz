@@ -5,7 +5,7 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import { FlatList, Image, Modal, Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import countriesManifest from "../assets/images/countries/countriesManifest";
-import { getQuestionsForRound } from "../data/questions_test";
+import { getQuestionsForRound } from "../data/questions";
 import FlagCollection from "./components/FlagCollection";
 import { useRound } from "./contexts/RoundContext";
 import { useScore } from "./contexts/ScoreContext";
@@ -19,6 +19,16 @@ export default function QuizScreen() {
     const { collectedCountries } = useScore();
 
     const questions = getQuestionsForRound(currentRound);
+
+    // Add this after line 21
+    if (!questions.length || currentQuestion >= questions.length || currentQuestion < 0) {
+        return <Text>No questions available for round: {currentRound}</Text>;
+    }
+
+    const currentQuestionData = questions[currentQuestion];
+    if (!currentQuestionData) {
+        return <Text>Invalid question num: {currentQuestion} </Text>;
+    }
 
     const handleNextQuestion = () => {
         if (currentQuestion < questions.length - 1) {
@@ -69,7 +79,7 @@ export default function QuizScreen() {
                 {/* Score indicator */}
                 <View style={styles.progressContainer}>
                     <Text style={styles.progressText}>
-                        Score:{score}  Total: {questions.length}
+                        Level:{currentRound}  Score:{score}  Total: {questions.length}
                     </Text>
                 </View>
 

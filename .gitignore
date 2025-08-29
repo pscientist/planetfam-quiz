@@ -43,3 +43,4 @@ app-example
 
 # vs code
 .vscode/
+.vercel

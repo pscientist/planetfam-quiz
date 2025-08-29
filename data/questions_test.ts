@@ -1,3 +1,6 @@
+import countriesManifest from '../assets/images/countries/countriesManifest';
+
+
 // Question interface
 
 interface Question {
@@ -12,10 +15,10 @@ interface Question {
 const round1Questions: Question[] = [
     {
         id: 1,
-        image: "../assets/images/countries/norway.webp",
+        image: countriesManifest.usa,
         options: ["Norway", "New Zealand", "UK", "USA"],
-        answer: "Norway",
-        slug: "norway",
+        answer: "USA",
+        slug: "usa",
     },
     {
         id: 2,
@@ -56,10 +59,10 @@ const round3Questions: Question[] = [
     },
     {
         id: 18,
-        image: "../assets/images/countries/usa.webp",
-        options: ["Canada", "USA", "Mexico", "Australia"],
-        answer: "USA",
-        slug: "usa",
+        image: "../assets/images/countries/norway.webp",
+        options: ["Norway", "USA", "Mexico", "Australia"],
+        answer: "Norway",
+        slug: "norway",
     },
 ];
 

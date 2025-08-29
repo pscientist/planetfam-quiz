@@ -31,7 +31,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/PlanetFam_Icon_1024.png",
+          "image": "./assets/images/splash_with_background_fill.png",
           "resizeMode": "cover",
           "backgroundColor": "#0f172a"
         }
