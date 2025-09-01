@@ -19,7 +19,7 @@ function HomeButton() {
 
   const handleHomePress = () => {
     resetScore();
-    router.push('/menu');
+    router.replace('/menu');
   };
 
   return (

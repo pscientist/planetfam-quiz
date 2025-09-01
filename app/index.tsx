@@ -5,17 +5,15 @@ import { Redirect, useRouter } from "expo-router";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useRound } from "./contexts/RoundContext";
 
-const debug = true;
-
 export default function Index() {
 
   const router = useRouter();
-  const { areAllRoundsCompleted, currentRound } = useRound();
+  const { areAllRoundsCompleted } = useRound();
 
   const handleStartQuiz = () => {
     // Don't increment if we're already at the correct round
     // The currentRound should already be set to the next round to play
-    router.push(`/quiz`);
+    router.replace(`/quiz`);
   };
 
   // if both rounds are completed, redirect to menu

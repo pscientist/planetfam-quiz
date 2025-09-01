@@ -56,6 +56,9 @@ export default function CountryOfTheDay() {
 
     // Use the Google image search hook
     const { images, isLoading, error } = useGoogleImageSearch(displayName);
+    // const images: any[] = [];
+    // const isLoading = false;
+    // const error = null;
 
     return (
         <LinearGradient

@@ -11,7 +11,7 @@ export default function Menu() {
     const { areAllRoundsCompleted, currentRound, getTotalRounds, incrementRound, resetCompletedRounds } = useRound();
 
     const handlePlayPress = () => {
-        router.push("/quiz");
+        router.replace("/quiz");
     };
 
     return (

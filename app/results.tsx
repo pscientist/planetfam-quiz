@@ -37,6 +37,10 @@ export default function ResultsScreen() {
 
     const handleMainMenu = () => {
         resetScore();
+        resetCollectedCountries();
+        if (currentRound < 3) {
+            incrementRound();
+        }
         router.replace('/menu');
     }
 

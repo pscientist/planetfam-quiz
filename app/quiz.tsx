@@ -37,7 +37,7 @@ export default function QuizScreen() {
             // the last question    
         } else {
             setIsCorrect(null);
-            router.push({
+            router.replace({
                 pathname: "/results",
                 params: {
                     score: score.toString(),

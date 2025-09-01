@@ -51,9 +51,6 @@ export const useGoogleImageSearch = (
 
         try {
             const searchQuery = encodeURIComponent(`${country}+landmarks+attractions`);
-            // const url = `https://www.googleapis.com/customsearch/v1?
-            //                 key=${GOOGLE_API_KEY}&cx=${GOOGLE_SEARCH_ENGINE_ID}&
-            //                 q=${searchQuery}&num=${count}&searchType=image&imgSize=medium`;
             const url = `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_API_KEY}&cx=${GOOGLE_SEARCH_ENGINE_ID}&q=${searchQuery}&num=${count}&searchType=image&imgSize=medium`;
             const response = await fetch(url, {
                 method: 'GET',

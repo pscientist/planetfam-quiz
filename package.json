@@ -33,6 +33,7 @@
     "expo-updates": "~0.28.17",
     "expo-web-browser": "~14.2.0",
     "next": "^15.5.2",
+    "openai": "^5.16.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-native": "0.79.5",
@@ -41,7 +42,8 @@
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.11.1",
     "react-native-web": "~0.20.0",
-    "react-native-webview": "13.13.5"
+    "react-native-webview": "13.13.5",
+    "sharp": "^0.34.3"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
