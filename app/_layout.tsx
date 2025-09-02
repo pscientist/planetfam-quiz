@@ -82,7 +82,7 @@ export default function RootLayout() {
           await Updates.reloadAsync();
         }
       } catch {
-        console.log("Error checking for updates");
+        console.log("Error checking for Expo updates");
       }
     })();
   }, []);
