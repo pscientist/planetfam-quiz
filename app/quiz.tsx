@@ -3,7 +3,7 @@ import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { FlatList, Image, Modal, Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { Dimensions, FlatList, Image, Modal, Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import ConfettiCannon from 'react-native-confetti-cannon';
 import countriesManifest from "../assets/images/countries/countriesManifest";
 import { getQuestionsForRound } from "../data/questions";
@@ -19,7 +19,6 @@ export default function QuizScreen() {
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
     const { collectedCountries } = useScore();
     const [confettiVisible, setConfettiVisible] = useState(false);
-    const [confettiOrigin, setConfettiOrigin] = useState({ x: 200, y: 300 });
 
     const questions = getQuestionsForRound(currentRound);
 
@@ -50,43 +49,16 @@ export default function QuizScreen() {
         }
     };
 
-    const handleOptionPress = (option: string, event: any) => {
+    const handleOptionPress = (option: string) => {
 
         if (isCorrect !== null) return;// already answered
 
-        let x = 0; let y = 0;
-        const nativeEvent = event.nativeEvent;
-
-        if (nativeEvent.locationX !== undefined && nativeEvent.locationY !== undefined) {
-            x = nativeEvent.locationX;
-            y = nativeEvent.locationY;
-            console.log('locationX', x, 'locationY', y);
-        } else if (nativeEvent.pageX !== undefined && nativeEvent.pageY !== undefined) {
-            x = nativeEvent.pageX;
-            y = nativeEvent.pageY;
-            console.log('pageX', x, 'pageY', y);
-        } else {
-            x = 200;
-            y = 300;
-            console.log('default', x, 'default', y);
-        }
-
-        setConfettiOrigin({ x, y });
-
         if (option == questions[currentQuestion].answer) {
-            // set the location first before showing confetti
-            setConfettiOrigin({ x, y });
-
             setIsCorrect(true);
             incrementScore();
             addCollectedCountry(questions[currentQuestion].slug);
             addAllCollectedCountry(questions[currentQuestion].slug);
             setConfettiVisible(true);
-
-            // small delay to ensure confetti  original are set before visible
-            setTimeout(() => {
-                setConfettiVisible(true);
-            }, 100);
 
             setTimeout(() => {
                 setConfettiVisible(false);
@@ -136,7 +108,7 @@ export default function QuizScreen() {
 
                             return (
                                 <Pressable
-                                    onPress={(event) => handleOptionPress(item, event)}
+                                    onPress={() => handleOptionPress(item)}
                                     style={({ pressed }) => [
                                         styles.option,
                                         isCorrect && isCorrectChoice && styles.optionCorrect,
@@ -167,12 +139,12 @@ export default function QuizScreen() {
                 </BlurView>
 
                 {confettiVisible && (<ConfettiCannon
-                    count={200}
-                    fallSpeed={3000}
-                    explosionSpeed={10000}
-                    fadeOut={true}
-                    colors={['#FFD700', '#E0AA3E', '#E6D5B8']}
-                    origin={confettiOrigin}
+                    origin={{ x: Dimensions.get('window').width / 2, y: Dimensions.get('window').height * 0.3 }}
+                    count={100}
+                    explosionSpeed={1000}    // bigger initial kick
+                    fallSpeed={3000}         // end sooner
+                    fadeOut                  // disappear quickly
+                    autoStart
                 />
                 )}
 
