@@ -2,8 +2,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
-import { useState } from "react";
-import { Dimensions, FlatList, Image, Modal, Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { useRef, useState } from "react";
+import { Animated, Dimensions, FlatList, Image, PanResponder, Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import ConfettiCannon from 'react-native-confetti-cannon';
 import countriesManifest from "../assets/images/countries/countriesManifest";
 import { getQuestionsForRound } from "../data/questions";
@@ -19,8 +19,63 @@ export default function QuizScreen() {
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
     const { collectedCountries } = useScore();
     const [confettiVisible, setConfettiVisible] = useState(false);
+    // Fade animation for wrong answer modal
+    const fadeAnim = useRef(new Animated.Value(0)).current;
+    // Draggable popup position
+    const initialPopupPosition = useRef({ x: 20, y: Dimensions.get('window').height * 0.55 }).current;
+    const pan = useRef(new Animated.ValueXY(initialPopupPosition)).current;
+    const panResponder = useRef(
+        PanResponder.create({
+            onStartShouldSetPanResponder: () => true,
+            onPanResponderGrant: () => {
+                pan.setOffset({ x: (pan.x as any)._value, y: (pan.y as any)._value });
+            },
+            onPanResponderMove: Animated.event([
+                null,
+                { dx: pan.x, dy: pan.y },
+            ], { useNativeDriver: false }),
+            onPanResponderRelease: () => {
+                pan.flattenOffset();
+            },
+        })
+    ).current;
 
     const questions = getQuestionsForRound(currentRound);
+
+    // Country facts: 2 landmarks + 3 dinner dishes per country slug
+    const countryFacts: { [key: string]: string } = {
+        spain: "Landmarks: Sagrada Familia, Park Güell. Dishes: Paella, Gazpacho, Tortilla Española.",
+        france: "Landmarks: Eiffel Tower, Louvre Museum. Dishes: Coq au Vin, Bouillabaisse, Ratatouille.",
+        russia: "Landmarks: Red Square, Hermitage Museum. Dishes: Borscht, Beef Stroganoff, Pelmeni.",
+        ethiopia: "Landmarks: Lalibela Churches, Simien Mountains. Dishes: Injera (with Doro Wat), Kitfo, Tibs.",
+        nz: "Landmarks: Milford Sound, Sky Tower. Dishes: Hangi, Pavlova, Fish and Chips.",
+        philippines: "Landmarks: Banaue Rice Terraces, Boracay Beach. Dishes: Adobo, Lechón, Sinigang.",
+        png: "Landmarks: Kokoda Trail, Mount Wilhelm. Dishes: Mumu, Sago, Kokoda (fish dish).",
+        sweden: "Landmarks: Vasa Museum, Ice Hotel. Dishes: Swedish Meatballs, Gravlax, Janssons Frestelse.",
+        germany: "Landmarks: Brandenburg Gate, Neuschwanstein Castle. Dishes: Sauerbraten, Schnitzel, Bratwurst.",
+        uk: "Landmarks: Big Ben, Stonehenge. Dishes: Fish and Chips, Shepherd's Pie, Bangers and Mash.",
+        usa: "Landmarks: Statue of Liberty, Grand Canyon. Dishes: BBQ Ribs, Mac and Cheese, Apple Pie.",
+        japan: "Landmarks: Mount Fuji, Fushimi Inari Shrine. Dishes: Sushi, Ramen, Tempura.",
+        china: "Landmarks: Great Wall, Forbidden City. Dishes: Peking Duck, Dim Sum, Kung Pao Chicken.",
+        india: "Landmarks: Taj Mahal, Red Fort. Dishes: Butter Chicken, Biryani, Masala Dosa.",
+        australia: "Landmarks: Sydney Opera House, Uluru. Dishes: Meat Pie, Barramundi, Chicken Parmigiana.",
+        mongolia: "Landmarks: Erdene Zuu Monastery, Gobi Desert. Dishes: Buuz, Khorkhog, Bansh.",
+        norway: "Landmarks: Geirangerfjord, North Cape. Dishes: Fårikål, Lutefisk, Reindeer Steak.",
+        iceland: "Landmarks: Blue Lagoon, Gullfoss. Dishes: Lamb Soup, Plokkfiskur, Skyr.",
+        finland: "Landmarks: Suomenlinna, Santa Claus Village. Dishes: Karjalanpiirakka, Salmon Soup, Sautéed Reindeer.",
+        netherlands: "Landmarks: Anne Frank House, Keukenhof Gardens. Dishes: Stamppot, Bitterballen, Erwtensoep.",
+        switzerland: "Landmarks: Matterhorn, Jungfraujoch. Dishes: Fondue, Rösti, Raclette.",
+        taiwan: "Landmarks: Taipei 101, Taroko Gorge. Dishes: Beef Noodle Soup, Gua Bao, Oyster Omelet.",
+        hk: "Landmarks: Victoria Peak, Tian Tan Buddha. Dishes: Dim Sum, Char Siu, Egg Tarts.",
+        malaysia: "Landmarks: Petronas Towers, Batu Caves. Dishes: Nasi Lemak, Rendang, Laksa.",
+        laos: "Landmarks: Luang Prabang, Wat Phou. Dishes: Larb, Or Lam, Sticky Rice.",
+        afghanistan: "Landmarks: Band-e-Amir, Minaret of Jam. Dishes: Kabuli Pulao, Mantu, Qabili Palaw.",
+        colombia: "Landmarks: Cartagena Old City, Cocora Valley. Dishes: Bandeja Paisa, Ajiaco, Sancocho.",
+        uzbekistan: "Landmarks: Registan Square, Itchan Kala. Dishes: Plov, Lagman, Samsa.",
+        srilanka: "Landmarks: Sigiriya Rock, Temple of the Tooth. Dishes: Rice and Curry, Hoppers, Kottu Roti.",
+        south_sudan: "Landmarks: Boma National Park, White Nile. Dishes: Asida, Ful Medames, Kisra.",
+        saudi_arabia: "Landmarks: Masjid al-Haram, Mada'in Salih. Dishes: Kabsa, Mandi, Mutabbaq."
+    };
 
     // Add this after line 21
     if (!questions.length || currentQuestion >= questions.length || currentQuestion < 0) {
@@ -31,6 +86,7 @@ export default function QuizScreen() {
     if (!currentQuestionData) {
         return <Text>Invalid question num: {currentQuestion} </Text>;
     }
+
 
     const handleNextQuestion = () => {
         if (currentQuestion < questions.length - 1) {
@@ -65,7 +121,28 @@ export default function QuizScreen() {
             }, 3000);
         } else {
             setIsCorrect(false);
+            // Reset popup position
+            pan.setValue(initialPopupPosition);
+            // Fade in
+            Animated.timing(fadeAnim, {
+                toValue: 1,
+                duration: 300,
+                useNativeDriver: true,
+            }).start();
+
+
         }
+    };
+
+    const handleClosePopup = () => {
+        Animated.timing(fadeAnim, {
+            toValue: 0,
+            duration: 150,
+            useNativeDriver: true,
+        }).start(() => {
+            setIsCorrect(null);
+            pan.setValue(initialPopupPosition);
+        });
     };
 
     function getImageSource(slug: string) {
@@ -73,6 +150,8 @@ export default function QuizScreen() {
         if (!entry) return null;
         return entry;
     }
+
+    const CARD_WIDTH = "92%";
 
     return (
         <LinearGradient
@@ -148,30 +227,25 @@ export default function QuizScreen() {
                 />
                 )}
 
-                {/* Wrong Answer Modal */}
-                <Modal
-                    animationType="fade"
-                    transparent={true}
-                    visible={isCorrect === false}
-                    onRequestClose={() => setIsCorrect(null)}
-                >
-                    <View style={styles.modalOverlay}>
-                        <BlurView intensity={50} tint="dark" style={styles.modalContainer}>
-                            <View style={styles.modalContent}>
-                                <Text style={styles.niceTry}>Nice try!</Text>
-                                <Text style={styles.correctLine}>
-                                    The correct answer is <Text style={styles.correctInline}>{questions[currentQuestion].answer}</Text>.
-                                </Text>
-                                <Pressable
-                                    onPress={handleNextQuestion}
-                                    style={({ pressed }) => [styles.modalNextBtn, pressed && { opacity: 0.8 }]}
-                                >
-                                    <Text style={styles.nextText}>Continue</Text>
-                                </Pressable>
-                            </View>
-                        </BlurView>
-                    </View>
-                </Modal>
+                {/* Wrong Answer Draggable Popup (non-blocking) */}
+                {isCorrect === false && (
+                    <Animated.View
+                        style={[
+                            styles.draggableContainer,
+                            { opacity: fadeAnim, transform: pan.getTranslateTransform() },
+                        ]}
+                        {...panResponder.panHandlers}
+                        pointerEvents="auto"
+                    >
+                        <View style={{ position: "relative", padding: 16, backgroundColor: "rgba(255,255,255,0.95)", borderRadius: 12, width: "100%" }}>
+                            <Text style={styles.countryFact}> {questions[currentQuestion].slug} :
+                                {countryFacts[questions[currentQuestion].slug] || "More information coming soon!"}</Text>
+                            <Pressable onPress={handleNextQuestion} style={{ position: "absolute", top: 8, right: 8, padding: 6 }}>
+                                <Ionicons name="close" size={18} color="#6b7280" />
+                            </Pressable>
+                        </View>
+                    </Animated.View>
+                )}
 
                 {/* Next button for correct answers only */}
                 {isCorrect === true && (
@@ -390,5 +464,96 @@ const styles = StyleSheet.create({
         backgroundColor: "#22c55e",
         alignItems: "center",
         justifyContent: "center",
+    },
+    countryInfoContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        paddingHorizontal: 20,
+    },
+    countryInfoCard: {
+        borderRadius: 20,
+        overflow: "hidden",
+        width: "85%",
+    },
+    countryInfoContent: {
+        backgroundColor: "rgba(255, 255, 255, 0.95)",
+        borderRadius: 20,
+        padding: 24,
+        alignItems: "center",
+        gap: 16,
+    },
+    countryHeader: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 8,
+        marginBottom: 4,
+    },
+    countryName: {
+        fontSize: 22,
+        fontWeight: "900",
+        fontFamily: "SpaceMono",
+        color: "#E67E22",
+        letterSpacing: 1,
+    },
+    correctAnswerText: {
+        fontSize: 16,
+        fontFamily: "SpaceMono",
+        color: colors.textDark,
+        textAlign: "center",
+        marginBottom: 8,
+    },
+    factContainer: {
+        backgroundColor: "rgba(230, 126, 34, 0.1)",
+        borderRadius: 12,
+        padding: 16,
+        width: "100%",
+        borderLeftWidth: 4,
+        borderLeftColor: "#E67E22",
+    },
+    didYouKnow: {
+        fontSize: 14,
+        fontWeight: "800",
+        fontFamily: "SpaceMono",
+        color: "#E67E22",
+        marginBottom: 8,
+        textTransform: "uppercase",
+        letterSpacing: 1,
+    },
+    countryFact: {
+        fontSize: 15,
+        fontFamily: "SpaceMono",
+        color: "#5D4037",
+        lineHeight: 22,
+        textAlign: "left",
+    },
+    autoProgressContainer: {
+        alignItems: "center",
+        gap: 8,
+        marginTop: 8,
+    },
+    progressDots: {
+        flexDirection: "row",
+        gap: 6,
+    },
+    progressDot: {
+        width: 8,
+        height: 8,
+        borderRadius: 4,
+        backgroundColor: "#E67E22",
+        opacity: 0.6,
+    },
+    autoProgressText: {
+        fontSize: 12,
+        fontFamily: "SpaceMono",
+        color: "#9CA3AF",
+        fontStyle: "italic",
+    },
+    draggableContainer: {
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        zIndex: 100,
+        width: "92%",
     },
 });
