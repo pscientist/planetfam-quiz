@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link, Stack, useRouter } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { FONT_FAMILY } from "./constants";
 import { useRound } from "./contexts/RoundContext";
 
@@ -12,6 +12,17 @@ export default function Menu() {
 
     const handlePlayPress = () => {
         router.replace("/quiz");
+    };
+
+    const handleResetRounds = () => {
+        Alert.alert(
+            "Reset rounds?",
+            "This will clear completed rounds and set you back to Round 1.",
+            [
+                { text: "Cancel", style: "cancel" },
+                { text: "Reset", style: "destructive", onPress: () => resetCompletedRounds() },
+            ]
+        );
     };
 
     return (
@@ -81,6 +92,15 @@ export default function Menu() {
                             </TouchableOpacity>
                         </Link>
 
+                        {__DEV__ && (
+                            <TouchableOpacity style={styles.item} activeOpacity={0.9} onPress={handleResetRounds}>
+                                <View style={styles.itemLeft}>
+                                    <Ionicons name="refresh" size={20} color="#fff" style={styles.itemIcon} />
+                                    <Text style={styles.itemText}>Reset Rounds (Debug)</Text>
+                                </View>
+                                <Ionicons name="chevron-forward" size={18} color="#fff" />
+                            </TouchableOpacity>
+                        )}
 
                     </View>
                 </BlurView>
