@@ -3,7 +3,7 @@ import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { useRef, useState } from "react";
-import { Animated, Dimensions, FlatList, Image, PanResponder, Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { Animated, Dimensions, FlatList, Image, PanResponder, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import ConfettiCannon from 'react-native-confetti-cannon';
 import countriesManifest from "../assets/images/countries/countriesManifest";
 import { getQuestionsForRound } from "../data/questions";
@@ -11,43 +11,6 @@ import FlagCollection from "./components/FlagCollection";
 import { countryFacts } from "./constants";
 import { useRound } from "./contexts/RoundContext";
 import { useScore } from "./contexts/ScoreContext";
-
-// Function to render country facts with icons
-const renderCountryFacts = (facts: string) => {
-    if (!facts) return <Text style={styles.countryFact}>More information coming soon!</Text>;
-
-    // Split the facts string into parts
-    const parts = facts.split(/(Landmarks:|Dishes:)/);
-
-    return (
-        <View style={styles.countryFactContainer}>
-            {parts.map((part, index) => {
-                if (part === "Landmarks:") {
-                    return (
-                        <View key={index} style={styles.factSection}>
-                            <Ionicons name="library" size={16} color="#5D4037" style={styles.factIcon} />
-                            <Text style={styles.countryFact}>Landmarks:</Text>
-                        </View>
-                    );
-                } else if (part === "Dishes:") {
-                    return (
-                        <View key={index} style={styles.factSection}>
-                            <Ionicons name="nutrition" size={16} color="#5D4037" style={styles.factIcon} />
-                            <Text style={styles.countryFact}>Dishes:</Text>
-                        </View>
-                    );
-                } else if (part.trim()) {
-                    return (
-                        <Text key={index} style={styles.countryFact}>
-                            {part.trim()}
-                        </Text>
-                    );
-                }
-                return null;
-            })}
-        </View>
-    );
-};
 
 export default function QuizScreen() {
     const router = useRouter();
@@ -62,7 +25,7 @@ export default function QuizScreen() {
 
     const fadeAnim = useRef(new Animated.Value(0)).current;
     // Draggable popup position
-    const initialPopupPosition = useRef({ x: 20, y: Dimensions.get('window').height * 0.55 }).current;
+    const initialPopupPosition = useRef({ x: 20, y: Dimensions.get('window').height * 0.50 }).current;
     const pan = useRef(new Animated.ValueXY(initialPopupPosition)).current;
     const panResponder = useRef(
         PanResponder.create({
@@ -150,8 +113,6 @@ export default function QuizScreen() {
         return entry;
     }
 
-
-
     return (
         <LinearGradient
             colors={["#FFD700", "#E0AA3E", "#E6D5B8"]}
@@ -230,23 +191,27 @@ export default function QuizScreen() {
                 />
                 )}
 
-                {/* Draggable info popup (non-blocking) */}
+                {/* Info popup with improved styling */}
                 {popupVisible && (
-                    <Animated.View
-                        style={[
-                            styles.draggableContainer,
-                            { opacity: fadeAnim, transform: pan.getTranslateTransform() },
-                        ]}
-                        {...panResponder.panHandlers}
-                        pointerEvents="auto"
-                    >
-                        <View style={styles.popupCard}>
-                            {renderCountryFacts(countryFacts[questions[currentQuestion].slug])}
-                            <Pressable onPress={handleNextQuestion} style={styles.popupCloseBtn}>
-                                <Ionicons name="close" size={18} color="#6b7280" />
+                    <View style={styles.popupOverlay}>
+                        <View style={styles.popupContainer}>
+                            <View style={styles.popupHeader}>
+                                <Text style={styles.popupTitle}>{questions[currentQuestion].answer}</Text>
+                            </View>
+
+                            <ScrollView
+                                showsVerticalScrollIndicator={true}
+                                style={styles.popupScrollView}
+                                contentContainerStyle={styles.popupScrollContent}
+                            >
+                                <Text style={styles.popupText}>{countryFacts[questions[currentQuestion].slug]}</Text>
+                            </ScrollView>
+
+                            <Pressable onPress={handleNextQuestion} style={styles.popupNextBtn}>
+                                <Text style={styles.popupNextText}>Continue →</Text>
                             </Pressable>
                         </View>
-                    </Animated.View>
+                    </View>
                 )}
 
                 {/* Info button for correct answers - opens popup on demand */}
@@ -429,7 +394,11 @@ const styles = StyleSheet.create({
         left: 0,
         top: 0,
         zIndex: 100,
-        width: "92%",
+        width: "75%",
+        maxHeight: 200,
+        backgroundColor: "rgba(255,255,255,0.95)",
+        borderRadius: 12,
+        padding: 16,
     },
     spacer20: {
         marginTop: 20,
@@ -443,18 +412,84 @@ const styles = StyleSheet.create({
         gap: 6,
         padding: 6,
     },
-    popupCard: {
-        position: "relative",
-        padding: 16,
-        backgroundColor: "rgba(255,255,255,0.95)",
-        borderRadius: 12,
-        width: "100%",
+    popupOverlay: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1000,
+    },
+    popupContainer: {
+        backgroundColor: '#ffffff',
+        borderRadius: 16,
+        margin: 20,
+        maxHeight: '70%',
+        minHeight: 300,
+        width: '85%',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.25,
+        shadowRadius: 12,
+        elevation: 8,
+    },
+    popupHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 20,
+        paddingTop: 20,
+        paddingBottom: 16,
+        borderBottomWidth: 1,
+        borderBottomColor: '#e5e7eb',
+    },
+    popupTitle: {
+        fontSize: 18,
+        fontWeight: '700',
+        color: '#1f2937',
+        fontFamily: 'SpaceMono',
     },
     popupCloseBtn: {
-        position: "absolute",
-        top: 8,
-        right: 8,
-        padding: 6,
+        padding: 8,
+        borderRadius: 20,
+        backgroundColor: '#f3f4f6',
+    },
+    popupScrollView: {
+        flex: 1,
+        paddingHorizontal: 20,
+    },
+    popupScrollContent: {
+        paddingVertical: 16,
+        paddingBottom: 20,
+    },
+    popupText: {
+        fontSize: 15,
+        color: '#374151',
+        marginBottom: 12,
+        lineHeight: 22,
+        fontFamily: 'SpaceMono',
+    },
+    popupNextBtn: {
+        backgroundColor: colors.friendlyPurple,
+        marginHorizontal: 20,
+        marginBottom: 20,
+        paddingVertical: 14,
+        borderRadius: 12,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.15,
+        shadowRadius: 4,
+        elevation: 3,
+    },
+    popupNextText: {
+        color: '#ffffff',
+        fontSize: 16,
+        fontWeight: '700',
+        fontFamily: 'SpaceMono',
     },
     pressedScale: {
         transform: [{ scale: 0.98 }],
