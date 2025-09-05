@@ -242,8 +242,8 @@ export const SHELVES: Shelf[] = [
 
 // Country facts: 2 landmarks + 3 dinner dishes per country slug
 export const countryFacts: { [key: string]: string } = {
-    spain: "Landmarks: Sagrada Familia: Famous Barcelona cathedral with Gaudí towers. Park Güell: Colorful Barcelona park with Gaudí mosaics. Dishes: Paella: Valencia rice dish with seafood and saffron. Gazpacho: Andalusian cold tomato soup with vegetables. Tortilla Española: Spanish potato and egg omelette.",
-    france: "Landmarks: Eiffel Tower: Famous iron tower in Paris. Louvre Museum: World's largest art museum in Paris. Dishes: Coq au Vin: French chicken in red wine sauce. Bouillabaisse: Marseille fish stew with saffron. Ratatouille: Provence vegetable stew with herbs.",
+    spain: "Landmarks: Sagrada Familia: Famous Barcelona cathedral with Gaudí towers. Dishes: Paella: Valencia rice dish with seafood and saffron. Gazpacho: Andalusian cold tomato soup with vegetables.Tortilla Española: Spanish potato and egg omelette.",
+    france: "Landmarks: Eiffel Tower: Famous iron tower in Paris. Dishes: Crossiants",
     russia: "Landmarks: Red Square: Famous historic square in Moscow. Hermitage Museum: World-famous art museum in St. Petersburg. Dishes: Borscht: Traditional beetroot soup with sour cream. Beef Stroganoff: Russian beef strips in sour cream sauce. Pelmeni: Russian meat dumplings in broth.",
     ethiopia: "Landmarks: Lalibela Churches: Ancient rock-hewn churches in Ethiopia. Simien Mountains: Dramatic mountain range with unique wildlife. Dishes: Injera (with Doro Wat): Ethiopian flatbread with spicy chicken stew. Kitfo: Ethiopian raw beef with spices. Tibs: Ethiopian sautéed meat with vegetables.",
     nz: "Landmarks: Milford Sound: Spectacular New Zealand fjord with waterfalls. Sky Tower: Tallest building in Auckland, New Zealand. Dishes: Hangi: Maori earth oven cooked meal. Pavlova: New Zealand meringue dessert with fruit. Fish and Chips: Classic New Zealand battered fish with chips.",

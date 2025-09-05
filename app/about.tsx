@@ -38,6 +38,16 @@ export default function About() {
                             Guess the country, explore its architecture, and discover the beauty of dining traditions around the world.
                         </Text>
 
+                        {/* <View style={styles.logoContainer}> */}
+                        <Image
+                            resizeMode="contain"
+                            source={require("../assets/images/company_logo.webp")}
+                            style={styles.companyLogo}
+                        />
+                        <Text style={styles.copyrightText}>
+                            © 2025 PlanetFam. All rights reserved.
+                        </Text>
+                        {/* </View> */}
                     </BlurView>
                 </View>
             </LinearGradient>
@@ -103,6 +113,29 @@ const styles = StyleSheet.create({
         // height: 400,
         // marginBottom: 10,
         alignSelf: "center",
+    },
+    logoContainer: {
+        width: "100%",
+        alignItems: "center",
+        marginVertical: 30,
+        paddingVertical: 20,
+        backgroundColor: "rgba(255,255,255,0.1)",
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: "rgba(255,255,255,0.2)",
+    },
+    companyLogo: {
+        width: 400,
+        height: 120,
+        maxWidth: "90%",
+    },
+    copyrightText: {
+        fontFamily: "Arial",
+        fontSize: 12,
+        color: "rgba(255,255,255,0.7)",
+        marginTop: 15,
+        textAlign: "center",
+        fontStyle: "italic",
     },
 });
 

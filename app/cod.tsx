@@ -3,7 +3,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Stack } from "expo-router";
 import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import countriesManifest from "../assets/images/countries/countriesManifest";
-import { FONT_FAMILY } from "./constants";
+import { FONT_FAMILY } from "../data/constants";
 import { useGoogleImageSearch } from "./hooks/useGoogleImageSearch";
 
 function getDisplayName(slug: string): string {

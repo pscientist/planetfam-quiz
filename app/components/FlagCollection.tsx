@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { COUNTRY_NAMES, FLAG_EMOJIS } from '../constants';
+import { COUNTRY_NAMES, FLAG_EMOJIS } from '../../data/constants';
 
 interface FlagCollectionProps {
     collectedCountries: string[];

@@ -6,9 +6,9 @@ import { useRef, useState } from "react";
 import { Animated, Dimensions, FlatList, Image, PanResponder, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import ConfettiCannon from 'react-native-confetti-cannon';
 import countriesManifest from "../assets/images/countries/countriesManifest";
+import { countryFacts } from "../data/constants";
 import { getQuestionsForRound } from "../data/questions";
 import FlagCollection from "./components/FlagCollection";
-import { countryFacts } from "./constants";
 import { useRound } from "./contexts/RoundContext";
 import { useScore } from "./contexts/ScoreContext";
 

@@ -11,7 +11,7 @@ import {
     Text,
     View,
 } from 'react-native';
-import { SHELVES } from './constants';
+import { SHELVES } from '../data/constants';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 

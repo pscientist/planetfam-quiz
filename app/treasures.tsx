@@ -4,8 +4,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Stack, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FONT_FAMILY } from "../data/constants";
 import FlagCollection from "./components/FlagCollection";
-import { FONT_FAMILY } from "./constants";
 import { useScore } from "./contexts/ScoreContext";
 
 export default function Treasures() {

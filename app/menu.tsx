@@ -3,7 +3,7 @@ import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link, Stack, useRouter } from "expo-router";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { FONT_FAMILY } from "./constants";
+import { FONT_FAMILY } from "../data/constants";
 import { useRound } from "./contexts/RoundContext";
 
 export default function Menu() {
