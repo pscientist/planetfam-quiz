@@ -12,7 +12,7 @@ export default function ResultsScreen() {
     const { score = "0", total = "0" } = useLocalSearchParams();
     const router = useRouter();
     const { resetScore, resetCollectedCountries, getAllCollectedCountries } = useScore();
-    const { currentRound, markRoundAsCompleted, areAllRoundsCompleted, incrementRound } = useRound();
+    const { currentRound, markRoundAsCompleted, areAllRoundsCompleted, incrementRound, getTotalRounds } = useRound();
     const allCollectedCountries = getAllCollectedCountries();
 
     // Mark the current round as completed when results screen loads
@@ -25,7 +25,7 @@ export default function ResultsScreen() {
         resetCollectedCountries();
 
         // If all rounds are completed, don't allow play again
-        if (currentRound === 3) {
+        if (currentRound === getTotalRounds()) {
             router.replace('/menu');
             return;
         } else {
@@ -38,7 +38,7 @@ export default function ResultsScreen() {
     const handleMainMenu = () => {
         resetScore();
         resetCollectedCountries();
-        if (currentRound < 3) {
+        if (currentRound < getTotalRounds()) {
             incrementRound();
         }
         router.replace('/menu');

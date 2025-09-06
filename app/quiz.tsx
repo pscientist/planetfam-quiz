@@ -191,12 +191,15 @@ export default function QuizScreen() {
                 />
                 )}
 
-                {/* Info popup with improved styling */}
+                {/* Info popup - non-modal floating window */}
                 {popupVisible && (
-                    <View style={styles.popupOverlay}>
-                        <View style={styles.popupContainer}>
+                    <View style={styles.floatingPopup}>
+                        <View style={styles.floatingPopupContainer}>
                             <View style={styles.popupHeader}>
                                 <Text style={styles.popupTitle}>{questions[currentQuestion].answer}</Text>
+                                <Pressable onPress={() => { setPopupVisible(false); handleNextQuestion(); }} style={styles.popupCloseBtn}>
+                                    <Ionicons name="close" size={18} color="#6b7280" />
+                                </Pressable>
                             </View>
 
                             <ScrollView
@@ -207,9 +210,6 @@ export default function QuizScreen() {
                                 <Text style={styles.popupText}>{countryFacts[questions[currentQuestion].slug]}</Text>
                             </ScrollView>
 
-                            <Pressable onPress={handleNextQuestion} style={styles.popupNextBtn}>
-                                <Text style={styles.popupNextText}>Continue →</Text>
-                            </Pressable>
                         </View>
                     </View>
                 )}
@@ -412,29 +412,25 @@ const styles = StyleSheet.create({
         gap: 6,
         padding: 6,
     },
-    popupOverlay: {
+    floatingPopup: {
         position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 1000,
+        top: 440,
+        // right: 20,
+        zIndex: 100,
     },
-    popupContainer: {
+    floatingPopupContainer: {
         backgroundColor: '#ffffff',
         borderRadius: 16,
-        margin: 20,
-        maxHeight: '70%',
-        minHeight: 300,
-        width: '85%',
+        maxHeight: 400,
+        minHeight: 250,
+        width: "100%",
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.25,
         shadowRadius: 12,
         elevation: 8,
+        borderWidth: 1,
+        borderColor: '#e5e7eb',
     },
     popupHeader: {
         flexDirection: 'row',

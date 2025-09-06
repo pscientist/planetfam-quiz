@@ -41,7 +41,7 @@ export default function About() {
                         {/* <View style={styles.logoContainer}> */}
                         <Image
                             resizeMode="contain"
-                            source={require("../assets/images/company_logo.webp")}
+                            source={require("../assets/images/logo_trans.webp")}
                             style={styles.companyLogo}
                         />
                         <Text style={styles.copyrightText}>

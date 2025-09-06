@@ -14,17 +14,17 @@ interface Question {
 const round1Questions: Question[] = [
     {
         id: 1,
-        image: countriesManifest.spain,
-        options: ["Spain", "UK", "Brazil", "USA"],
-        answer: "Spain",
-        slug: "spain",
-    },
-    {
-        id: 2,
         image: countriesManifest.france,
         options: ["France", "UK", "USA", "Germany"],
         answer: "France",
         slug: "france",
+    },
+    {
+        id: 2,
+        image: countriesManifest.spain,
+        options: ["Spain", "UK", "Brazil", "USA"],
+        answer: "Spain",
+        slug: "spain",
     },
     {
         id: 3,
@@ -194,11 +194,72 @@ const round3Questions: Question[] = [
 
 ];
 
+const round4Questions: Question[] = [
+    {
+        id: 25,
+        image: countriesManifest.australia,
+        options: ["Australia", "Canada", "Mexico", "Brazil"],
+        answer: "Australia",
+        slug: "australia",
+    },
+    {
+        id: 26,
+        image: countriesManifest.argentina,
+        options: ["Israel", "Mexico", "Argentina", "Australia"],
+        answer: "Argentina",
+        slug: "argentina",
+    },
+    {
+        id: 27,
+        image: countriesManifest.cuba,
+        options: ["Bolivia", "Mexico", "Argentina", "Cuba"],
+        answer: "Cuba",
+        slug: "cuba",
+    },
+    {
+        id: 28,
+        image: countriesManifest.belgium,
+        options: ["Canada", "Austria", "Denmark", "Belgium"],
+        answer: "Belgium",
+        slug: "belgium",
+    },
+    {
+        id: 29,
+        image: countriesManifest.iran,
+        options: ["Israel", "Mexico", "Iran", "Australia"],
+        answer: "Iran",
+        slug: "iran",
+    },
+    {
+        id: 30,
+        image: countriesManifest.mexico,
+        options: ["Brazil", "Mexico", "Austria", "Denmark"],
+        answer: "Mexico",
+        slug: "mexico",
+    },
+    {
+        id: 31,
+        image: countriesManifest.italy,
+        options: ["Canada", "Austria", "Denmark", "Italy"],
+        answer: "Italy",
+        slug: "italy",
+    },
+    {
+        id: 32,
+        image: countriesManifest.china,
+        options: ["Indonesia", "China", "Korea", "Japan"],
+        answer: "China",
+        slug: "china",
+    },
+];
+
+
 // Questions indexed by round number
 const questionsByRound = {
     1: round1Questions,
     2: round2Questions,
     3: round3Questions,
+    4: round4Questions,
 };
 
 // Helper function to get questions for a specific round
@@ -206,8 +267,6 @@ export const getQuestionsForRound = (round: number): Question[] => {
     return questionsByRound[round as keyof typeof questionsByRound] || [];
 };
 
-// Export individual rounds for backward compatibility
-export { round1Questions, round2Questions, round3Questions };
 
 // Export the indexed questions object
 export { questionsByRound };

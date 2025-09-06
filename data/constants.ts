@@ -49,6 +49,14 @@ export const COUNTRIES: { [key: string]: { flag: string; name: string } } = {
     vietnam: { flag: '🇻🇳', name: "Vietnam" },
     zambia: { flag: '🇿🇲', name: "Zambia" },
     zimbabwe: { flag: '🇿🇼', name: "Zimbabwe" },
+    australia: { flag: '🇦🇺', name: "Australia" },
+    argentina: { flag: '🇦🇷', name: "Argentina" },
+    cuba: { flag: '🇨🇺', name: "Cuba" },
+    belgium: { flag: '🇧🇪', name: "Belgium" },
+    iran: { flag: '🇮🇷', name: "Iran" },
+    mexico: { flag: '🇲🇽', name: "Mexico" },
+    italy: { flag: '🇮🇹', name: "Italy" },
+    china: { flag: '🇨🇳', name: "China" },
 };
 
 // Helper functions for backward compatibility
@@ -273,6 +281,12 @@ export const countryFacts: { [key: string]: string } = {
     srilanka: "Landmarks: Sigiriya Rock: Ancient rock fortress in Sri Lanka. Temple of the Tooth: Buddhist temple with sacred relic. Dishes: Rice and Curry: Sri Lankan rice with various curries. Hoppers: Sri Lankan bowl-shaped rice pancakes with egg. Kottu Roti: Sri Lankan chopped roti with vegetables.",
     south_sudan: "Landmarks: Boma National Park: South Sudan's national park with wildlife. White Nile: Major river flowing through South Sudan. Dishes: Asida: South Sudanese traditional millet porridge. Ful Medames: South Sudanese fava bean stew with spices. Kisra: South Sudanese fermented sorghum flatbread.",
     saudi_arabia: "Landmarks: Masjid al-Haram: Grand mosque in Mecca, Saudi Arabia. Mada'in Salih: Ancient Nabataean rock-cut city in Saudi. Dishes: Kabsa: Saudi Arabian spiced rice with meat. Mandi: Saudi Arabian slow-cooked meat with rice. Mutabbaq: Saudi Arabian layered pancake with cheese."
+    , argentina: "Landmarks: Iguazu Falls: Spectacular waterfall system on the border of Argentina and Brazil. Tango: Traditional Argentinean dance. Dishes: Asado: Argentinean barbecue. Empanadas: Argentinean pastries filled with meat or vegetables. Choripán: Argentinean sausage with bread.",
+    cuba: "Landmarks: Havana Old City: Historic colonial city in Cuba. Varadero Beach: Famous white sand beach in Cuba. Dishes: Ropa Vieja: Cuban shredded beef stew. Mojo Picon: Cuban spicy pork stew. Leche Asada: Cuban sweetened condensed milk dessert.",
+    belgium: "Landmarks: Atomium: Iconic Brussels landmark with steel spheres. Manneken Pis: Famous statue of a boy urinating in Brussels. Dishes: Belgian Waffles: Belgian waffles with whipped cream and strawberries. Belgian Beer: Belgian beer with fries. Belgian Chocolate: Belgian chocolate with nuts.",
+    iran: "Landmarks: Persepolis: Ancient Persian city of Darius the Great. Shah Cheragh: Persian Shrine of Shah Cheragh. Dishes: Kebab: Iranian kebab with vegetables. Fesenjoon: Iranian stew with lamb and herbs. Baklava: Iranian honey and nut pastry.",
+    mexico: "Landmarks: Chichen Itzá: Ancient Mayan city in Mexico. Teotihuacan: Ancient Mesoamerican city in Mexico. Dishes: Tacos: Mexican tacos with various fillings. Mole: Mexican sauce with various ingredients. Tamales: Mexican steamed cornmeal filled with meat or vegetables.",
+    italy: "Landmarks: Colosseum: Ancient Roman amphitheater in Rome. Trevi Fountain: Famous Baroque fountain in Rome. Dishes: Pizza: Italian pizza with various toppings. Pasta: Italian pasta with various sauces. Gelato: Italian ice cream with various flavors.",
 };
 
 
