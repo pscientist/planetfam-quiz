@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import { questionsByRound } from '../../data/questions';
 
 interface RoundContextType {
     currentRound: number;
@@ -29,7 +30,7 @@ export function RoundProvider({ children }: { children: ReactNode }) {
     // Helper function to calculate next round from completed rounds array
     const getNextRoundToPlayFromCompleted = (completed: number[]) => {
         // Return the first round that's not completed, or 0 if all are completed
-        for (let round = 1; round <= 3; round++) {
+        for (let round = 1; round <= getTotalRounds(); round++) {
             if (!completed.includes(round)) {
                 return round;
             }
@@ -72,7 +73,6 @@ export function RoundProvider({ children }: { children: ReactNode }) {
 
     const incrementRound = () => {
         setCurrentRound(prev => prev + 1);
-        console.log('incrementRound to ', currentRound + 1);
     };
 
     const markRoundAsCompleted = (round: number) => {
@@ -87,12 +87,13 @@ export function RoundProvider({ children }: { children: ReactNode }) {
     };
 
     const areAllRoundsCompleted = () => {
-        return completedRounds.includes(1) && completedRounds.includes(2) && completedRounds.includes(3);
+        const totalRounds = getTotalRounds();
+        return completedRounds.includes(totalRounds);
     };
 
     const getNextRoundToPlay = () => {
         // Return the first round that's not completed, or 0 if all are completed
-        for (let round = 1; round <= 3; round++) {
+        for (let round = 1; round <= getTotalRounds(); round++) {
             if (!completedRounds.includes(round)) {
                 return round;
             }
@@ -102,7 +103,7 @@ export function RoundProvider({ children }: { children: ReactNode }) {
     };
 
     const getTotalRounds = () => {
-        return 3;
+        return Object.keys(questionsByRound).length;
     };
 
     const resetCompletedRounds = () => {

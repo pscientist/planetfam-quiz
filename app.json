@@ -14,12 +14,13 @@
       "bundleIdentifier": "com.cathyapp1234.my-app"
     },
     "android": {
+      "package": "com.radiantleaf.planetfam",
+      "versionCode": 1,
+      "permissions": [],
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/PlanetFam_Icon_1024.png",
-        "backgroundColor": "#ffffff"
-      },
-      "edgeToEdgeEnabled": true,
-      "package": "com.cathyapp1234.myapp"
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
     },
     "web": {
       "bundler": "metro",
@@ -44,7 +45,9 @@
       "router": {},
       "eas": {
         "projectId": "3467d2f9-6a13-442e-b023-effabe78ccee"
-      }
+      },
+      // Unsplash: "cathylapple, Bholiday0"
+      "unsplashKey": "qJbcdS3xb3ACGU5cGcdApy0Lmyog5ZLx5UucgmPcdLU"
     },
     "owner": "cathyapp1234",
     "updates": {

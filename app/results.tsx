@@ -78,7 +78,7 @@ export default function ResultsScreen() {
                                 activeOpacity={0.9}
                             >
                                 <Ionicons name="refresh" size={20} color="#fff" style={styles.buttonIcon} />
-                                <Text style={styles.buttonText}>Play Again</Text>
+                                <Text style={styles.buttonText}>Next Round</Text>
                             </TouchableOpacity>
                         ) : (
                             <View style={[styles.button, styles.buttonDisabled]}>

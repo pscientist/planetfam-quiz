@@ -75,7 +75,7 @@ export default function Supermarket() {
 const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: '#FAFAFA' },
     image: { width: WIDTH, height: HEIGHT * 0.67 },
-    pageBar: { paddingHorizontal: 20, paddingVertical: 10, marginTop: -100 },
+    pageBar: { paddingHorizontal: 20, paddingVertical: 10, marginTop: -65 },
     city: { fontSize: 18, fontWeight: '600', color: '#111' },
     card: {
         flex: 1,

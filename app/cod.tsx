@@ -4,7 +4,7 @@ import { Stack } from "expo-router";
 import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import countriesManifest from "../assets/images/countries/countriesManifest";
 import { FONT_FAMILY } from "../data/constants";
-import { useGoogleImageSearch } from "./hooks/useGoogleImageSearch";
+import CountrySceneryList from "./components/CountrySceneryList";
 
 function getDisplayName(slug: string): string {
     const countryNames: { [key: string]: string } = {
@@ -34,31 +34,38 @@ function getDisplayName(slug: string): string {
     return countryNames[slug] || slug;
 }
 
-function getUtcDaysSinceEpoch(): number {
+function getUtcDaysSinceEpochTz(timeZone: string): number {
     const now = new Date();
-    const utcMidnightMs = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+    const parts = new Intl.DateTimeFormat('en-NZ', {
+        timeZone,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+    }).formatToParts(now);
+
+    const year = Number(parts.find(p => p.type === 'year')?.value);
+    const month = Number(parts.find(p => p.type === 'month')?.value);
+    const day = Number(parts.find(p => p.type === 'day')?.value);
+
+    const utcMidnightMs = Date.UTC(year, month - 1, day);
     return Math.floor(utcMidnightMs / 86400000);
 }
 
 function pickDailyCountrySlug(): string {
     const allSlugs = Object.keys(countriesManifest).sort();
     if (allSlugs.length === 0) return "";
-    const dayIndex = getUtcDaysSinceEpoch();
+    const dayIndex = getUtcDaysSinceEpochTz('Pacific/Auckland');
     const selectedIndex = dayIndex % allSlugs.length;
     return allSlugs[selectedIndex];
 }
 
 export default function CountryOfTheDay() {
     const slug = pickDailyCountrySlug();
-    // const slug = "sweden";
     const imageSource = slug ? (countriesManifest as any)[slug] : undefined;
     const displayName = slug ? getDisplayName(slug) : "";
 
-    // Use the Google image search hook
-    const { images, isLoading, error } = useGoogleImageSearch(displayName);
-    // const images: any[] = [];
-    // const isLoading = false;
-    // const error = null;
+    const isLoading = false;
+    const error = null;
 
     return (
         <LinearGradient
@@ -74,6 +81,7 @@ export default function CountryOfTheDay() {
                     {slug ? (
                         <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
                             <View style={styles.content}>
+
                                 <Image source={imageSource} style={styles.flagImage} resizeMode="contain" />
 
                                 {/* Images Section */}
@@ -91,22 +99,8 @@ export default function CountryOfTheDay() {
                                         <Text style={styles.errorText}>{error}</Text>
                                     )}
 
-                                    {images.length > 0 && (
-                                        <View style={styles.imageScrollView}>
-                                            {images.map((image, index) => (
-                                                <View key={index} style={styles.googleImageContainer}>
-                                                    <Image
-                                                        source={{ uri: image.link }}
-                                                        style={styles.googleImage}
-                                                        resizeMode="cover"
-                                                    />
-                                                    <Text style={styles.imageCaption} numberOfLines={2}>
-                                                        {image.title}
-                                                    </Text>
-                                                </View>
-                                            ))}
-                                        </View>
-                                    )}
+                                    <CountrySceneryList country={displayName} />
+
                                 </View>
                             </View>
                         </ScrollView>

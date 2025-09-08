@@ -270,7 +270,3 @@ export const getQuestionsForRound = (round: number): Question[] => {
 
 // Export the indexed questions object
 export { questionsByRound };
-
-// Legacy export for backward compatibility
-const questions = round1Questions;
-export default questions;   

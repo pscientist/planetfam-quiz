@@ -271,6 +271,15 @@ export const countryFacts: { [key: string]: string } = {
     finland: "Landmarks: Suomenlinna: Historic sea fortress near Helsinki, Finland. Santa Claus Village: Christmas-themed village in Rovaniemi, Lapland. Dishes: Karjalanpiirakka: Finnish Karelian rye pies with filling. Salmon Soup: Finnish creamy salmon soup with vegetables. Sautéed Reindeer: Finnish reindeer meat sautéed with sauce.",
     netherlands: "Landmarks: Anne Frank House: Historic Amsterdam house and Holocaust museum. Keukenhof Gardens: Famous Dutch tulip and flower gardens. Dishes: Stamppot: Dutch mashed potatoes with kale and carrots. Bitterballen: Dutch deep-fried meat ragout balls. Erwtensoep: Dutch thick pea soup with sausage.",
     switzerland: "Landmarks: Matterhorn: Iconic triangular Alpine mountain peak. Jungfraujoch: High-altitude Swiss railway station with views. Dishes: Fondue: Swiss melted cheese dip with bread. Rösti: Swiss crispy fried potato pancake. Raclette: Swiss melted cheese scraped onto potatoes.",
+    // Main Dishes
+
+    //     Rösti – crispy Swiss potato pancake, served on two plates.
+
+    // Spätzli or pasta with sauce – egg noodles/ pasta topped with a tomato - based sauce(common in Swiss - German cuisine).
+
+    //     Dessert
+
+    // Swiss roll cake – sponge cake rolled with cream and topped with a strawberry.
     taiwan: "Landmarks: Taipei 101: Former world's tallest building in Taipei. Taroko Gorge: Spectacular marble gorge with hiking trails. Dishes: Beef Noodle Soup: Taiwanese beef noodle soup with tendon. Gua Bao: Taiwanese braised pork sandwich buns. Oyster Omelet: Taiwanese oyster and egg pancake.",
     hk: "Landmarks: Victoria Peak: Scenic Hong Kong mountain with city views. Tian Tan Buddha: Large bronze Buddha statue in Hong Kong. Dishes: Dim Sum: Chinese steamed dumplings and small dishes. Char Siu: Chinese barbecued pork with sweet sauce. Egg Tarts: Portuguese-style custard tarts from Hong Kong.",
     malaysia: "Landmarks: Petronas Towers: Iconic twin skyscrapers in Kuala Lumpur. Batu Caves: Hindu temple cave complex in Malaysia. Dishes: Nasi Lemak: Malaysian coconut rice with sambal. Rendang: Malaysian slow-cooked beef curry with coconut. Laksa: Malaysian noodle soup with curry.",
