@@ -1,8 +1,5 @@
-import { Ionicons } from "@expo/vector-icons";
-import { BlurView } from "expo-blur";
-import { LinearGradient } from 'expo-linear-gradient';
 import { Redirect, useRouter } from "expo-router";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { useRound } from "./contexts/RoundContext";
 
 export default function Index() {
@@ -16,49 +13,12 @@ export default function Index() {
     router.replace(`/quiz`);
   };
 
-  // if both rounds are completed, redirect to menu
-  if (areAllRoundsCompleted()) {
-    return <Redirect href="/menu" />;
+  // if all rounds are completed, redirect to cod
+  // if (areAllRoundsCompleted()) { // debug
+  if (true) {
+    return <Redirect href="/cod" />;
   }
 
-  return (
-    <LinearGradient
-      colors={['#FFD700', '#E0AA3E', '#E6D5B8']}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-      style={styles.background}
-    >
-      <View style={styles.overlay}>
-        <BlurView intensity={40} tint="dark" style={styles.card}>
-          <Text style={styles.title}>Guess the Country!</Text>
-          <Image
-            source={require("../assets/images/afghanistan.webp")}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-          <Text style={styles.description}>
-            Test your world smarts! Each round, you'll get an image to guess the country. Ready?
-          </Text>
-          {areAllRoundsCompleted() ? (
-            <View style={[styles.button, styles.buttonDisabled]}>
-              <Ionicons name="checkmark-circle" size={20} color="#888" style={styles.buttonIcon} />
-              <Text style={styles.buttonTextDisabled}>Both Rounds Complete!</Text>
-            </View>
-          ) : (
-            <TouchableOpacity
-              style={styles.button}
-              onPress={handleStartQuiz}
-              activeOpacity={0.9}
-            >
-              <Ionicons name="sparkles" size={20} color="#fff" style={styles.buttonIcon} />
-              <Text style={styles.buttonText}>Start Quiz</Text>
-              <Ionicons name="arrow-forward" size={20} color="#fff" style={styles.buttonIconTrailing} />
-            </TouchableOpacity>
-          )}
-        </BlurView>
-      </View>
-    </LinearGradient>
-  );
 }
 
 const styles = StyleSheet.create({

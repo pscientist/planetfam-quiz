@@ -23,14 +23,6 @@ export default function CountrySceneryList({ country, portrait = false }: { coun
         );
     }
 
-    // const imageDesc = images.urls.regular; // nice balance of size/quality
-    // const creditText = `images by ${images.user.name} on Unsplash`;
-
-    // const openCredit = () => {
-    //     const url = images.links?.html || "https://unsplash.com";
-    //     Linking.openURL(url).catch(() => { });
-    // };
-
     return (
         <ScrollView>
             {images.map((image: UnsplashPhoto) => (<View key={image.id} style={styles.card}>
@@ -42,7 +34,9 @@ export default function CountrySceneryList({ country, portrait = false }: { coun
                     accessibilityLabel={`${country} scenery`}
                     accessibilityHint={image.description || image.alt_description || ""}
                 />
-                <Text style={styles.imageDescription}>{image.description || image.alt_description || ""}</Text>
+                <View style={styles.descriptionContainer}>
+                    <Text style={styles.imageDescription}>{image.description || image.alt_description || ""}</Text>
+                </View>
             </View>
             ))}
         </ScrollView>
@@ -80,7 +74,20 @@ const styles = StyleSheet.create({
     },
     creditText: { color: "#fff", fontSize: 12, fontWeight: "600" },
 
-    imageDescription: { fontSize: 15, color: "#667085", fontWeight: "600", padding: 8 },
+    descriptionContainer: {
+        backgroundColor: "#F7F9FC",
+        paddingVertical: 12,
+        paddingHorizontal: 14,
+        borderTopWidth: 1,
+        borderTopColor: "#E6EAF2",
+    },
+
+    imageDescription: {
+        fontSize: 15,
+        color: "#475467",
+        fontWeight: "600",
+        lineHeight: 21,
+    },
 
     skeleton: {
         alignItems: "center",

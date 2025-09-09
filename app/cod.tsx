@@ -111,7 +111,6 @@ export default function CountryOfTheDay() {
             </View>
         </LinearGradient>
     );
-
 }
 
 const styles = StyleSheet.create({
