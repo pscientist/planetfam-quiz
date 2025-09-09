@@ -1,7 +1,7 @@
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { Stack } from "expo-router";
-import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, Image, Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import countriesManifest from "../assets/images/countries/countriesManifest";
 import { FONT_FAMILY } from "../data/constants";
 import CountrySceneryList from "./components/CountrySceneryList";
@@ -77,16 +77,34 @@ export default function CountryOfTheDay() {
             <View style={styles.overlay}>
                 <Stack.Screen options={{ title: "Country of the Day" }} />
                 <BlurView intensity={40} tint="dark" style={styles.card}>
-                    <Text style={styles.title}>Country of the Day</Text>
+                    <Text style={styles.title}>{displayName}</Text>
                     {slug ? (
                         <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
                             <View style={styles.content}>
 
                                 <Image source={imageSource} style={styles.flagImage} resizeMode="contain" />
 
+                                {/* Poem Box */}
+                                <LinearGradient
+                                    colors={["#B8860B", "#8B6914", "#704214"]}
+                                    start={{ x: 0, y: 0 }}
+                                    end={{ x: 1, y: 1 }}
+                                    style={styles.poemBox}
+                                >
+                                    {/* <View style={styles.poemBox}> */}
+                                    <Text style={styles.poemFlagEmoji} accessibilityLabel="German flag">🇩🇪</Text>
+                                    <Text style={styles.poemText}>
+                                        {"\"Entre hermanos,\nel corazón late fuerte,\nsiempre unidos.\""}
+                                    </Text>
+                                    <View style={styles.poemSeparator} />
+                                    <Text style={styles.poemTextEnglish}>
+                                        {"♥ Among siblings,\nthe heart beats strong,\nforever united.♥"}
+                                    </Text>
+                                    {/* </View> */}
+                                </LinearGradient>
+
                                 {/* Images Section */}
                                 <View style={styles.googleImagesSection}>
-                                    <Text style={styles.sectionTitle}>Discover {displayName}</Text>
 
                                     {isLoading && (
                                         <View style={styles.loadingContainer}>
@@ -139,7 +157,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: FONT_FAMILY,
-        fontSize: 28,
+        fontSize: 22,
         fontWeight: "800",
         color: "#fff",
         marginBottom: 14,
@@ -157,6 +175,55 @@ const styles = StyleSheet.create({
         width: "100%",
         height: 240,
         marginBottom: 12,
+    },
+    poemBox: {
+        width: "100%",
+        backgroundColor: "rgba(255, 245, 230, 0.3)",
+        borderColor: "rgba(255, 224, 178, 0.4)",
+        borderWidth: 1,
+        borderRadius: 20,
+        paddingVertical: 10,
+        paddingHorizontal: 10,
+        // marginBottom: 16,
+        // marginTop: -20,
+        shadowColor: "#000",
+        shadowOpacity: 0.25,
+        shadowRadius: 8,
+        shadowOffset: { width: 0, height: 2 },
+    },
+    poemSeparator: {
+        height: StyleSheet.hairlineWidth,
+        backgroundColor: "rgba(255,255,255,1)",
+        marginVertical: 8,
+        alignSelf: "center",
+        width: "75%",
+    },
+    poemText: {
+        fontFamily: Platform.select({ ios: "serif", android: "serif", default: "serif" }),
+        fontSize: 16,
+        lineHeight: 22,
+        color: "#fff",
+        textAlign: "center",
+        opacity: 1,
+        fontStyle: "italic",
+        letterSpacing: 1,
+    },
+    poemFlagEmoji: {
+        position: "absolute",
+        top: 6,
+        left: 8,
+        fontSize: 20,
+        lineHeight: 20,
+    },
+    poemTextEnglish: {
+        fontFamily: Platform.select({ ios: "serif", android: "serif", default: "serif" }),
+        fontSize: 14,
+        lineHeight: 22,
+        color: "#fff",
+        textAlign: "center",
+        opacity: 1,
+        fontStyle: "italic",
+        letterSpacing: 1,
     },
     countryName: {
         fontFamily: FONT_FAMILY,

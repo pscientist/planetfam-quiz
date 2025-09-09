@@ -22,8 +22,8 @@ async function fetchUnsplashPhotos(
   if (!UNSPLASH_KEY) throw new Error("Missing Unsplash key.");
 
   const orientation = portrait ? "portrait" : "landscape";
-  // const query = `${country}`;
-  const query = "burma";
+  const query = `${country}`;
+  // const query = "burma";
 
   const res = await fetch(
     `https://api.unsplash.com/search/photos?query=${encodeURIComponent(
