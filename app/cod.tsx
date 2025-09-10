@@ -3,36 +3,9 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Stack } from "expo-router";
 import { ActivityIndicator, Image, Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import countriesManifest from "../assets/images/countries/countriesManifest";
-import { FONT_FAMILY } from "../data/constants";
+import { COUNTRY_NAMES, FLAG_EMOJIS, FONT_FAMILY } from "../data/constants";
 import CountrySceneryList from "./components/CountrySceneryList";
-
-function getDisplayName(slug: string): string {
-    const countryNames: { [key: string]: string } = {
-        spain: "Spain",
-        thai: "Thailand",
-        russia: "Russia",
-        ethiopia: "Ethiopia",
-        nz: "New Zealand",
-        philipines: "Philippines",
-        png: "Papua New Guinea",
-        sweden: "Sweden",
-        germany: "Germany",
-        netherlands: "Netherlands",
-        uk: "United Kingdom",
-        srilanka: "Sri Lanka",
-        switzerland: "Switzerland",
-        finland: "Finland",
-        hk: "Hong Kong",
-        saudi: "Saudi Arabia",
-        afghanistan: "Afghanistan",
-        colombia2: "Colombia",
-        france: "France",
-        india2: "India",
-        japan_lunch: "Japan",
-        south_sudan: "South Sudan",
-    };
-    return countryNames[slug] || slug;
-}
+import PoemBox from "./components/PoemBox";
 
 function getUtcDaysSinceEpochTz(timeZone: string): number {
     const now = new Date();
@@ -60,9 +33,19 @@ function pickDailyCountrySlug(): string {
 }
 
 export default function CountryOfTheDay() {
+
     const slug = pickDailyCountrySlug();
+
+    const getFlagEmoji = (slug: string) => {
+        return FLAG_EMOJIS[slug] || '🏳️';
+    };
+
+    const getCountryName = (slug: string) => {
+        return COUNTRY_NAMES[slug] || slug;
+    };
+
     const imageSource = slug ? (countriesManifest as any)[slug] : undefined;
-    const displayName = slug ? getDisplayName(slug) : "";
+    const displayName = slug ? getCountryName(slug) : "";
 
     const isLoading = false;
     const error = null;
@@ -77,31 +60,16 @@ export default function CountryOfTheDay() {
             <View style={styles.overlay}>
                 <Stack.Screen options={{ title: "Country of the Day" }} />
                 <BlurView intensity={40} tint="dark" style={styles.card}>
-                    <Text style={styles.title}>{displayName}</Text>
+                    <Text style={styles.title} accessibilityLabel={`${slug} flag`}> {getFlagEmoji(slug)} {getCountryName(slug)} {getFlagEmoji(slug)} </Text>
                     {slug ? (
                         <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
                             <View style={styles.content}>
 
+                                {/* Family dining image */}
                                 <Image source={imageSource} style={styles.flagImage} resizeMode="contain" />
 
                                 {/* Poem Box */}
-                                <LinearGradient
-                                    colors={["#B8860B", "#8B6914", "#704214"]}
-                                    start={{ x: 0, y: 0 }}
-                                    end={{ x: 1, y: 1 }}
-                                    style={styles.poemBox}
-                                >
-                                    {/* <View style={styles.poemBox}> */}
-                                    <Text style={styles.poemFlagEmoji} accessibilityLabel="German flag">🇩🇪</Text>
-                                    <Text style={styles.poemText}>
-                                        {"\"Entre hermanos,\nel corazón late fuerte,\nsiempre unidos.\""}
-                                    </Text>
-                                    <View style={styles.poemSeparator} />
-                                    <Text style={styles.poemTextEnglish}>
-                                        {"♥ Among siblings,\nthe heart beats strong,\nforever united.♥"}
-                                    </Text>
-                                    {/* </View> */}
-                                </LinearGradient>
+                                <PoemBox countrySlug={slug} />
 
                                 {/* Images Section */}
                                 <View style={styles.googleImagesSection}>

@@ -18,7 +18,7 @@ export default function About() {
                 <View style={styles.overlay}>
                     <BlurView intensity={40} tint="dark" style={styles.card}>
                         <Text style={styles.title}>Why PlanetFam?</Text>
-                        <Text style={styles.tagline}> Learn about the World through people, not headlines</Text>
+                        <Text style={styles.tagline}>Learn about the World through people, not headlines</Text>
                         <Text style={styles.body}>
                             In a world full of conflict and stereotypes,
                             we seem to forget that’re all just people — with families,

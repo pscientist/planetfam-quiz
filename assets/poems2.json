@@ -1,0 +1,268 @@
+{
+    "afghanistan": [
+        {
+            "original": "دوست صادق\nهمچون برادر است،\nهمیشه با تو.",
+            "translation": "A true friend\nis like a brother,\nalways with you.",
+            "author": "Dari proverb"
+        }
+    ],
+    "argentina": [
+        {
+            "original": "Entre amigos del alma,\nel asado y el mate,\nvida de hermanos.",
+            "translation": "Among soulful friends,\nwith asado and mate,\nlife of brothers.",
+            "author": "Argentine saying"
+        }
+    ],
+    "australia": [
+        {
+            "original": "Mates by the billabong,\nunder southern stars,\ntrue blue forever.",
+            "translation": "Mates by the billabong,\nunder southern stars,\ntrue blue forever.",
+            "author": "Australian verse"
+        }
+    ],
+    "belgium": [
+        {
+            "original": "Vriendschap als bier,\nbeter met de tijd,\naltijd welkom thuis.",
+            "translation": "Friendship like beer,\nbetter with time,\nalways welcome home.",
+            "author": "Belgian saying"
+        }
+    ],
+    "china": [
+        {
+            "original": "朋友如兄弟\n家人似明月\n照亮人生路。",
+            "translation": "Friends like brothers,\nfamily like bright moon,\nlighting life's path.",
+            "author": "Chinese verse"
+        }
+    ],
+    "colombia": [
+        {
+            "original": "La familia es raíz,\nlos amigos son alas,\nvida completa.",
+            "translation": "Family is the root,\nfriends are the wings,\nlife is complete.",
+            "author": "Colombian saying"
+        }
+    ],
+    "cuba": [
+        {
+            "original": "La familia cubana\nes música y amor,\nritmo del corazón.",
+            "translation": "The Cuban family\nis music and love,\nrhythm of the heart.",
+            "author": "Cuban verse"
+        }
+    ],
+    "ethiopia": [
+        {
+            "original": "ወዳጅ ሰው\nእንደ ወንድም ነው፣\nልብን ይሞቅልናል።",
+            "translation": "A true friend\nis like a brother,\nhe warms the heart.",
+            "author": "Amharic proverb"
+        }
+    ],
+    "finland": [
+        {
+            "original": "Ystävä on tuli,\njoka lämmittää sydäntä,\ntalven kylmyydessä.",
+            "translation": "A friend is a fire,\nthat warms the heart,\nin the winter's cold.",
+            "author": "Finnish proverb"
+        }
+    ],
+    "france": [
+        {
+            "original": "Famille unie,\nforce infinie,\ncoeur tranquille.",
+            "translation": "A united family,\ninfinite strength,\na peaceful heart.",
+            "author": "French proverb"
+        }
+    ],
+    "germany": [
+        {
+            "original": "Freunde sind Familie,\ndie man selbst wählt,\nHerz an Herz.",
+            "translation": "Friends are family,\nthat we choose ourselves,\nheart to heart.",
+            "author": "German saying"
+        }
+    ],
+    "hk": [
+        {
+            "original": "朋友如茶，\n共飲方香甜，\n暖心長久。",
+            "translation": "Friends are like tea,\nsweeter when shared,\nwarming the heart forever.",
+            "author": "Cantonese verse"
+        }
+    ],
+    "iceland": [
+        {
+            "original": "Vinir eru sól\ní vetrarmyrkri,\nhlýja hjartað.",
+            "translation": "Friends are sun\nin winter darkness,\nwarming the heart.",
+            "author": "Icelandic verse"
+        }
+    ],
+    "india": [
+        {
+            "original": "सच्चा मित्र\nजीवन का धन है,\nसदा संग रहता।",
+            "translation": "A true friend\nis life's treasure,\nalways stays with you.",
+            "author": "Hindi proverb"
+        }
+    ],
+    "iran": [
+        {
+            "original": "دوست راستین\nگنجی است گرانبها،\nتا ابد پایدار.",
+            "translation": "A true friend\nis a precious treasure,\nenduring forever.",
+            "author": "Persian proverb"
+        }
+    ],
+    "italy": [
+        {
+            "original": "Amici come famiglia,\nintorno alla tavola,\namore che nutre.",
+            "translation": "Friends like family,\naround the table,\nlove that nourishes.",
+            "author": "Italian saying"
+        }
+    ],
+    "japan_lunch": [
+        {
+            "original": "友と共に\n食卓を囲み\n春の光。",
+            "translation": "With friends together,\naround the table,\nin spring's light.",
+            "author": "Japanese haiku style"
+        }
+    ],
+    "laos": [
+        {
+            "original": "ເພື່ອນແທ້\nຄືປາຊີເຄິນ\nເຊື່ອຟັງໃຈ.",
+            "translation": "A true friend\nis like family,\ntrusted in the heart.",
+            "author": "Lao proverb"
+        }
+    ],
+    "malaysia": [
+        {
+            "original": "Keluarga adalah harta,\nsahabat adalah cahaya,\nkeduanya memberkati.",
+            "translation": "Family is treasure,\nfriends are light,\nboth bring blessings.",
+            "author": "Malay saying"
+        }
+    ],
+    "mexico": [
+        {
+            "original": "La familia mexicana\nes fiesta y tradición,\ncorazón que late fuerte.",
+            "translation": "The Mexican family\nis celebration and tradition,\na heart that beats strong.",
+            "author": "Mexican verse"
+        }
+    ],
+    "mongolia": [
+        {
+            "original": "Найз залуу гэр бүл\nмөнгөнөөс үнэтэй,\nэцэг эхийг хүндэтгэ.",
+            "translation": "Good friends and family\nare more precious than silver,\nhonor your parents.",
+            "author": "Mongolian wisdom"
+        }
+    ],
+    "netherlands": [
+        {
+            "original": "Vrienden lachen samen,\nzoals wind door tulpen—\nvrolijk en vrij.",
+            "translation": "Friends laugh together,\nlike wind through tulips—\ncheerful and free.",
+            "author": "Dutch verse"
+        }
+    ],
+    "norway": [
+        {
+            "original": "Venner under nordlys,\nhjerter som gløder,\nkjærlighet evig.",
+            "translation": "Friends under northern lights,\nhearts that glow,\nlove eternal.",
+            "author": "Norwegian verse"
+        }
+    ],
+    "nz": [
+        {
+            "original": "He tangata, he tangata,\nhe tangata.\nKo te mea nui.",
+            "translation": "It is people, it is people,\nit is people.\nThat is what matters most.",
+            "author": "Māori proverb (Whakataukī)"
+        }
+    ],
+    "nz_maori": [
+        {
+            "original": "Ko te whānau\nte taonga nui,\nko te aroha te here.",
+            "translation": "Family is\nthe greatest treasure,\nlove is the bond.",
+            "author": "Māori whakatauki"
+        }
+    ],
+    "philipines": [
+        {
+            "original": "Ang pamilya ay tahanan,\nang kaibigan ay kalinga,\nparehong kayamanan.",
+            "translation": "Family is a home,\nfriends are care,\nboth are treasures.",
+            "author": "Tagalog saying"
+        }
+    ],
+    "png": [
+        {
+            "original": "Ol wantok,\nol famili,\nspes bilong yumi.",
+            "translation": "Our wantoks,\nour family,\nare our strength.",
+            "author": "Tok Pisin proverb"
+        }
+    ],
+    "russia": [
+        {
+            "original": "Без семьи\nи солнце не светит —\nжизнь темна.",
+            "translation": "Without family,\neven the sun does not shine—\nlife is dark.",
+            "author": "Russian proverb"
+        }
+    ],
+    "saudi": [
+        {
+            "original": "الصديق الوفي\nنعمة من الله،\nيبقى للأبد.",
+            "translation": "A loyal friend\nis a blessing from God,\nlasting forever.",
+            "author": "Arabic proverb"
+        }
+    ],
+    "south_sudan": [
+        {
+            "original": "Family is life,\nfriendship is peace,\nwe walk together.",
+            "translation": "Family is life,\nfriendship is peace,\nwe walk together.",
+            "author": "South Sudanese proverb"
+        }
+    ],
+    "spain": [
+        {
+            "original": "Donde hay amigos,\nhay alegría sin fin,\ncomo en la familia.",
+            "translation": "Where there are friends,\nthere is endless joy,\nlike in a family.",
+            "author": "Spanish proverb"
+        }
+    ],
+    "srilanka": [
+        {
+            "original": "කුටුඹය සුරක්ෂිතයි,\nමිතුරන් සතුට ගෙනෙයි—\nජීවිතය සම්පූර්ණයි.",
+            "translation": "Family gives safety,\nfriends bring joy—\nlife is complete.",
+            "author": "Sinhala verse"
+        }
+    ],
+    "sweden": [
+        {
+            "original": "Vänner vid bordet,\nljuset blir varmare,\nhemmet känns helt.",
+            "translation": "Friends at the table,\nthe light grows warmer,\nhome feels complete.",
+            "author": "Swedish verse"
+        }
+    ],
+    "switzerland": [
+        {
+            "original": "Freundschaft wie Berge,\nsteht stark im Sturm,\nbleibt ewig.",
+            "translation": "Friendship like mountains,\nstands strong in storms,\nremains forever.",
+            "author": "Swiss German verse"
+        }
+    ],
+    "taiwan": [
+        {
+            "original": "好朋友相聚\n如春花盛開\n心暖如家。",
+            "translation": "Good friends gathering\nlike spring flowers blooming,\nheart warm like home.",
+            "author": "Taiwanese verse"
+        }
+    ],
+    "uk": [
+        {
+            "original": "Home is where\nkind hearts gather,\nnever apart.",
+            "translation": "Home is where\nkind hearts gather,\nnever apart.",
+            "author": "English proverb"
+        }
+    ],
+    "usa": [
+        {
+            "original": "From sea to shining sea,\nfriends gather 'round the table,\nhome is where hearts meet.",
+            "translation": "From sea to shining sea,\nfriends gather 'round the table,\nhome is where hearts meet.",
+            "author": "American verse"
+        }
+    ],
+    "uzbekistan": [
+        {
+            "original": "Do'st - jonning yarmi,\noila - yurakningning uyі,\nmehribon bo'l.",
+            "translation": "Friend is half of life,\nfamily is the heart's home,\nbe loving.",
+            "author": "Uzbek saying"
+        }
+    ]
+}

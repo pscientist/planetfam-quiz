@@ -1,8 +1,11 @@
-import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import { ActivityIndicator, Image, Modal, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import useUnsplashScenery, { UnsplashPhoto } from "../hooks/useUnsplashScenery";
 
 export default function CountrySceneryList({ country, portrait = false }: { country: string; portrait?: boolean }) {
     const { loading, images, error } = useUnsplashScenery(country, portrait);
+    const [image, setImage] = useState<UnsplashPhoto | null>(null);
+    const [modalVisible, setModalVisible] = useState(false);
 
     if (loading) {
         return (
@@ -23,27 +26,67 @@ export default function CountrySceneryList({ country, portrait = false }: { coun
         );
     }
 
+    const onImagePress = (image: UnsplashPhoto) => {
+        setImage(image);
+        setModalVisible(true);
+    }
+
     return (
-        <ScrollView>
-            {images.map((image: UnsplashPhoto) => (<View key={image.id} style={styles.card}>
-                <Image
-                    source={{ uri: image.urls?.regular || "https://placehold.co/600x400" }}
-                    style={[styles.hero, portrait ? styles.portrait : styles.landscape]}
-                    resizeMode="cover"
-                    accessible
-                    accessibilityLabel={`${country} scenery`}
-                    accessibilityHint={image.description || image.alt_description || ""}
-                />
-                <View style={styles.descriptionContainer}>
-                    <Text style={styles.imageDescription}>{image.description || image.alt_description || ""}</Text>
+        <>
+            <ScrollView>
+                {images.map((image: UnsplashPhoto) => (<View key={image.id} style={styles.card}>
+                    <Pressable onPress={() => onImagePress(image)} accessibilityRole="imagebutton" accessibilityLabel={`${country} scenery, tap to zoom`}>
+                        <Image
+                            source={{ uri: image.urls?.full || "https://placehold.co/600x400" }}
+                            style={[styles.hero, portrait ? styles.portrait : styles.landscape]}
+                            resizeMode="cover"
+                            accessible
+                            accessibilityLabel={`${country} scenery`}
+                            accessibilityHint={image.description || image.alt_description || ""}
+                        />
+                        <View style={styles.descriptionContainer}>
+                            <Text style={styles.imageDescription}>{image.description || image.alt_description || ""}</Text>
+                        </View>
+                    </Pressable>
                 </View>
-            </View>
-            ))}
-        </ScrollView>
+                ))}
+            </ScrollView>
+            <Modal visible={modalVisible} transparent animationType="fade" onRequestClose={() => setModalVisible(false)}>
+                <Pressable style={styles.modalOverlay} onPress={() => setModalVisible(false)}>
+                    <View style={styles.modalContent}>
+                        <Image
+                            source={{ uri: image?.urls?.full || "https://placehold.co/600x400" }}
+                            style={styles.modalImage}
+                            resizeMode="contain"
+                            accessible
+                            accessibilityLabel={`${country} scenery`}
+                            accessibilityHint={image?.description || image?.alt_description || ""}
+                        />
+                    </View>
+                </Pressable>
+            </Modal>
+        </>
+
     );
 }
 
 const styles = StyleSheet.create({
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: "rgba(0, 0, 0, 0.8)",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    modalContent: {
+        width: "90%",
+        height: "80%",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    modalImage: {
+        width: "100%",
+        height: "100%",
+    },
     card: {
         width: "100%",
         borderRadius: 16,
