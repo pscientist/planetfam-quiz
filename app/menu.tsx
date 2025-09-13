@@ -5,10 +5,12 @@ import { Link, Stack, useRouter } from "expo-router";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { FONT_FAMILY } from "../data/constants";
 import { useRound } from "./contexts/RoundContext";
+import { useScore } from "./contexts/ScoreContext";
 
 export default function Menu() {
     const router = useRouter();
-    const { areAllRoundsCompleted, currentRound, getTotalRounds, incrementRound, resetCompletedRounds } = useRound();
+    const { areAllRoundsCompleted, resetCompletedRounds } = useRound();
+    const { resetScore, resetCollectedCountries } = useScore();
 
     const handlePlayPress = () => {
         router.replace("/quiz");
@@ -20,7 +22,10 @@ export default function Menu() {
             "This will clear completed rounds and set you back to Round 1.",
             [
                 { text: "Cancel", style: "cancel" },
-                { text: "Reset", style: "destructive", onPress: () => resetCompletedRounds() },
+                {
+                    text: "Reset", style: "destructive",
+                    onPress: () => { resetCompletedRounds(); resetScore(); resetCollectedCountries() }
+                },
             ]
         );
     };
@@ -48,17 +53,26 @@ export default function Menu() {
                         ) : (
                             <TouchableOpacity style={styles.item} activeOpacity={0.9} onPress={handlePlayPress}>
                                 <View style={styles.itemLeft}>
-                                    <Ionicons name="home" size={20} color="#fff" style={styles.itemIcon} />
+                                    <Ionicons name="sparkles" size={20} color="#fff" style={styles.itemIcon} />
                                     <Text style={styles.itemText}>Play</Text>
                                 </View>
                                 <Ionicons name="chevron-forward" size={18} color="#fff" />
                             </TouchableOpacity>
                         )}
-                        <Link href="/supermarket" asChild>
+                        <Link href="/treasures" asChild>
                             <TouchableOpacity style={styles.item} activeOpacity={0.9}>
                                 <View style={styles.itemLeft}>
                                     <Ionicons name="book" size={20} color="#fff" style={styles.itemIcon} />
-                                    <Text style={styles.itemText}>World Supermarket!!</Text>
+                                    <Text style={styles.itemText}>My Passport</Text>
+                                </View>
+                                <Ionicons name="chevron-forward" size={18} color="#fff" />
+                            </TouchableOpacity>
+                        </Link>
+                        <Link href="/supermarket" asChild>
+                            <TouchableOpacity style={styles.item} activeOpacity={0.9}>
+                                <View style={styles.itemLeft}>
+                                    <Ionicons name="cart" size={20} color="#fff" style={styles.itemIcon} />
+                                    <Text style={styles.itemText}>World Supermarkets!!</Text>
                                 </View>
                                 <Ionicons name="chevron-forward" size={18} color="#fff" />
                             </TouchableOpacity>
@@ -82,15 +96,7 @@ export default function Menu() {
                             </TouchableOpacity>
                         </Link>
 
-                        <Link href="/treasures" asChild>
-                            <TouchableOpacity style={styles.item} activeOpacity={0.9}>
-                                <View style={styles.itemLeft}>
-                                    <Ionicons name="trophy" size={20} color="#fff" style={styles.itemIcon} />
-                                    <Text style={styles.itemText}>My Treasures</Text>
-                                </View>
-                                <Ionicons name="chevron-forward" size={18} color="#fff" />
-                            </TouchableOpacity>
-                        </Link>
+
 
                         {__DEV__ && (
                             <TouchableOpacity style={styles.item} activeOpacity={0.9} onPress={handleResetRounds}>

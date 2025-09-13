@@ -6,7 +6,7 @@ import { useRef, useState } from "react";
 import { Animated, Dimensions, FlatList, Image, PanResponder, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import ConfettiCannon from 'react-native-confetti-cannon';
 import countriesManifest from "../assets/images/countries/countriesManifest";
-import { countryFacts } from "../data/constants";
+import { countryFacts, TROUPHY_REQ } from "../data/constants";
 import { getQuestionsForRound } from "../data/questions";
 import FlagCollection from "./components/FlagCollection";
 import { useRound } from "./contexts/RoundContext";
@@ -55,7 +55,6 @@ export default function QuizScreen() {
         return <Text>Invalid question num: {currentQuestion} </Text>;
     }
 
-
     const handleNextQuestion = () => {
         // Reset popup state when moving to the next question
         setPopupVisible(false);
@@ -77,6 +76,12 @@ export default function QuizScreen() {
         }
     };
 
+    const calculateTrophyAndCrown = () => {
+        if (score % TROUPHY_REQ === 0) {
+            console.log('Another Trophy earned');
+        };
+    }
+
     const handleOptionPress = (option: string) => {
 
         if (isCorrect !== null) return;// already answered
@@ -87,6 +92,7 @@ export default function QuizScreen() {
             addCollectedCountry(questions[currentQuestion].slug);
             addAllCollectedCountry(questions[currentQuestion].slug);
             setConfettiVisible(true);
+            calculateTrophyAndCrown();
 
             setTimeout(() => {
                 setConfettiVisible(false);

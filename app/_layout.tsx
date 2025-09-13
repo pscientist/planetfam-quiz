@@ -1,3 +1,4 @@
+import { TROUPHY_REQ } from "@/data/constants";
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
@@ -32,8 +33,8 @@ function HomeButton() {
 }
 
 function HeaderTitle() {
-  const { score } = useScore();
-  const { currentRound, getNextRoundToPlay, getTotalRounds } = useRound();
+  const { score, getAllScoresCount } = useScore();
+  const { getNextRoundToPlay, getTotalRounds } = useRound();
 
   return (
     <View style={styles.scoresBar}>
@@ -41,13 +42,15 @@ function HeaderTitle() {
         const nextRound = getNextRoundToPlay();
         const totalRounds = getTotalRounds();
         const completedCount = nextRound === 0 ? totalRounds : Math.max(0, nextRound - 1);
-        const progress = totalRounds > 0 ? completedCount / totalRounds : 0;
+        const progress = totalRounds > 0 ? score / TROUPHY_REQ : 0;
         const progressPercent = Math.round(progress * 100);
         return (
           <View style={{ alignItems: "center" }}>
             <View style={styles.levelRow}>
-              <Text style={styles.levelText}>Level {completedCount} / {totalRounds}</Text>
-              <Text style={styles.levelText}>{progressPercent}%</Text>
+              <View style={styles.trophyPill}>
+                <Ionicons name="trophy" size={14} color="#3b2f0b" style={{ marginRight: 6 }} />
+                <Text style={styles.trophyText}>{getAllScoresCount() % TROUPHY_REQ} / {TROUPHY_REQ} to Trophy</Text>
+              </View>
             </View>
             <View style={styles.progressTrack}>
               <View style={[styles.progressFill, { width: `${progressPercent}%` }]} />
@@ -162,6 +165,19 @@ const styles = StyleSheet.create({
     color: "#3b2f0b",
     fontFamily: "SpaceMono",
     fontSize: 14,
+  },
+  trophyPill: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+  },
+  trophyText: {
+    color: "#3b2f0b",
+    fontFamily: "SpaceMono",
+    fontSize: 14,
+    opacity: 0.9,
+    fontWeight: "900",
   },
   progressTrack: {
     marginTop: 4,

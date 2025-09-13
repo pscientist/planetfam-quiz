@@ -6,6 +6,7 @@ export default function CountrySceneryList({ country, portrait = false }: { coun
     const { loading, images, error } = useUnsplashScenery(country, portrait);
     const [image, setImage] = useState<UnsplashPhoto | null>(null);
     const [modalVisible, setModalVisible] = useState(false);
+    const [modalLoading, setModalLoading] = useState(false);
 
     if (loading) {
         return (
@@ -29,6 +30,7 @@ export default function CountrySceneryList({ country, portrait = false }: { coun
     const onImagePress = (image: UnsplashPhoto) => {
         setImage(image);
         setModalVisible(true);
+        setModalLoading(true);
     }
 
     return (
@@ -51,6 +53,7 @@ export default function CountrySceneryList({ country, portrait = false }: { coun
                 </View>
                 ))}
             </ScrollView>
+
             <Modal visible={modalVisible} transparent animationType="fade" onRequestClose={() => setModalVisible(false)}>
                 <Pressable style={styles.modalOverlay} onPress={() => setModalVisible(false)}>
                     <View style={styles.modalContent}>
@@ -61,12 +64,21 @@ export default function CountrySceneryList({ country, portrait = false }: { coun
                             accessible
                             accessibilityLabel={`${country} scenery`}
                             accessibilityHint={image?.description || image?.alt_description || ""}
+                            onLoadStart={() => setModalLoading(true)} onLoadEnd={() => setModalLoading(false)}
                         />
                     </View>
                 </Pressable>
-            </Modal>
-        </>
 
+                {modalLoading &&
+                    (<View style={styles.skeleton}>
+                        <ActivityIndicator size="large" />
+                        <Text style={styles.skeletonText}>Loading... </Text>
+                    </View>
+                    )
+                }
+
+            </Modal >
+        </>
     );
 }
 
@@ -138,7 +150,7 @@ const styles = StyleSheet.create({
         paddingVertical: 28,
         gap: 8,
     },
-    skeletonText: { color: "#667085", fontSize: 14 },
+    skeletonText: { fontSize: 25, fontWeight: "600", color: "#fff" },
 
     fallback: {
         alignItems: "center",

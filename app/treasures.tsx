@@ -2,26 +2,59 @@ import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { Stack, useRouter } from "expo-router";
-import { useEffect, useState } from "react";
 import { ActivityIndicator, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { FONT_FAMILY } from "../data/constants";
-import FlagCollection from "./components/FlagCollection";
+import { FONT_FAMILY, TROUPHY_REQ } from "../data/constants";
+import StickerCollection from "./components/StickerCollection";
 import { useScore } from "./contexts/ScoreContext";
 
 export default function Treasures() {
     const router = useRouter();
-    const { loadAllCollectedCountries } = useScore();
-    const [flags, setFlags] = useState<string[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const { getAllCollectedCountries, getAllScoresCount, isDataLoaded, score } = useScore();
 
-    useEffect(() => {
-        (async () => {
-            setIsLoading(true);
-            const loaded = await loadAllCollectedCountries();
-            setFlags(loaded);
-            setIsLoading(false);
-        })();
-    }, []);
+    const currentCount = getAllScoresCount();
+    const hasTrophy = currentCount >= TROUPHY_REQ;
+    // const hasCrown = currentCount >= CROWN_REQ;
+
+    const collectedCountries = getAllCollectedCountries();
+
+    // Calculate number of trophies earned
+    const trophiesEarned = Math.floor(currentCount / TROUPHY_REQ);
+
+    const renderTrophySection = () => (
+        <View style={styles.trophySection}>
+            <View style={styles.trophyContainer}>
+                {/* Trophy */}
+                <View style={[styles.trophyItem, hasTrophy && styles.trophyEarned]}>
+                    <Ionicons
+                        name="trophy"
+                        size={32}
+                        color={hasTrophy ? "#FFD700" : "#666"}
+                    />
+                    <Text style={[styles.trophyLabel, hasTrophy && styles.trophyLabelEarned]}>
+                        {trophiesEarned > 1 ? `${trophiesEarned} Trophies` : `${trophiesEarned} Trophy`}
+                    </Text>
+                    <Text style={[styles.trophyProgress, hasTrophy && styles.trophyProgressEarned]}>
+                        {hasTrophy ? "Earned!" : `${currentCount}/${TROUPHY_REQ}`}
+                    </Text>
+                </View>
+
+                {/* Crown */}
+                {/* <View style={[styles.trophyItem, hasCrown && styles.trophyEarned]}>
+                    <Ionicons
+                        name="diamond"
+                        size={32}
+                        color={hasCrown ? "#E6E6FA" : "#666"}
+                    />
+                    <Text style={[styles.trophyLabel, hasCrown && styles.trophyLabelEarned]}>
+                        Crown
+                    </Text>
+                    <Text style={[styles.trophyProgress, hasCrown && styles.trophyProgressEarned]}>
+                        {hasCrown ? "Earned!" : `${currentCount}/${CROWN_REQ}`}
+                    </Text>
+                </View> */}
+            </View>
+        </View>
+    );
 
     return (
         <LinearGradient
@@ -30,29 +63,42 @@ export default function Treasures() {
             end={{ x: 1, y: 1 }}
             style={styles.background}
         >
-            <Stack.Screen options={{ title: "My Treasures" }} />
+            <Stack.Screen options={{ title: "My Stamps" }} />
             <SafeAreaView style={styles.overlay}>
                 <BlurView intensity={40} tint="dark" style={styles.card}>
                     <View style={styles.headerRow}>
                         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
                             <Ionicons name="arrow-back" size={20} color="#fff" />
                         </TouchableOpacity>
-                        <Text style={styles.title}>My Treasures</Text>
+                        <Text style={styles.title}>My Passport</Text>
                         <View style={{ width: 36 }} />
                     </View>
 
-                    {isLoading ? (
+                    {!isDataLoaded ? (
                         <View style={styles.loadingContainer}>
                             <ActivityIndicator size="large" color="#fff" />
-                            <Text style={styles.loadingText}>Loading your flags...</Text>
+                            <Text style={styles.loadingText}>Loading your Stamps...</Text>
                         </View>
-                    ) : flags.length > 0 ? (
-                        <FlagCollection collectedCountries={flags} scrollable={true} />
+                    ) : collectedCountries.length > 0 ? (
+                        <>
+                            <View style={styles.sectionTitle}>
+                                <Text style={styles.sectionTitle}>Achievements</Text>
+                            </View>
+
+                            {renderTrophySection()}
+
+                            <View style={styles.sectionTitle}>
+                                <Text style={styles.sectionTitle}>Stamps</Text>
+                            </View>
+
+                            <StickerCollection collectedCountries={collectedCountries} />
+                        </>
+
                     ) : (
                         <View style={styles.emptyContainer}>
                             <Ionicons name="flag-outline" size={48} color="#fff" style={{ opacity: 0.7 }} />
-                            <Text style={styles.emptyTitle}>No Flags Yet</Text>
-                            <Text style={styles.emptyText}>Play the quiz to start collecting flags!</Text>
+                            <Text style={styles.emptyTitle}>No Stamps Yet</Text>
+                            <Text style={styles.emptyText}>Play the quiz to start collecting Stamps!</Text>
                             <TouchableOpacity style={styles.ctaButton} onPress={() => router.push("/quiz")}>
                                 <Text style={styles.ctaText}>Play Now</Text>
                             </TouchableOpacity>
@@ -147,6 +193,63 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "800",
     },
+    // Trophy Section Styles
+    trophySection: {
+        marginBottom: 32,
+    },
+    trophyContainer: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: "center",
+        paddingHorizontal: 10,
+    },
+    trophyItem: {
+        alignItems: "center",
+        backgroundColor: "rgba(255,255,255,0.1)",
+        borderRadius: 16,
+        padding: 10,
+        minWidth: 120,
+        borderWidth: 2,
+        borderColor: "rgba(255,255,255,0.2)",
+    },
+    trophyEarned: {
+        backgroundColor: "rgba(255,215,0,0.2)",
+        borderColor: "#FFD700",
+        shadowColor: "#FFD700",
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.5,
+        shadowRadius: 10,
+        elevation: 8,
+    },
+    trophyLabel: {
+        fontFamily: FONT_FAMILY,
+        fontSize: 18,
+        fontWeight: "600",
+        color: "#ccc",
+        marginTop: 8,
+    },
+    trophyLabelEarned: {
+        color: "#fff",
+        fontWeight: "800",
+    },
+    trophyProgress: {
+        fontFamily: FONT_FAMILY,
+        fontSize: 14,
+        color: "#999",
+        marginTop: 4,
+    },
+    trophyProgressEarned: {
+        color: "#FFD700",
+        fontWeight: "600",
+    },
+    sectionTitle: {
+        fontFamily: FONT_FAMILY,
+        fontSize: 18,
+        fontWeight: "700",
+        color: "#fff",
+        marginBottom: 15,
+    },
+
 });
 
 
