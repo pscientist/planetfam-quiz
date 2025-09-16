@@ -2,30 +2,31 @@
   "expo": {
     "name": "PlanetFam Quiz",
     "slug": "my-app",
-    "version": "1.0.0",
+    "version": "1.0.3",
     "orientation": "portrait",
-    "icon": "./assets/images/PlanetFam_Icon_1024.png",
+    "icon": "./assets/images/icon_gold2.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-    "runtimeVersion": "1.0.0",
+    "runtimeVersion": "1.0.3",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.cathyapp1234.my-app"
+      "bundleIdentifier": "com.cathyapp1234.my-app",
+      "buildNumber": "23"
     },
     "android": {
       "package": "com.radiantleaf.planetfam",
-      "versionCode": 1,
+      "versionCode": 3,
       "permissions": [],
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/icon_gold2.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/PlanetFam_Icon_1024.png"
+      "favicon": "./assets/images/icon_gold2.png"
     },
     "plugins": [
       "expo-router",
@@ -46,7 +47,6 @@
       "eas": {
         "projectId": "3467d2f9-6a13-442e-b023-effabe78ccee"
       },
-      // Unsplash: "cathylapple, Bholiday0"
       "unsplashKey": "qJbcdS3xb3ACGU5cGcdApy0Lmyog5ZLx5UucgmPcdLU"
     },
     "owner": "cathyapp1234",

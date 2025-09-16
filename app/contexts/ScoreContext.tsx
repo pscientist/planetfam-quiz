@@ -54,20 +54,20 @@ export function ScoreProvider({ children }: { children: ReactNode }) {
             if (stored) {
                 const parsed = JSON.parse(stored);
                 setAllCollectedCountries(parsed);
-                if (__DEV__) {
-                    // Add enough test countries to see trophy and crown earned
-                    const testCountries = [
-                        'france', 'spain', 'sweden', 'nz', 'netherlands',
-                        'germany', 'usa', 'uk', 'australia', 'italy',
-                        'japan', 'china', 'india', 'brazil', 'russia',
-                        'ethiopia', 'norway', 'iceland', 'finland', 'switzerland',
-                        'taiwan', 'hk', 'malaysia', 'laos', 'mongolia',
-                        'philippines', 'png', 'colombia', 'uzbekistan', 'srilanka',
-                        'south_sudan', 'saudi', 'argentina', 'cuba', 'belgium',
-                        'iran', 'mexico', 'afghanistan'  // 38 countries total - enough for trophy (30) and working towards crown (90)
-                    ];
-                    setAllCollectedCountries(testCountries);
-                }
+                // if (__DEV__) {
+                //     // Add enough test countries to see trophy and crown earned
+                //     const testCountries = [
+                //         'france', 'spain', 'sweden', 'nz', 'netherlands',
+                //         'germany', 'usa', 'uk', 'australia', 'italy',
+                //         'japan', 'china', 'india', 'brazil', 'russia',
+                //         'ethiopia', 'norway', 'iceland', 'finland', 'switzerland',
+                //         'taiwan', 'hk', 'malaysia', 'laos', 'mongolia',
+                //         'philippines', 'png', 'colombia', 'uzbekistan', 'srilanka',
+                //         'south_sudan', 'saudi', 'argentina', 'cuba', 'belgium',
+                //         'iran', 'mexico', 'afghanistan'  // 38 countries total - enough for trophy (30) and working towards crown (90)
+                //     ];
+                //     setAllCollectedCountries(testCountries);
+                // }
                 console.log('Loaded persistent flags:', parsed);
                 setIsDataLoaded(true);
 

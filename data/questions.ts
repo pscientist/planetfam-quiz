@@ -268,5 +268,17 @@ export const getQuestionsForRound = (round: number): Question[] => {
 };
 
 
+// Helper to get all slugs across all rounds in appearance order
+export const getAllSlugsInOrder = (): string[] => {
+    return [round1Questions, round2Questions, round3Questions, round4Questions]
+        .flatMap((questions) => questions.map((q) => q.slug));
+};
+
+export const getCompletedSlugsInOrder = (completedRounds: number[]): string[] => {
+    return [round1Questions, round2Questions, round3Questions, round4Questions]
+        .filter((_, idx) => completedRounds.includes(idx + 1))
+        .flatMap((questions) => questions.map((q) => q.slug));
+};
+
 // Export the indexed questions object
 export { questionsByRound };

@@ -138,7 +138,7 @@ export default function QuizScreen() {
                 {/* Flag collection */}
                 <FlagCollection collectedCountries={collectedCountries} />
 
-                {/* Flag image */}
+                {/* Country image */}
                 <Image style={styles.image}
                     source={getImageSource(questions[currentQuestion].slug)}
                     resizeMode="contain"

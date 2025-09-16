@@ -1,7 +1,7 @@
 {
   "cli": {
     "version": ">= 3.0.0",
-    "appVersionSource": "remote"
+    "appVersionSource": "local"
   },
   "build": {
     "development": {
@@ -9,7 +9,11 @@
       "distribution": "internal",
       "channel": "development",
       "ios": {
-        "simulator": true
+        "simulator": true,
+        "autoIncrement": "buildNumber"
+      },
+      "android": {
+        "buildType": "apk"
       }
     },
     "preview": {
@@ -18,11 +22,17 @@
     },
     "production": {
       "distribution": "store",
-      "autoIncrement": false,
-      "channel": "production"
+      "autoIncrement": true,
+      "android": {
+        "gradleCommand": ":app:bundleRelease"
+      }
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "android": {
+        "track": "internal"
+      }
+    }
   }
 }

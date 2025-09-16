@@ -19,7 +19,7 @@ const countriesManifest: { [key: string]: any } = {
     japan_lunch: require('./japan_lunch_optimized.webp'),
     saudi: require('./saudi_optimized.webp'),
     south_sudan: require('./south_sudan_optimized.webp'),
-    srilanka: require('./srilanka_optimized.webp'),
+    srilanka: require('./sri_lanka.webp'),
     laos: require('./laos.webp'),
     malaysia: require('./malaysia.webp'),
     iceland: require('./iceland.webp'),

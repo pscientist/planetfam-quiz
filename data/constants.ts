@@ -1,5 +1,8 @@
 export const FONT_FAMILY = "SpaceMono";
 
+export const TROUPHY_REQ = 20; // 20 stickers to get a trophy
+export const CROWN_REQ = 3 * TROUPHY_REQ; // 90 stickers to get a crown
+
 // Font options for flag emojis - try different ones to see how flags look
 export const FLAG_FONT_OPTIONS = {
     system: undefined, // Uses system default emoji font
