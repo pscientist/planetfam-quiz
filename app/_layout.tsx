@@ -1,3 +1,6 @@
+import 'react-native-get-random-values';
+import 'react-native-url-polyfill/auto';
+
 import { TROUPHY_REQ } from "@/data/constants";
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";

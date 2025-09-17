@@ -16,7 +16,7 @@
     },
     "android": {
       "package": "com.radiantleaf.planetfam",
-      "versionCode": 3,
+      "versionCode": 4,
       "permissions": [],
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon_gold2.png",

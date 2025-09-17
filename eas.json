@@ -24,7 +24,8 @@
       "distribution": "store",
       "autoIncrement": true,
       "android": {
-        "gradleCommand": ":app:bundleRelease"
+        "gradleCommand": ":app:bundleRelease",
+        "buildType": "app-bundle"
       }
     }
   },
