@@ -4,7 +4,7 @@
     "slug": "my-app",
     "version": "1.0.3",
     "orientation": "portrait",
-    "icon": "./assets/images/icon_gold2.png",
+    "icon": "./assets/images/PlanetFam_Icon_1024.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -16,17 +16,17 @@
     },
     "android": {
       "package": "com.radiantleaf.planetfam",
-      "versionCode": 6,
+      "versionCode": 7,
       "permissions": [],
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/icon_gold2.png",
+        "foregroundImage": "./assets/images/PlanetFam_Icon_1024.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/icon_gold2.png"
+      "favicon": "./assets/images/PlanetFam_Icon_1024.png"
     },
     "plugins": [
       "expo-router",
