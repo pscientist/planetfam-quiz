@@ -19,8 +19,16 @@ expo-env.d.ts
 *.mobileprovision
 
 # Native builds 
-android/
+# android/
 ios/
+
+# Android : need the gradle config files but the following will be ignored
+android/app/debug.keystore
+*.jks
+local.properties
+.gradle/
+build/
+
 
 # Metro
 .metro-health-check*
