@@ -46,9 +46,11 @@ export default function CountrySceneryList({ country, portrait = false }: { coun
                             accessibilityLabel={`${country} scenery`}
                             accessibilityHint={image.description || image.alt_description || ""}
                         />
-                        <View style={styles.descriptionContainer}>
-                            <Text style={styles.imageDescription}>{image.description || image.alt_description || ""}</Text>
-                        </View>
+                        {image.description &&
+                            (<View style={styles.descriptionContainer}>
+                                <Text style={styles.imageDescription}>{image.description}</Text>
+                            </View>)
+                        }
                     </Pressable>
                 </View>
                 ))}
