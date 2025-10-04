@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     Dimensions,
     FlatList,
@@ -12,18 +12,40 @@ import {
     View,
 } from 'react-native';
 import { SHELVES } from '../data/constants';
+import { loadManifest } from './lib/manifest';
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
 export default function Supermarket() {
     const [index, setIndex] = useState(0);
     const [zoomUri, setZoomUri] = useState<any | null>(null);
+    const [shelves, setShelves] = useState<any[]>(SHELVES);
     const viewabilityConfig = { viewAreaCoveragePercentThreshold: 70 };
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const remoteShelves = await loadManifest();
+                if (Array.isArray(remoteShelves) && (remoteShelves.length > 0)) {
+                    setShelves(remoteShelves);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        })();
+    }, []);
+
+    const asSource = (image: any) => {
+        if (typeof image === 'string') {
+            return { uri: image };
+        }
+        return image;
+    }
 
     return (
         <SafeAreaView style={styles.container}>
             <FlatList
-                data={SHELVES}
+                data={shelves}
                 keyExtractor={(s) => s.id}
                 horizontal
                 pagingEnabled
@@ -35,7 +57,7 @@ export default function Supermarket() {
                 renderItem={({ item }) => (
                     <View style={{ width: WIDTH }}>
                         <Pressable onPress={() => setZoomUri(item.image)} accessibilityRole="imagebutton" accessibilityLabel={`${item.city} shelf, tap to zoom`} style={{ width: WIDTH }}>
-                            <Image source={item.image} style={styles.image} resizeMode="cover" />
+                            <Image source={asSource(item.image)} style={styles.image} resizeMode="cover" />
                         </Pressable>
                     </View>
                 )}
@@ -43,13 +65,13 @@ export default function Supermarket() {
 
             {/* Minimal page indicator */}
             <View style={styles.pageBar}>
-                <Text style={styles.city}>{SHELVES[index].city}</Text>
+                <Text style={styles.city}>{shelves[index]?.city ?? ''}</Text>
             </View>
 
             {/* Description card */}
             <View style={styles.card}>
                 <ScrollView contentContainerStyle={{ paddingBottom: 24 }} showsVerticalScrollIndicator={true}>
-                    {SHELVES[index].items.map((it, i) => (
+                    {shelves[index]?.items.map((it: any, i: any) => (
                         <View key={i} style={styles.row}>
                             <Text style={styles.itemName}>{it.name}</Text>
                             <Text style={styles.itemDesc}>{it.description}</Text>
@@ -62,7 +84,7 @@ export default function Supermarket() {
             <Modal visible={!!zoomUri} transparent animationType="fade" onRequestClose={() => setZoomUri(null)}>
                 <View style={styles.zoomBackdrop}>
                     <Pressable style={styles.zoomBackdrop} onPress={() => setZoomUri(null)} />
-                    <Image source={zoomUri ?? undefined} style={styles.zoomImage} resizeMode="contain" />
+                    <Image source={asSource(zoomUri) ?? undefined} style={styles.zoomImage} resizeMode="contain" />
                     <Pressable style={styles.close} onPress={() => setZoomUri(null)} accessibilityRole="button" accessibilityLabel="Close">
                         <Text style={styles.closeText}>Close</Text>
                     </Pressable>

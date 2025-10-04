@@ -29,6 +29,24 @@ local.properties
 .gradle/
 build/
 
+# Expo/EAS managed
+ios/
+# android/
+.expo/
+.expo-shared/
+node_modules/
+dist/
+build/
+
+# Secrets
+.env
+*.keystore
+*.jks
+*.p12
+*.mobileprovision
+*.cer
+*.pem
+
 
 # Metro
 .metro-health-check*
