@@ -18,7 +18,7 @@ export default {
         },
         android: {
             package: "com.radiantleaf.planetfam",
-            versionCode: 26,
+            versionCode: 27,
             permissions: [],
             adaptiveIcon: {
                 foregroundImage: "./assets/images/PlanetFam_Icon_1024.png",
