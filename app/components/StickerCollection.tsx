@@ -7,13 +7,13 @@ import { useRound } from "../contexts/RoundContext";
 
 type StickerCollectionProps = {
     collectedCountries: string[];
-    columns?: number;          // default 3
+    columns?: number;          // default 
     showTitles?: boolean;      // show small country names under stickers
 };
 
 export default function StickerCollection({
     collectedCountries,
-    columns = 3,
+    columns = 4,
     showTitles = true,
 }: StickerCollectionProps) {
 
@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
     wrapper: {
         width: "100%",
         gap: 8,
+        flex: 1,
     },
     headerRow: {
         flexDirection: "row",

@@ -1,7 +1,8 @@
 {
   "cli": {
     "version": ">= 3.0.0",
-    "appVersionSource": "local"
+    "appVersionSource": "local",
+    "promptToConfigurePushNotifications": false
   },
   "build": {
     "development": {
@@ -18,7 +19,11 @@
     },
     "preview": {
       "distribution": "internal",
-      "channel": "preview"
+      "channel": "preview",
+      "ios": {
+        "buildConfiguration": "Release",
+        "distribution": "store"
+      }
     },
     "production": {
       "distribution": "store",
@@ -30,6 +35,12 @@
     }
   },
   "submit": {
+    "preview": {
+      "ios": {},
+      "android": {
+        "track": "internal"
+      }
+    },
     "production": {
       "android": {
         "track": "internal"

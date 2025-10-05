@@ -14,11 +14,11 @@ export default {
         ios: {
             supportsTablet: true,
             bundleIdentifier: "com.cathyapp1234.my-app",
-            buildNumber: "26"
+            buildNumber: "28"
         },
         android: {
             package: "com.radiantleaf.planetfam",
-            versionCode: 27,
+            versionCode: 28,
             permissions: [],
             adaptiveIcon: {
                 foregroundImage: "./assets/images/PlanetFam_Icon_1024.png",

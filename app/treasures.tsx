@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
-import { Stack, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { ActivityIndicator, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { FONT_FAMILY, TROUPHY_REQ } from "../data/constants";
 import StickerCollection from "./components/StickerCollection";
@@ -63,9 +63,8 @@ export default function Treasures() {
             end={{ x: 1, y: 1 }}
             style={styles.background}
         >
-            <Stack.Screen options={{ title: "My Stamps" }} />
             <SafeAreaView style={styles.overlay}>
-                <BlurView intensity={40} tint="dark" style={styles.card}>
+                <BlurView intensity={40} tint="dark">
                     <View style={styles.headerRow}>
                         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
                             <Ionicons name="arrow-back" size={20} color="#fff" />
@@ -81,17 +80,19 @@ export default function Treasures() {
                         </View>
                     ) : collectedCountries.length > 0 ? (
                         <>
-                            <View style={styles.sectionTitle}>
+                            {/* <View style={styles.sectionTitle}>
                                 <Text style={styles.sectionTitle}>Achievements</Text>
                             </View>
 
-                            {renderTrophySection()}
+                            {renderTrophySection()} */}
 
                             <View style={styles.sectionTitle}>
                                 <Text style={styles.sectionTitle}>Stamps</Text>
                             </View>
 
-                            <StickerCollection collectedCountries={collectedCountries} />
+                            <View style={styles.stampsContainer}>
+                                <StickerCollection collectedCountries={collectedCountries} />
+                            </View>
                         </>
 
                     ) : (
@@ -123,11 +124,12 @@ const styles = StyleSheet.create({
     },
     card: {
         width: "92%",
+        maxHeight: "85%",
         borderRadius: 18,
         paddingVertical: 20,
         paddingHorizontal: 18,
         alignItems: "stretch",
-        overflow: "scroll",
+        overflow: "hidden",
     },
     headerRow: {
         flexDirection: "row",
@@ -248,6 +250,10 @@ const styles = StyleSheet.create({
         fontWeight: "700",
         color: "#fff",
         marginBottom: 15,
+    },
+    stampsContainer: {
+        flex: 1,
+        minHeight: 200,
     },
 
 });
