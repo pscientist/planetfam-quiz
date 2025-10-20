@@ -57,6 +57,7 @@ export default function QuizScreen() {
 
     const handleNextQuestion = () => {
         // Reset popup state when moving to the next question
+        // TODO: why do I not use prev => prev+ 1?? I should)
         setPopupVisible(false);
         fadeAnim.setValue(0);
         pan.setValue(initialPopupPosition);
