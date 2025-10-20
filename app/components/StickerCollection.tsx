@@ -1,6 +1,6 @@
 import { getCompletedSlugsInOrder } from "@/data/questions";
 import { useMemo } from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, ImageBackground, ScrollView, StyleSheet, Text, View } from "react-native";
 import countriesManifest from "../../assets/images/countries/countriesManifest";
 import { COUNTRY_NAMES, FLAG_EMOJIS, FONT_FAMILY } from "../../data/constants";
 import { useRound } from "../contexts/RoundContext";
@@ -35,51 +35,62 @@ export default function StickerCollection({
     return (
         <View style={styles.wrapper}>
 
-            <ScrollView contentContainerStyle={styles.grid}>
-                {slugsByQuestions.map((slug) => {
-                    const collected = collectedCountries.includes(slug);
-                    const img = getImage(slug);
-                    const flag = getFlag(slug);
+            <ScrollView>
+                <ImageBackground
+                    source={require("../../assets/images/passport_bg.jpg")}
+                    style={styles.backgroundImage}
+                    resizeMode="cover"
+                >
+                    <View style={styles.grid}>
+                        {slugsByQuestions.map((slug) => {
+                            const collected = collectedCountries.includes(slug);
+                            const img = getImage(slug);
+                            const flag = getFlag(slug);
 
-                    return (
-                        <View key={slug} style={[styles.slot, { width: colPct }]}>
-                            <View style={[styles.sticker, collected ? styles.stickerCollected : styles.stickerEmpty]}>
-                                {collected ? (
-                                    <Text style={[styles.flag]}>{flag}</Text>
-                                ) : (
-                                    <Image
-                                        source={img}
-                                        style={styles.image}
-                                        resizeMode="cover"
-                                        accessibilityLabel={`${getName(slug)} sticker`}
-                                        opacity={0.65}
-                                    />
-                                )}
+                            return (
+                                <View key={slug} style={[styles.slot, { width: colPct as any }]}>
+                                    <View style={[styles.sticker, collected ? styles.stickerCollected : styles.stickerEmpty]}>
+                                        {collected ? (
+                                            <Text style={[styles.flag]}>{flag}</Text>
+                                        ) : (
+                                            <Image
+                                                source={img}
+                                                style={[styles.image, { opacity: 0.65 }]}
+                                                resizeMode="cover"
+                                                accessibilityLabel={`${getName(slug)} sticker`}
+                                            />
+                                        )}
 
-                                {/* {!collected && (
+                                        {/* {!collected && (
                                     <View style={styles.lockOverlay}>
                                         <Ionicons name="question-circle" size={35} color="#ffffff" />
                                         <Text style={{ color: "#fff", fontSize: 16, fontWeight: "800" }}>+0.5</Text>
                                     </View>
                                 )} */}
 
-                            </View>
-                            {showTitles && (
-                                <Text style={[styles.caption, !collected && styles.captionLocked]} numberOfLines={1}>
-                                    {getName(slug)}
-                                </Text>
-                            )}
-                        </View>
-                    );
-                })}
+                                    </View>
+                                    {showTitles && (
+                                        <Text style={[styles.caption, !collected && styles.captionLocked]} numberOfLines={1}>
+                                            {getName(slug)}
+                                        </Text>
+                                    )}
+                                </View>
+                            );
+                        })}
+                    </View>
+                </ImageBackground>
             </ScrollView>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
+    backgroundImage: {
+        flex: 1,
+        width: "100%" as const,
+    },
     wrapper: {
-        width: "100%",
+        width: "100%" as const,
         gap: 8,
         flex: 1,
     },
@@ -115,8 +126,9 @@ const styles = StyleSheet.create({
         flexWrap: "wrap",
         justifyContent: "space-between",
         paddingTop: 4,
+        paddingHorizontal: 12,
         paddingBottom: 12,
-        rowGap: 12,
+        rowGap: 20,
     },
     slot: {
         alignItems: "flex-start",
