@@ -40,7 +40,9 @@ export default {
                     resizeMode: "cover",
                     backgroundColor: "#0f172a"
                 }
-            ]
+            ],
+            "expo-font",
+            "expo-web-browser"
         ],
         experiments: {
             typedRoutes: true
