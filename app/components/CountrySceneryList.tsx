@@ -60,6 +60,7 @@ export default function CountrySceneryList({ country, portrait = false }: { coun
                 <Pressable style={styles.modalOverlay} onPress={() => setModalVisible(false)}>
                     <View style={styles.modalContent}>
                         <Image
+                            key={image?.id || "placeholder"}
                             source={{ uri: image?.urls?.full || "https://placehold.co/600x400" }}
                             style={styles.modalImage}
                             resizeMode="contain"

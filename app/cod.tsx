@@ -6,6 +6,7 @@ import countriesManifest from "../assets/images/countries/countriesManifest";
 import { COUNTRY_NAMES, FLAG_EMOJIS, FONT_FAMILY } from "../data/constants";
 import CountrySceneryList from "./components/CountrySceneryList";
 import PoemBox from "./components/PoemBox";
+import useCountryAPI from "./hooks/useCountryAPI";
 
 function getUtcDaysSinceEpochTz(timeZone: string): number {
     const now = new Date();
@@ -43,6 +44,8 @@ export default function CountryOfTheDay() {
     const getCountryName = (slug: string) => {
         return COUNTRY_NAMES[slug] || slug;
     };
+
+    const { countryData } = useCountryAPI(slug);
 
     const imageSource = slug ? (countriesManifest as any)[slug] : undefined;
     const displayName = slug ? getCountryName(slug) : "";
@@ -88,6 +91,10 @@ export default function CountryOfTheDay() {
                                     <CountrySceneryList country={displayName} />
 
                                 </View>
+
+                                {/* Country info box */}
+                                <InfoBox countryData={countryData} />
+
                             </View>
                         </ScrollView>
                     ) : (
