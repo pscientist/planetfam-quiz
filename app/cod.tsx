@@ -93,7 +93,7 @@ export default function CountryOfTheDay() {
                                 </View>
 
                                 {/* Country info box */}
-                                <InfoBox countryData={countryData} />
+                                {/* <InfoBox countryData={countryData} /> */}
 
                             </View>
                         </ScrollView>

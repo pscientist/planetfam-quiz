@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ActivityIndicator, Image, Modal, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import useUnsplashScenery, { UnsplashPhoto } from "../hooks/useUnsplashScenery";
+import useUnsplashScenery from "../hooks/useUnsplashScenery";
+import type { UnsplashPhoto } from "../types/unsplash";
 
 export default function CountrySceneryList({ country, portrait = false }: { country: string; portrait?: boolean }) {
     const { loading, images, error } = useUnsplashScenery(country, portrait);
@@ -39,7 +40,7 @@ export default function CountrySceneryList({ country, portrait = false }: { coun
                 {images.map((image: UnsplashPhoto) => (<View key={image.id} style={styles.card}>
                     <Pressable onPress={() => onImagePress(image)} accessibilityRole="imagebutton" accessibilityLabel={`${country} scenery, tap to zoom`}>
                         <Image
-                            source={{ uri: image.urls?.full || "https://placehold.co/600x400" }}
+                            source={{ uri: image.localUri || image.urls?.full || "https://placehold.co/600x400" }}
                             style={[styles.hero, portrait ? styles.portrait : styles.landscape]}
                             resizeMode="cover"
                             accessible
@@ -61,7 +62,7 @@ export default function CountrySceneryList({ country, portrait = false }: { coun
                     <View style={styles.modalContent}>
                         <Image
                             key={image?.id || "placeholder"}
-                            source={{ uri: image?.urls?.full || "https://placehold.co/600x400" }}
+                            source={{ uri: image.localFullUri || image?.urls?.full || "https://placehold.co/600x400" }}
                             style={styles.modalImage}
                             resizeMode="contain"
                             accessible

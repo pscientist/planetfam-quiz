@@ -1,87 +1,56 @@
-import Constants from "expo-constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
+import type { UnsplashPhoto } from "../types/unsplash";
+import { prefetchCountryImages } from "../utils/prefetchCountryImages";
+import { unsplashCacheKey } from "../utils/unsplashCacheKey";
 
-type UnsplashPhoto = {
-  id: string;
-  width: number;
-  height: number;
-  description?: string;
-  alt_description?: string;
-  urls: { regular: string; full?: string };
-  user: { name: string; links: { html: string } };
-  links: { html: string };
-};
-
-const UNSPLASH_KEY = String(Constants.expoConfig?.extra?.unsplashKey || "");
-
-async function fetchUnsplashPhotos(
-  country: string,
-  portrait = false,
-  signal?: AbortSignal
-): Promise<UnsplashPhoto[] | null> {
-  if (!UNSPLASH_KEY) throw new Error("Missing Unsplash key.");
-
-  const orientation = portrait ? "portrait" : "landscape";
-  const query = `${country}`;
-  // const query = "burma";
-
-  const res = await fetch(
-    `https://api.unsplash.com/search/photos?query=${encodeURIComponent(
-      query
-    )}&per_page=10&orientation=${orientation}`,
-    {
-      headers: { Authorization: `Client-ID ${UNSPLASH_KEY}` },
-      signal, // 👈 pass the abort signal
-    }
-  );
-
-  if (!res.ok) return null;
-  const data = await res.json();
-  const results: UnsplashPhoto[] = data?.results || [];
-
-  if (!results.length) return null;
-
-  const minW = portrait ? 1080 : 1600;
-  return results.filter((p) => p.width >= minW).slice(0, 5) || null;
-}
+type CachedUnsplashPhoto = UnsplashPhoto & { localUri?: string; localFullUri?: string };
 
 export default function useUnsplashScenery(country: string, portrait = false) {
-  const [images, setImages] = useState<UnsplashPhoto[] | null>(null);
+  const [images, setImages] = useState<CachedUnsplashPhoto[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const controller = new AbortController();
-  const { signal } = controller;
-
   useEffect(() => {
+    let cancelled = false;
+    const cacheKey = unsplashCacheKey(country, portrait);
 
     async function load() {
+      setLoading(true);
       try {
-        setLoading(true);
-        const images = await fetchUnsplashPhotos(country, portrait, signal);
-        setImages(images);
-
-      } catch (err: any) {
-        if (err.name !== "AbortError") {
-          setError(err.message || "Failed to load image");
+        // 1) Try cache first (offline-first)
+        const cached = await AsyncStorage.getItem(cacheKey);
+        if (!cancelled && cached) {
+          setImages(JSON.parse(cached));
+          setError(null);
         }
 
+        // 2) If nothing cached yet, populate via preloader then re-read
+        if (!cached) {
+          await prefetchCountryImages(country, portrait); // AsyncStorage.setItem
+          const after = await AsyncStorage.getItem(cacheKey);
+          if (!cancelled && after) {
+            setImages(JSON.parse(after));
+            setError(null);
+          } else if (!cancelled) {
+            setImages(null);
+            setError("No images available.");
+          }
+        }
+      } catch (e: any) {
+        if (!cancelled) {
+          setError(e?.message || "Failed to load images");
+        }
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     }
 
-    load();
-
-    // clean up function
+    if (country) load();
     return () => {
-      controller.abort();
+      cancelled = true;
     };
-
   }, [country, portrait]);
 
   return { images, error, loading };
-
-};
-
-export type { UnsplashPhoto };
+}
