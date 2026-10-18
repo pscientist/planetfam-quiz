@@ -6,7 +6,7 @@ export default {
         slug: "my-app",
         version: "1.0.3",
         orientation: "portrait",
-        icon: "./assets/images/PlanetFam_Icon_1024.png",
+        icon: "./assets/images/planetfam_icon2026.png",
         scheme: "myapp",
         userInterfaceStyle: "automatic",
         newArchEnabled: true,
@@ -14,11 +14,12 @@ export default {
         ios: {
             supportsTablet: true,
             bundleIdentifier: "com.cathyapp1234.my-app",
-            buildNumber: "28"
+            // 19/10/26 : using the EAS now 
+            // buildNumber: "28" 
         },
         android: {
             package: "com.radiantleaf.planetfam",
-            versionCode: 28,
+            // versionCode: 28,
             permissions: [],
             adaptiveIcon: {
                 foregroundImage: "./assets/images/PlanetFam_Icon_1024.png",
